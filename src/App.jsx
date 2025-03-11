@@ -15,6 +15,12 @@ import FooterItem from './Components/FooterItem';
 import Event from './event/Event';
 import AboutEvent from './event/AboutEvent';
 import Schedule from './event/Schedule';
+import Goodies from './event/Goodies';
+import Sponsors from './event/Sponsors';
+import Team from './event/Team';
+import EventVolunteer from './event/EventVolunteer';
+import BooKSlots from './event/BooKSlots';
+
 
 
 
@@ -24,33 +30,49 @@ function App() {
 
   return (
     <>
-    
-       <Router>
-       <Routes>
+
+      <Router>
+        <Routes>
           <Route path="/" element={
             <>
-            <Home/>
-           <AboutCommunity></AboutCommunity>
-           <Experts></Experts>
-           <Sessions></Sessions>
-           <BecomeSpeaker></BecomeSpeaker>
-           <Volunteer></Volunteer>
-           <JoinJug></JoinJug>
-           <FooterItem></FooterItem>
-          
-            </>
-            } />
+              <Home />
+              <div id="about">
+                <AboutCommunity />
+              </div>
+              <div id="speakers"> 
+              <Experts/>
+              </div>
+              <div id="sessions">
+              <Sessions></Sessions>
+              </div>
+              <BecomeSpeaker></BecomeSpeaker>
+               <div id="volunteer">
+              <Volunteer></Volunteer>
+              </div>
+              <JoinJug></JoinJug>
+              <FooterItem></FooterItem>
 
-       <Route path="/event" element={
-            <>
-          <Event></Event>
-          <AboutEvent></AboutEvent>
-          <Schedule></Schedule>
             </>
-            } />
-         
+          } />
+
+          <Route path="/event" element={
+            <>
+              <Event></Event>
+              <AboutEvent></AboutEvent>
+              <Experts/>
+              <BecomeSpeaker></BecomeSpeaker>
+              <Schedule></Schedule>
+              <Goodies></Goodies>
+              <Sponsors></Sponsors>
+              <Team></Team>
+              <EventVolunteer></EventVolunteer>
+          <BooKSlots></BooKSlots>
+              <FooterItem></FooterItem>
+            </>
+          } />
+
         </Routes>
-       </Router>
+      </Router>
     </>
   )
 }

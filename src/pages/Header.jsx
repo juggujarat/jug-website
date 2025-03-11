@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Link } from 'react-router-dom';
+import { Link as ScrollLink } from "react-scroll";
+
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +21,26 @@ const Header = () => {
         {/* Navigation Section */}
         <nav className="col-span-8 flex pl-[130px]">
           <ul className="flex space-x-10">
-            <li><a href="#" className="text-black hover:text-gray-400 transition">About</a></li>
-            <li><a href="#" className="text-black hover:text-gray-400 transition">Speakers</a></li>
-            <li><a href="/event" className="text-black hover:text-gray-400 transition">Sessions</a></li>
-            <li><a href="#" className="text-black hover:text-gray-400 transition">Become a Volunteer</a></li>
+            <li>
+            <ScrollLink to="about" smooth={true} duration={500} className="cursor-pointer text-black hover:text-gray-400 transition">
+              About
+            </ScrollLink>
+                </li>
+            <li>
+            <ScrollLink to="speakers" smooth={true} duration={500} className="cursor-pointer text-black hover:text-gray-400 transition">
+              Speakers
+            </ScrollLink>
+              </li>
+            <li>
+            <ScrollLink to="sessions" smooth={true} duration={500} className="cursor-pointer text-black hover:text-gray-400 transition">
+            Sessions
+            </ScrollLink>
+            </li>
+            <li>
+            <ScrollLink to="volunteer" smooth={true} duration={500} className="cursor-pointer text-black hover:text-gray-400 transition">
+                Become a Volunteer
+                </ScrollLink>
+                </li>
             <li><a href="#" className="text-black hover:text-gray-400 transition">Reviews</a></li>
           </ul>
         </nav>
