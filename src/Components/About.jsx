@@ -2,7 +2,10 @@ const About = ({ title, description, buttonText, imageUrl }) => {
   return (
     <div className="grid grid-cols-12 sm:grid-cols-1">
       {/* Grid Item 1 */}
-      <div className="col-span-6 p-[110px] sm:p-0" data-aos="fade-right">
+      <div
+        className="col-span-6 ps-[110px] pt-[50px] sm:p-0"
+        data-aos="fade-right"
+      >
         <h2 className="font-raleway font-bold text-[40px] leading-[48px] tracking-[1%] text-colour-text sm:text-[24px] sm:leading-[28.8px] mb-8">
           {title}
         </h2>
