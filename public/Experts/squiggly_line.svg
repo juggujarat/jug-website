@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 40" width="300" height="40">
+  <path d="M0,25 Q30,5 60,25 T120,25 T180,25 T240,25 T300,25" 
+        fill="transparent" 
+        stroke="black" 
+        stroke-width="3"/>
+</svg>

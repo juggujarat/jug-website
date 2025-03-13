@@ -8,7 +8,15 @@ const Experts = () => {
       <div className="container mx-auto 2xl:max-w-screen-2xl   ">
         <div className='pt-[128px] pb-[100px]'>
           <div className="flex justify-between items-center">
-            <h1 className="font-raleway font-medium text-[56px] leading-[65px] sm:text-[20px] sm:leading-[32px] ">Here Come the Experts!</h1>
+          <h1 className="font-raleway font-medium text-[56px] leading-[65px] sm:text-[20px] sm:leading-[32px]">
+            Here Come the 
+            <span className="relative inline-block ml-4">
+              Experts!
+              <img src="/Experts/squiggly_line.svg" 
+                  alt="Squiggly underline" 
+                  className="absolute left-1/2 -translate-x-1/2 w-[100%] -mt-2 sm:w-[60px]" />
+            </span>
+          </h1>
             <button className="bg-[#FFFFFF] text-black px-7 py-[19px] sm:px-0 sm:py-[6px] rounded-2xl transition border border-black sm:text-[12px]">
               Register as Speaker
             </button>
@@ -19,7 +27,7 @@ const Experts = () => {
               <div key={expert.id} className="sm:text-center">
                 <img src={expert.image} alt={expert.name} className=" sm:w-[320px] " />
                 <h2 className="pt-6 font-raleway font-bold text-[24px] leading-[28px]">{expert.name}</h2>
-                <p className="text-gray-600 font-raleway font-normal text-[16px] leading-[18px] pt-2">{expert.expertise}</p>
+                <p className="text-gray-600 font-raleway font-normal text-[16px] leading-[18px] pt-2">{expert.profession} <strong className='text-black-600'>{expert.expertise}</strong></p>
 
               </div>
             ))}
