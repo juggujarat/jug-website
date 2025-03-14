@@ -9,16 +9,16 @@ const Experts = () => {
         <div className='pt-[128px] pb-[100px]'>
           <div className="flex justify-between items-center">
           <h1 className="font-raleway font-medium text-[56px] leading-[65px] sm:text-[20px] sm:leading-[32px]">
-            Here Come the 
+            Past
             <span className="relative inline-block ml-4">
-              Experts!
+              Speakers
               <img src="/Experts/squiggly_line.svg" 
                   alt="Squiggly underline" 
                   className="absolute left-1/2 -translate-x-1/2 w-[100%] -mt-2 sm:w-[60px]" />
             </span>
           </h1>
             <button className="bg-[#FFFFFF] text-black px-7 py-[19px] sm:px-0 sm:py-[6px] rounded-2xl transition border border-black sm:text-[12px]">
-              Register as Speaker
+              Submit Your Talk
             </button>
           </div>
 
