@@ -9,8 +9,8 @@ const AboutCommunity = () => {
           <About
             title="About Community"
             description={[
-              "Gujarat JUG - Community Day 2025 is our flagship annual tech event dedicated to fostering knowledge-sharing, networking, and professional growth within the Java ecosystem.",
-              "Join Java professionals, tech leaders, and aspiring developers for insightful sessions, hands-on workshops, and opportunities to connect with like-minded enthusiasts.",
+              "Gujarat Java User Group (Gujarat JUG) is a thriving community of Java developers, architects, students, and technology enthusiasts passionate about learning, sharing, and growing together.",
+              "Our mission is to empower Java professionals, promote best practices, and create a platform where developers can connect, collaborate, and innovate.",
             ]}
             buttonText="Join Community"
             imageUrl="/Img/AboutCommunity.png"
