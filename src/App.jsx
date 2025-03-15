@@ -20,6 +20,7 @@ import Sponsors from './event/Sponsors';
 import Team from './event/Team';
 import EventVolunteer from './event/EventVolunteer';
 import BooKSlots from './event/BooKSlots';
+import Reviews from './pages/Reviews';
 
 
 
@@ -48,6 +49,9 @@ function App() {
               <BecomeSpeaker></BecomeSpeaker>
                <div id="volunteer">
               <Volunteer></Volunteer>
+              </div>
+              <div id='reviews'>
+                <Reviews></Reviews>
               </div>
               <JoinJug></JoinJug>
               <FooterItem></FooterItem>

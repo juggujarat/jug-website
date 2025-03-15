@@ -61,9 +61,14 @@ const Header = () => {
               </ScrollLink>
             </li>
             <li>
-              <a href="#" className="text-black hover:text-gray-400 transition">
+            <ScrollLink
+                to="reviews"
+                smooth={true}
+                duration={500}
+                className="cursor-pointer text-black hover:text-gray-400 transition"
+              >
                 Reviews
-              </a>
+              </ScrollLink>
             </li>
           </ul>
         </nav>
