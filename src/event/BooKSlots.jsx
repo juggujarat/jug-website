@@ -1,6 +1,6 @@
 import React from 'react'
 import { HiOutlineArrowRight } from "react-icons/hi";
-import Footer from '../pages/Footer';
+import Footer from './Footer';
 
 
 

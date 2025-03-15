@@ -62,15 +62,25 @@ function App() {
           <Route path="/event" element={
             <>
               <Event></Event>
-              <AboutEvent></AboutEvent>
-              <Experts/>
+              <div id="about-event">
+                <AboutEvent></AboutEvent>
+              </div>
+              <div id="speakers-event">
+                <Experts />
+              </div>
               <BecomeSpeaker></BecomeSpeaker>
-              <Schedule></Schedule>
+              <div id="schedule-event">
+                <Schedule></Schedule>
+              </div>
               <Goodies></Goodies>
-              <Sponsors></Sponsors>
-              <Team></Team>
+              <div id="sponsors-event">
+                <Sponsors></Sponsors>
+              </div>
+              <div id="team-event">
+                <Team></Team>
+              </div>
               <EventVolunteer></EventVolunteer>
-          <BooKSlots></BooKSlots>
+              <BooKSlots></BooKSlots>
               <FooterItem></FooterItem>
             </>
           } />

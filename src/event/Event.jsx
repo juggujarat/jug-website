@@ -1,6 +1,5 @@
 import React from 'react'
-import Header from '../pages/Header'
-
+import Header from './Header'
 
 const Event = () => {
     return (
