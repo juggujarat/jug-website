@@ -21,8 +21,8 @@ function Footer() {
               </ScrollLink>
             </li>
             <li>
-              <ScrollLink to="sessions" smooth={true} duration={500} className="cursor-pointer text-black hover:text-gray-400 transition">
-                Sessions
+              <ScrollLink to="past-events" smooth={true} duration={500} className="cursor-pointer text-black hover:text-gray-400 transition">
+                Past Events
               </ScrollLink>
             </li>
             <li>

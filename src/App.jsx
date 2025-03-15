@@ -43,7 +43,7 @@ function App() {
               <div id="speakers"> 
               <Experts/>
               </div>
-              <div id="sessions">
+              <div id="past-events">
               <Sessions></Sessions>
               </div>
               <BecomeSpeaker></BecomeSpeaker>

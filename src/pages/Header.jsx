@@ -42,12 +42,12 @@ const Header = () => {
             </li>
             <li>
               <ScrollLink
-                to="sessions"
+                to="past-events"
                 smooth={true}
                 duration={500}
                 className="cursor-pointer text-black hover:text-gray-400 transition"
               >
-                Sessions
+                Past Events
               </ScrollLink>
             </li>
             <li>
@@ -115,29 +115,54 @@ const Header = () => {
           <nav className="absolute top-16 left-0 w-full bg-white p-4 shadow-lg rounded-lg">
             <ul className="flex flex-col space-y-3">
               <li>
-                <a href="/" className="hover:text-gray-500 transition">
+                <ScrollLink
+                  to="about"
+                  smooth={true}
+                  duration={500}
+                  className="cursor-pointer text-black hover:text-gray-400 transition"
+                >
                   About
-                </a>
+                </ScrollLink>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-500 transition">
+                <ScrollLink
+                  to="speakers"
+                  smooth={true}
+                  duration={500}
+                  className="cursor-pointer text-black hover:text-gray-400 transition"
+                >
                   Speakers
-                </a>
+                </ScrollLink>
               </li>
               <li>
-                <a href="/event" className="hover:text-gray-500 transition">
-                  Sessions
-                </a>
+                <ScrollLink
+                  to="past-events"
+                  smooth={true}
+                  duration={500}
+                  className="cursor-pointer text-black hover:text-gray-400 transition"
+                >
+                  Past Events
+                </ScrollLink>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-500 transition">
+                <ScrollLink
+                  to="volunteer"
+                  smooth={true}
+                  duration={500}
+                  className="cursor-pointer text-black hover:text-gray-400 transition"
+                >
                   Become a Volunteer
-                </a>
+                </ScrollLink>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-500 transition">
+              <ScrollLink
+                  to="reviews"
+                  smooth={true}
+                  duration={500}
+                  className="cursor-pointer text-black hover:text-gray-400 transition"
+                >
                   Reviews
-                </a>
+                </ScrollLink>
               </li>
             </ul>
             <button
