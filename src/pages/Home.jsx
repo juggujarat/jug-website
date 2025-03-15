@@ -41,7 +41,7 @@ const Home = () => {
 
               {/* Text */}
               <h6 className="text-lg font-semibold text-gray-700 sm:text-[16px]">
-                2K+ Active Members
+                500 Active Members
               </h6>
             </div>
           </div>
