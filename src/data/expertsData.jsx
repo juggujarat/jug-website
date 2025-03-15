@@ -4,6 +4,7 @@ const experts = [
     { id: 2, name: "Vikas Rajput", image: "/Experts/Vikas.png", profession: "Independent ", expertise: "Java Consultant" },
     { id: 3, name: "Vaibhav Choudhary", image: "/Experts/Vaibhav.png", profession: "JVM Engineer at ", expertise: "Salesforce" },
     { id: 4, name: "Rohan Kumar", image: "/Experts/Rohan.png", profession: "Software Developer at ", expertise: "Red Hat" },
+    { id: 4, name: "Rohan Kumar", image: "/Experts/Rohan.png", profession: "Software Developer at ", expertise: "Red Hat" },
   ];
   
   export default experts;
