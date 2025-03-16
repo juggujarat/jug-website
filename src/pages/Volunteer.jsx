@@ -15,7 +15,7 @@ const Volunteer = () => {
             </button>
           </div>
 
-          <div className="grid xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-4 gap-6 sm:gap-12 pt-[48px]">
+          <div className="grid xl:grid-cols-6 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-12 pt-[48px]">
             {volunteer.map((expert) => (
               <div key={expert.id} className="sm:text-center">
                 <img src={expert.image} alt={expert.name} className=" sm:w-[320px] " />
