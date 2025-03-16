@@ -1,4 +1,5 @@
 import React from 'react'
+import BookYourSlotButton from '../Components/BookYourSlotButton'
 
 const Schedule = () => {
     return (
@@ -57,10 +58,7 @@ const Schedule = () => {
 
                         </div>
                         <div className='mt-[41px] '>
-                            <button className="bg-[#FFFFFF] text-black px-6 py-4 rounded-2xl transition border border-black">
-                                Book Your Slots
-                            </button>
-                            <h1 className='font-raleway font-medium text-[14px] leading-[100%] tracking-[0%] mt-6 ml-2 text-black'>🔥 Limited Seats Available </h1>
+                            <BookYourSlotButton/>
                         </div>
                     </div>
                 </div>
