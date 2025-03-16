@@ -13,7 +13,7 @@ export const JoinJug = () => {
                 {/* Left Section (8 Columns) */}
                 <div className="  col-span-8 sm:grid-cols-1 sm:col-span-12">
                   <h1 className="font-raleway font-bold text-[85px] leading-[99px] sm:text-[26px] sm:leading-[40px] tracking-[1%] ">
-                    Join JUG Gujarat
+                    Join Gujarat JUG Community
                   </h1>
                   <div className="  mt-4 ">
                     <p className="font-raleway font-medium text-[24px] leading-[28px] sm:text-[16px] sm:leading-[24px] tracking-[1%]">
