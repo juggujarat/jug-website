@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from './Header'
+import BookYourSlotButton from '../Components/BookYourSlotButton'
 
 const Event = () => {
     return (
@@ -11,7 +12,7 @@ const Event = () => {
                     <div className=" col-span-6  items-center ">
                             {/* Top Image */}
                             <div className='pl-[200px]  relative sm:pl-0'>
-                            <img src='/Home/Ahemdabad.png' alt='' className="absolute top-2 left-[282px] right-0 sm:left-[120px]" />
+                            <img src='/Home/Ahemdabad.png' alt='' className="absolute top-2 left-[282px] right-0 sm:left-[140px]" />
                             </div>
                             {/* Middle Image */}
                             <div className='pl-[120px]   mt-9 sm:pl-0 '>
@@ -63,10 +64,7 @@ const Event = () => {
                                 </ul>
                                 </div>
                                 <div className='mt-[41px] sm:items-center sm:justify-center sm:flex sm:flex-col'>
-                                <button className="bg-[#FFFFFF] text-black px-6 py-4 rounded-2xl transition border border-black">
-                                    Book Your Slots
-                                </button>
-                                <h1 className='font-raleway font-medium text-[14px] leading-[100%] tracking-[0%] mt-6 ml-2 text-black'>🔥 Limited Seats Available </h1>
+                                <BookYourSlotButton/>
                                 </div>
                           
                         </div>

@@ -65,9 +65,9 @@ function App() {
               <div id="about-event">
                 <AboutEvent></AboutEvent>
               </div>
-              <div id="speakers-event">
+              {/* <div id="speakers-event">
                 <Experts />
-              </div>
+              </div> */}
               <BecomeSpeaker></BecomeSpeaker>
               <div id="schedule-event">
                 <Schedule></Schedule>
