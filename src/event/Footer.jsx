@@ -1,6 +1,8 @@
 import React from 'react'
 import FooterItem from '../Components/FooterItem'
 import { Link as ScrollLink } from "react-scroll";
+import navLinksForEvent from '../data/navLinksForEvent';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -10,31 +12,28 @@ function Footer() {
        sm:grid-cols-1 sm:pl-[0px] sm:py-[0px]">
         <div className='col-span-7 sm:text-center '>
           <ul className="flex space-x-10 sm:space-x-0 sm:flex-col sm:space-y-3 sm:pt-[18px] ">
-            <li>
-              <ScrollLink to="about" smooth={true} duration={500} className="cursor-pointer text-black hover:text-gray-400 transition">
-                About
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink to="speakers" smooth={true} duration={500} className="cursor-pointer text-black hover:text-gray-400 transition">
-                Speakers
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink to="sessions" smooth={true} duration={500} className="cursor-pointer text-black hover:text-gray-400 transition">
-                Sessions
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink to="volunteer" smooth={true} duration={500} className="cursor-pointer text-black hover:text-gray-400 transition">
-                Become a Volunteer
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink to="reviews" smooth={true} duration={500} className="cursor-pointer text-black hover:text-gray-400 transition">
-                Reviews
-              </ScrollLink>
-            </li>
+            {navLinksForEvent.map(({ text, to, isScrollLink }, index) => (
+              <li key={index}>
+                {isScrollLink ? (
+                  <ScrollLink
+                    to={to}
+                    smooth={true}
+                    duration={500}
+                    className="cursor-pointer text-black hover:text-gray-400 transition"
+                  >
+                    {text}
+                  </ScrollLink>
+                ) : (
+                  <Link
+                    to={to}
+                    target="_blank"
+                    className="cursor-pointer text-black hover:text-gray-400 transition"
+                  >
+                    {text}
+                  </Link>
+                )}
+              </li>
+            ))}
           </ul>
         </div>
 
