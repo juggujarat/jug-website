@@ -15,7 +15,7 @@ const About = ({ title, description, buttonText, imageUrl }) => {
           description.map((para, index) => (
             <p
               key={index}
-              className="mb-[20px] sm:mb-[16px] font-raleway font-normal text-[18px] leading-[30px] tracking-[0%]"
+              className="mb-[20px] sm:mb-[16px] font-raleway font-normal text-[18px] leading-[30px] sm:text-[14px] sm:leading-[24px] tracking-[0%]"
             >
               {para}
             </p>
@@ -27,7 +27,7 @@ const About = ({ title, description, buttonText, imageUrl }) => {
         )}
 
         <button
-          className="relative bg-white text-black px-7 py-5 rounded-2xl border-2 border-black overflow-hidden transition-all duration-300 group"
+          className="relative bg-white text-black px-7 py-5 sm:px-4 sm:py-2 rounded-2xl border-2 border-black overflow-hidden transition-all duration-300 group"
           onClick={() =>
             window.open(
               "https://linktr.ee/juggujarat",
@@ -40,7 +40,7 @@ const About = ({ title, description, buttonText, imageUrl }) => {
           <span className="absolute inset-0 bg-black scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100"></span>
 
           {/* Button text */}
-          <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300">
+          <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300 sm:text-[12px]">
             {buttonText}
           </span>
         </button>
@@ -48,10 +48,10 @@ const About = ({ title, description, buttonText, imageUrl }) => {
 
       {/* Grid Item 2 */}
       <div
-        className="col-span-6 sm:grid-cols-1 sm:px-0 px-[100px] sm:mt-4"
+        className="col-span-6 sm:grid-cols-1 sm:px-0 px-[100px] sm:mt-7"
         data-aos="fade-left"
       >
-        <img src={imageUrl} alt="About Community" />
+        <img src={imageUrl} alt="About Community" className=""/>
       </div>
     </div>
   );

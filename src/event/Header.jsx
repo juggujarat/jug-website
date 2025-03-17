@@ -11,16 +11,17 @@ const Header = () => {
   return (
     <>
       {/* Large screens (md and above) */}
-      <header className="grid grid-cols-12 items-center px-8 py-4 text-white sm:hidden">
+     <div className="container mx-auto">
+      <header className="grid grid-cols-12 items-center   text-white sm:hidden  justify-center">
         {/* Logo Section */}
-        <div className="col-span-2">
+        <div className="col-span-2  pb-3">
           <Link to="/">
             <img src="/Img/Event_logo.png" alt="Logo" />
           </Link>
         </div>
 
         {/* Navigation Section */}
-        <nav className="col-span-8 flex pl-[130px]">
+        <nav className="col-span-7 flex pl-[136px]  pb-3">
           <ul className="flex space-x-10">
             {navLinksForEvent.map(({ text, to, isScrollLink }, index) => (
               <li key={index}>
@@ -48,10 +49,12 @@ const Header = () => {
         </nav>
 
         {/* Button Section */}
-        <div className="col-span-2 flex justify-end">
+        <div className="col-span-3 flex justify-end  pt-3">
           <div>
             <BookYourSlotButton/>
+            
           </div>
+          
         </div>
       </header>
 
@@ -71,7 +74,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <nav className="absolute top-16 left-0 w-full bg-white p-4 shadow-lg rounded-lg">
+          <nav className="absolute top-16 left-0 w-full bg-white p-4 shadow-lg rounded-lg z-[50]">
             <ul className="flex flex-col space-y-3">
             {navLinksForEvent.map(({ text, to, isScrollLink }, index) => (
               <li key={index}>
@@ -111,6 +114,7 @@ const Header = () => {
           </nav>
         )}
       </header>
+      </div>
     </>
   );
 };
