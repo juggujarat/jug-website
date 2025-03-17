@@ -2,9 +2,12 @@ import React from 'react'
 
 function FooterItem() {
   return (
-
-    <div className="pt-[100px] bg-[#FFFCEF]">
-      <img src="/Img/Footer.png" alt="not found" className="sm:w-full sm:h:full" />
+    <div className='bg-[#FFFCEF]'>
+<div className='container mx-auto '>
+    <div className="pt-[100px]  sm:pt-3">
+      <img src="/Img/FooterBottomImg.png" alt="not found" className="" />
+    </div>
+    </div>
     </div>
 
   )

@@ -9,23 +9,23 @@ const Header = () => {
   return (
     <>
       {/* Large screens (md and above) */}
-      <header className="grid grid-cols-12 items-center px-8 py-4 text-white sm:hidden">
+      <header className="grid grid-cols-12 items-center  py-4 text-white sm:hidden">
         {/* Logo Section */}
         <div className="col-span-2">
           <Link to="/">
-            <img src="/Img/JugIcon.svg" alt="Logo" />
+          <img src="/Img/Event_logo.png" alt="Logo" />
           </Link>
         </div>
 
         {/* Navigation Section */}
-        <nav className="col-span-8 flex pl-[130px]">
-          <ul className="flex space-x-10">
+        <nav className="col-span-8 flex pl-[92px]">
+          <ul className="flex space-x-9">
             <li>
               <ScrollLink
                 to="about"
                 smooth={true}
                 duration={500}
-                className="cursor-pointer text-black hover:text-gray-400 transition"
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
               >
                 About
               </ScrollLink>
@@ -35,7 +35,7 @@ const Header = () => {
                 to="speakers"
                 smooth={true}
                 duration={500}
-                className="cursor-pointer text-black hover:text-gray-400 transition"
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
               >
                 Speakers
               </ScrollLink>
@@ -45,7 +45,7 @@ const Header = () => {
                 to="sessions"
                 smooth={true}
                 duration={500}
-                className="cursor-pointer text-black hover:text-gray-400 transition"
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
               >
                 Sessions
               </ScrollLink>
@@ -55,7 +55,7 @@ const Header = () => {
                 to="volunteer"
                 smooth={true}
                 duration={500}
-                className="cursor-pointer text-black hover:text-gray-400 transition"
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
               >
                 Become a Volunteer
               </ScrollLink>
@@ -65,10 +65,19 @@ const Header = () => {
                 to="reviews"
                 smooth={true}
                 duration={500}
-                className="cursor-pointer text-black hover:text-gray-400 transition"
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
               >
                 Reviews
               </ScrollLink>
+            </li>
+            <li>
+            <Link 
+                to="/community-day-for-java-2025"
+               
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
+              >
+                Community Day
+              </Link>
             </li>
           </ul>
         </nav>
@@ -112,32 +121,66 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <nav className="absolute top-16 left-0 w-full bg-white p-4 shadow-lg rounded-lg">
+          <nav className="absolute top-16 left-0 w-full bg-white p-4 shadow-lg rounded-lg z-[50]">
             <ul className="flex flex-col space-y-3">
               <li>
-                <a href="/" className="hover:text-gray-500 transition">
-                  About
-                </a>
+              <ScrollLink
+                to="about"
+                smooth={true}
+                duration={500}
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
+              >
+                About
+              </ScrollLink>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-500 transition">
-                  Speakers
-                </a>
+              <ScrollLink
+                to="speakers"
+                smooth={true}
+                duration={500}
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
+              >
+                Speakers
+              </ScrollLink>
               </li>
               <li>
-                <a href="/event" className="hover:text-gray-500 transition">
-                  Sessions
-                </a>
+              <ScrollLink
+                to="sessions"
+                smooth={true}
+                duration={500}
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
+              >
+                Sessions
+              </ScrollLink>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-500 transition">
-                  Become a Volunteer
-                </a>
+              <ScrollLink
+                to="volunteer"
+                smooth={true}
+                duration={500}
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
+              >
+                Become a Volunteer
+              </ScrollLink>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-500 transition">
-                  Reviews
-                </a>
+              <ScrollLink
+                to="reviews"
+                smooth={true}
+                duration={500}
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
+              >
+                Reviews
+              </ScrollLink>
+              </li>
+              <li>
+              <Link 
+                to="/community-day-for-java-2025"
+               
+                className="cursor-pointer text-black hover:text-gray-400 transition text-[16px]"
+              >
+                Community Day
+              </Link>
               </li>
             </ul>
             <button

@@ -4,7 +4,7 @@ const Reviews = () =>{
     return(
         <div className="bg-[#ffc0e7]">
             <div className="container mx-auto 2xl:max-w-screen-2xl">
-                <div className='pt-[128px] pb-[100px]'>
+                <div className='pt-[128px] pb-[100px] sm:pt-[50px] sm:pb-[50px]'>
                     <div className="flex-col justify-center items-center text-center">
                         <h1 className="font-raleway font-medium text-[56px] leading-[65px] sm:text-[24px] sm:leading-[32px]">Reviews That Makes Us
                         <span className="relative inline-block ml-4">

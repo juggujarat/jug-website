@@ -43,9 +43,7 @@ export const JoinJug = () => {
           </div>
         </div>
         <Footer></Footer>
-        <h1 className="text-center mt-[72px]">
-          © Copyright 2025 All Rights Reserved
-        </h1>
+        <h1 className='text-center mt-[72px] sm:text-[8px] sm:mt-4'>© Copyright 2025 All Rights Reserved</h1>
       </div>
     </div>
   );

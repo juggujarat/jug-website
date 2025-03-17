@@ -4,8 +4,8 @@ import About from "../Components/About";
 const AboutCommunity = () => {
   return (
     <div className="bg-[#D7FFF1] ">
-      <div className="container mx-auto xl:max-w-screen-xl   ">
-        <div className="pt-[128px] pb-[155px]">
+      <div className="container mx-auto xl:max-w-screen-xl  overflow-hidden ">
+        <div className="pt-[128px] pb-[155px] sm:pt-[50px] sm:pb-[50px]">
           <About
             title="About Community"
             description={[

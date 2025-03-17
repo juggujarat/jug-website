@@ -21,6 +21,9 @@ import Team from './event/Team';
 import EventVolunteer from './event/EventVolunteer';
 import BooKSlots from './event/BooKSlots';
 import Reviews from './pages/Reviews';
+import SubmitCFP from './pages/SubmitCFP';
+import Speaker from './event/Speaker';
+import SponsorsshipOpp from './event/SponsorsshipOpp';
 
 
 
@@ -46,7 +49,7 @@ function App() {
               <div id="sessions">
               <Sessions></Sessions>
               </div>
-              <BecomeSpeaker></BecomeSpeaker>
+              {/* <BecomeSpeaker></BecomeSpeaker> */}
                <div id="volunteer">
               <Volunteer></Volunteer>
               </div>
@@ -59,27 +62,31 @@ function App() {
             </>
           } />
 
-          <Route path="/event" element={
+          <Route path="/community-day-for-java-2025" element={
             <>
               <Event></Event>
               <div id="about-event">
                 <AboutEvent></AboutEvent>
               </div>
-              {/* <div id="speakers-event">
-                <Experts />
-              </div> */}
-              <BecomeSpeaker></BecomeSpeaker>
+              <div id="speakers-event">
+                <Speaker/>
+              </div>
               <div id="schedule-event">
                 <Schedule></Schedule>
               </div>
               <Goodies></Goodies>
+             
+              <SubmitCFP></SubmitCFP>
               <div id="sponsors-event">
                 <Sponsors></Sponsors>
               </div>
+              <SponsorsshipOpp></SponsorsshipOpp>
+              
+            
+          
               <div id="team-event">
-                <Team></Team>
-              </div>
               <EventVolunteer></EventVolunteer>
+              </div>
               <BooKSlots></BooKSlots>
               <FooterItem></FooterItem>
             </>

@@ -25,6 +25,8 @@ export default {
       fontFamily: {
         sans: ['Roboto Mono', 'monospace'], 
          raleway: ['Raleway', 'sans-serif'],
+         autography: ['Autography', 'cursive'],
+         archivo: ['Archivo Black', 'sans-serif'],
       },
     },
   },

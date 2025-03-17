@@ -20,3 +20,11 @@
     width: 100%;
     height: 100%;
 }
+
+@font-face {
+    font-family: 'Autography';
+    src: url('./assets/fonts/Autography.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
