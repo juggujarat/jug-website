@@ -17,7 +17,7 @@ const AboutEvent = () => {
 
     return (
         <div className="bg-[#D7FFF1] ">
-            <div className="container mx-auto xl:max-w-screen-xl  ">
+            <div className="container mx-auto xl:max-w-screen-xl overflow-hidden ">
                 <div className='pt-[128px] pb-[100px] sm:pt-[50px] sm:pb-[50px]'>
                     <div className="grid grid-cols-12 sm:grid-cols-1" >
                         {/* Grid Item 1 */}
