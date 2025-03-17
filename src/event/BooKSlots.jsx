@@ -34,7 +34,7 @@ function BooKSlots() {
                     className="bg-white rounded-full py-[81px] px-[81px] sm:py-[20px] sm:px-[20px] border border-black flex items-center justify-center transition-all duration-300 hover:bg-black group"
                     onClick={() =>
                       window.open(
-                        "https://linktr.ee/juggujarat",
+                        "https://konfhub.com/community-day-for-java-2025",
                         "_blank",
                         "noopener,noreferrer"
                       )
