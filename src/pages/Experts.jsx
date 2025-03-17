@@ -29,6 +29,12 @@ const Experts = () => {
             {/* <button className="bg-[#FFFFFF] text-black px-7 py-[19px] sm:px-0 sm:py-[6px] rounded-2xl transition border border-black sm:text-[12px]">
               Register as Speaker
             </button> */}
+          <button className="relative px-7 py-[19px] text-black border border-black rounded-2xl bg-white overflow-hidden transition-all duration-300 group sm:px-0 sm:py-[6px] sm:text-[12px]">
+            <span className="absolute inset-0 bg-black scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100"></span>
+            <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300">
+              Submit Your Talk
+            </span>
+          </button>
           </div>
 
           <div className="grid xl:grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-x-6 pt-[48px] sm:pt-[20px] ">
