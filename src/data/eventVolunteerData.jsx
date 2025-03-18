@@ -2,7 +2,7 @@
 
 const volunteer = [
   { id: 1, name: "Dhaval Gajjar", image: "/Volunteer/Dhaval.png", profession: "System Architecture ", organsitions: " Staunchsys IT Services" ,  linkedinlink:""},
-  { id: 2, name: "Vikas Rajput", image: "/Volunteer/VikasSir.png", profession: "Sr. Java Consultant ", organsitions: "" ,  linkedinlink:"" },
+  { id: 2, name: "Vikas Rajput", image: "/Volunteer/Vikas.png", profession: "Sr. Java Consultant ", organsitions: "" ,  linkedinlink:"" },
   { id: 3, name: "Bharat Ranpariya", image: "/Volunteer/Bharat.png", profession: "Team Lead",organsitions: " Thompson Reuters" ,  linkedinlink:""},
   { id: 4, name: "Daman Singh Rajput", image: "/Volunteer/Damansingh.png",profession: "Java FullStack Developer", organsitions: " Techxplore IT Services",  linkedinlink:"" },
   { id: 5, name: "Harshvardhan Parmar", image: "/Volunteer/Harsh.png", profession: "LFX'25 Mentee",organsitions: "Microcks" ,  linkedinlink:""},
