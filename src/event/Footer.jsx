@@ -38,9 +38,9 @@ function Footer() {
         </div>
 
         <div className=' flex col-span-5 justify-end pr-[19px] sm:pr-[0px] sm:mt-[36px] space-x-2 sm:space-x-3 sm:text-center sm:justify-center sm:pb-[20px]'>
-          <img src="/SocialMediaIcon/LinkedinIcon.svg" alt="not found" className="w-12 h-12 transition-transform duration-300 hover:scale-110 hover:shadow-lg hover:opacity-80 cursor-pointer" onClick={() => window.open("https://www.linkedin.com/company/juggujarat/", "_blank", "noopener,noreferrer")} />
-          <img src="/SocialMediaIcon/Twitter.svg" alt="not found" className="w-12 h-12 transition-transform duration-300 hover:scale-110 hover:shadow-lg hover:opacity-80 cursor-pointer" onClick={() => window.open("https://x.com/juggujarat", "_blank", "noopener,noreferrer")} />
-          <img src="/SocialMediaIcon/Whatsapp.svg" alt="not found" className="w-12 h-12 transition-transform duration-300 hover:scale-110 hover:shadow-lg hover:opacity-80 cursor-pointer" onClick={() => window.open("https://chat.whatsapp.com/I3W75ItQTNs7Hr7WzRWcPR", "_blank", "noopener,noreferrer")} />
+          <img src="/SocialMediaIcon/LinkedinIcon.svg" alt="not found" className="w-12 h-12 transition-transform duration-300 hover:scale-110 hover:opacity-80 cursor-pointer" onClick={() => window.open("https://www.linkedin.com/company/juggujarat/", "_blank", "noopener,noreferrer")} />
+          <img src="/SocialMediaIcon/Twitter.svg" alt="not found" className="w-12 h-12 transition-transform duration-300 hover:scale-110 hover:opacity-80 cursor-pointer" onClick={() => window.open("https://x.com/juggujarat", "_blank", "noopener,noreferrer")} />
+          <img src="/SocialMediaIcon/Whatsapp.svg" alt="not found" className="w-12 h-12 transition-transform duration-300 hover:scale-110 hover:opacity-80 cursor-pointer" onClick={() => window.open("https://chat.whatsapp.com/I3W75ItQTNs7Hr7WzRWcPR", "_blank", "noopener,noreferrer")} />
         </div>
       </div>
       {/* </div> */}

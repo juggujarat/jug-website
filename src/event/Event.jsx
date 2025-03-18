@@ -58,7 +58,7 @@ const Event = () => {
                                 </div>
                                 <div className="px-[18px] py-2  rounded-full  sm:px-2 sm:py-[4px] bg-[#FFFCEF] border  border-[#E8C52A]
                                   font-medium text-[12px]  tracking-[1%] sm:text-[10px] ">
-                                    4+ Industry Speaker
+                                    4 Industry Speaker
                                 </div>
                             </div>
                             <div className='mt-[20px] sm:text-center'>
