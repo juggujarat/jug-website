@@ -2,7 +2,7 @@
 const team = [
     { id: 1, name: "Bharat Ranpariya", image: "/Team/Bharat.png", expertise: "Tech Lead at " , profession:"Thompson Reuters" },
     { id: 2, name: "Vikas Rajput", image: "/Team/Vikas.png", expertise: "Independent " , profession:"Java Consultant"},
-    { id: 3, name: "Dhaval Gajjar", image: "/Team/Dhaval.png", expertise: "Junior Developer at " , profession:"Staunchsys" },
+    { id: 3, name: "Dhaval Gajjar", image: "/Team/Dhaval.png", expertise: "System Architecture at " , profession:"Staunchsys" },
     { id: 4, name: "Harshvardhan Parmar", image: "/Team/Harsh.png", expertise: "LFX'25 Mentee at ", profession:"Microcks" },
     { id: 5, name: "Vinay Rajput", image: "/Team/Vinay.png", expertise: "Visual Designer at " , profession:"Apexure"},
     { id: 6, name: "Kevin Gokani", image: "/Team/Kevin.png", expertise: "Java Developer at " , profession:"Qatar Airways"},
