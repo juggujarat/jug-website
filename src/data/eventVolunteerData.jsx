@@ -2,9 +2,9 @@
 
 const volunteer = [
   { id: 1, name: "Dhaval Gajjar", image: "/Volunteer/Dhaval.png", profession: "System Architect", organsitions: " Staunchsys IT Services" ,  linkedinlink:""},
-  { id: 2, name: "Vikas Rajput", image: "/Volunteer/Vikas.png", profession: "Sr. Java Consultant ", organsitions: "" ,  linkedinlink:"" },
+  { id: 2, name: "Vikas Rajput", image: "/Volunteer/Vikas.png", profession: "Sr. Java Consultant ", organsitions: "TechXplore IT Solutions" ,  linkedinlink:"" },
   { id: 3, name: "Bharat Ranpariya", image: "/Volunteer/Bharat.png", profession: "Team Lead",organsitions: " Thompson Reuters" ,  linkedinlink:""},
-  { id: 4, name: "Daman Singh Rajput", image: "/Volunteer/Damansingh.png",profession: "Java FullStack Developer", organsitions: " Techxplore IT Services",  linkedinlink:"" },
+  { id: 4, name: "Daman Singh Rajput", image: "/Volunteer/Damansingh.png",profession: "Java FullStack Developer", organsitions: " TechXplore IT Solutions",  linkedinlink:"" },
   { id: 5, name: "Harshvardhan Parmar", image: "/Volunteer/Harsh.png", profession: "LFX'25 Mentee",organsitions: "Microcks" ,  linkedinlink:""},
   { id: 6, name: "Vinay Rajput", image: "/Volunteer/Vinay.png", profession: "Sr. Visual Designer ",organsitions: "Apexure India" ,  linkedinlink:""},
   { id: 7, name: "Kuntal Danech", image: "/Volunteer/Kuntal.png", profession: "Team Lead ",organsitions: "TatvaSoft",  linkedinlink:"" },
