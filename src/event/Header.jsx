@@ -59,7 +59,7 @@ const Header = () => {
       </header>
 
       {/* Mobile screens (sm) */}
-      <header className="xl:hidden md:hidden lg:hidden px-1 py-2 flex justify-between items-center bg-white   bg-transparent">
+      <header className="xl:hidden md:hidden lg:hidden px-1 py-2 flex justify-between items-center  bg-transparent">
         {/* Logo Section */}
         <div>
           <Link to="/">
