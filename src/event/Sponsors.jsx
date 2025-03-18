@@ -35,41 +35,31 @@ const Sponsors = () => {
               <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
                 Platinum
               </h3>
+            </div>
+
+
+            <div class="flex justify-center items-center sm:mt-[25px] mt-[24px] mb-11 sm:mb-4 ">
+              <div class="grid grid-cols-2 sm:grid-cols-2 sm:gap-y-4 gap-x-8 sm:gap-x-3   rounded-lg md:grid-cols-3 
+                      place-items-center text-center">
+
+                <a href="https://codelabtechnologies.com/" target="_blank" rel="noopener noreferrer">
+                  <div class="flex h-[112px] w-[285px] sm:w-[154px] sm:h-[76px] items-center justify-center rounded-3xl 
+                      bg-[#FFFFFF] text-gray-400 sm:px-4 cursor-pointer">
+                    <img src='/Sponsors/Codelab.webp' alt="Codelab" className='' />
+                  </div>
+                </a>
+
+                <div class="flex h-[112px] w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400">
+                  Coming Soon
+                </div>
+
               </div>
-
-
-            <div class="grid grid-cols-4 sm:grid-cols-2 gap-6 sm:gap-y-4 rounded-lg md:grid-cols-3  mt-[50px] sm:mt-[25px]  pl-3 sm:pl-0 ">
-
-
-              <div class="flex h-[112px]  w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400  ">
-                Coming Soon
-              </div>
-
-
-
-              <div class="flex h-[112px] items-center justify-center sm:w-[148px] sm:h-[84px] rounded-3xl bg-[#FFFFFF] text-gray-400   w-[285px]">
-                Coming Soon
-              </div>
-
-
-
-              <div class="flex h-[112px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400 sm:w-[148px] sm:h-[84px]   w-[285px]">
-                Coming Soon
-              </div>
-
-
-
-              <div class="flex h-[112px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400 sm:w-[148px] sm:h-[84px]  w-[285px]">
-                Coming Soon
-              </div>
-
-
-
             </div>
 
 
 
-            <div className="flex space-x-[72px]  bg-gradient-to-r from-[#FFE8AC] via-[#FFC62E] to-[#FFEFC6] p-2 mt-5 sm:hidden">
+
+            <div className="flex space-x-[72px]  bg-gradient-to-r from-[#FFE8AC] via-[#FFC62E] to-[#FFEFC6] p-2  sm:hidden">
               <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
                 Gold
               </h3>
@@ -103,37 +93,33 @@ const Sponsors = () => {
               <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
                 Gold
               </h3>
-              </div>
-
-
-            <div class="grid grid-cols-4 sm:grid-cols-2 gap-6 sm:gap-y-4 rounded-lg md:grid-cols-3  mt-[50px] sm:mt-[25px]  pl-3 sm:pl-0 ">
-
-
-              <div class="flex h-[112px]  w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400  ">
-                Coming Soon
-              </div>
-
-
-
-              <div class="flex h-[112px] items-center justify-center sm:w-[148px] sm:h-[84px] rounded-3xl bg-[#FFFFFF] text-gray-400   w-[285px]">
-                Coming Soon
-              </div>
-
-
-
-              <div class="flex h-[112px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400 sm:w-[148px] sm:h-[84px]   w-[285px]">
-                Coming Soon
-              </div>
-
-
-
-              <div class="flex h-[112px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400 sm:w-[148px] sm:h-[84px]  w-[285px]">
-                Coming Soon
-              </div>
-
-
-
             </div>
+
+
+            <div class="flex justify-center items-center sm:mt-[25px] mt-[24px] mb-11 sm:mb-4  ">
+              <div class="grid grid-cols-3 sm:grid-cols-2 gap-x-8 sm:gap-y-4 sm:gap-x-4 rounded-lg md:grid-cols-3 
+      pl-3 sm:pl-0 place-items-center">
+         <a href="https://www.staunchsys.com/" target="_blank" rel="noopener noreferrer">
+                <div class="flex h-[112px] w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl 
+        bg-[#FFFFFF] text-gray-400 px-4 sm:px-2">
+                  <img src='/Sponsors/Staunchsys.png' alt="Staunchsys" />
+                </div>
+                </a>
+                
+
+                <div class="flex h-[112px] w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl 
+        bg-[#FFFFFF] text-gray-400">
+                  Coming Soon
+                </div>
+
+                <div class="flex h-[112px] w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl 
+        bg-[#FFFFFF] text-gray-400 sm:col-span-2">
+                  Coming Soon
+                </div>
+
+              </div>
+            </div>
+
 
 
 
@@ -156,10 +142,10 @@ const Sponsors = () => {
                 Community Supporter
               </h3>
 
-              </div>
+            </div>
 
 
-            <div class="grid grid-cols-4 sm:grid-cols-2 gap-6 sm:gap-y-4 rounded-lg md:grid-cols-3  mt-[50px] sm:mt-[25px]  pl-3 sm:pl-0 ">
+            <div class="grid grid-cols-4 sm:grid-cols-2 gap-6 sm:gap-y-4 rounded-lg md:grid-cols-3 sm:mt-[25px] mt-[24px] mb-11 sm:mb-4   pl-3 sm:pl-0 ">
 
 
               <div class="flex h-[112px]  w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400  ">
