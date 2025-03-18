@@ -106,22 +106,29 @@ const Header = () => {
       </header>
 
       {/* Mobile screens (sm) */}
-      <header className="xl:hidden md:hidden lg:hidden px-4 py-3 flex justify-between items-center bg-white shadow-md  ">
+      <header className="xl:hidden md:hidden lg:hidden px-3 py-2 flex justify-between items-center  bg-transparent  ">
         {/* Logo Section */}
         <div>
           <Link to="/">
-            <img src="/Img/JugIcon.svg" alt="Logo" className="w-8 h-8" />
+          <img src="/Img/JugIconSm.svg" alt="Logo" className="" />
           </Link>
         </div>
 
         {/* Menu Toggle Button */}
-        <button onClick={() => setIsOpen(!isOpen)} className="text-black">
-          {isOpen ? <FiX size={28} /> : <FiMenu size={28} />}
+         <button onClick={() => setIsOpen(!isOpen)} className="text-black flex flex-col gap-1">
+          {isOpen ? (
+           <FiX size={28} />
+          ) : (
+            <>
+              <div className="w-5 h-0.5 bg-black"></div>
+              <div className="w-5 h-0.5 bg-black"></div>
+            </>
+          )}
         </button>
 
         {/* Mobile Menu */}
         {isOpen && (
-          <nav className="absolute top-16 left-0 w-full bg-white p-4 shadow-lg rounded-lg z-[50]">
+          <nav className="absolute top-16 left-0 w-full bg-white p-4 shadow-lg rounded-lg z-[50] mt-2">
             <ul className="flex flex-col space-y-3">
               <li>
               <ScrollLink
