@@ -16,7 +16,7 @@ const Experts = () => {
     <div className="bg-[#FFFCEF] ">
       <div className="container mx-auto 2xl:max-w-screen-2xl   ">
         <div className='pt-[128px] pb-[100px] sm:pt-[50px] sm:pb-[50px]'>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center sm:flex-col">
           <h1 className="font-raleway font-medium text-[56px] leading-[65px] sm:text-[24px] sm:leading-[32px]">
             Here Come the 
             <span className="relative inline-block ml-4 sm:ml-2">
@@ -29,9 +29,9 @@ const Experts = () => {
             {/* <button className="bg-[#FFFFFF] text-black px-7 py-[19px] sm:px-0 sm:py-[6px] rounded-2xl transition border border-black sm:text-[12px]">
               Register as Speaker
             </button> */}
-          <button className="relative px-7 py-[19px] text-black border border-black rounded-2xl bg-white overflow-hidden transition-all duration-300 group sm:px-0 sm:py-[6px] sm:text-[12px]">
+          <button className="relative px-7 py-[19px] text-black border border-black rounded-2xl bg-white overflow-hidden transition-all duration-300 group sm:px-3 sm:py-[6px] sm:text-[12px] sm:mt-3">
             <span className="absolute inset-0 bg-black scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100"></span>
-            <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300">
+            <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300 sm:text-[12px]">
               Submit Your Talk
             </span>
           </button>
