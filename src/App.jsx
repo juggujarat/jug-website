@@ -24,7 +24,8 @@ import Reviews from './pages/Reviews';
 import SubmitCFP from './pages/SubmitCFP';
 import Speaker from './event/Speaker';
 import SponsorsshipOpp from './event/SponsorsshipOpp';
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -64,6 +65,9 @@ function App() {
 
           <Route path="/community-day-for-java-2025" element={
             <>
+              <div>
+                <ToastContainer position="bottom-center" autoClose={2000} hideProgressBar closeOnClick />
+              </div>
               <Event></Event>
               <div id="about-event">
                 <AboutEvent></AboutEvent>
