@@ -22,7 +22,7 @@ function BooKSlots() {
                   {/* </div> */}
                   <div className="  mt-4 ">
                     <p className="font-raleway font-medium text-[24px] leading-[28px] sm:text-[16px] sm:leading-[24px] tracking-[1%]">
-                      Join top Java experts, developers, and tech leaders for a day of learning, networking, and innovation at Gujarat JUG - Community Day 2025!
+                      Join top Java experts, developers, and tech leaders for a day of learning, networking, and innovation at Community Day for Java, 2025!
                     </p>
 
                   </div>
@@ -41,7 +41,7 @@ function BooKSlots() {
                     }
                   >
                     {/* Arrow icon with hover effects */}
-                    <GoArrowUpRight className="text-gray-800 text-[60px] sm:text-[20px] transition-transform duration-300 group-hover:translate-x-2 group-hover:text-white" />
+                    <GoArrowUpRight className="text-gray-800 text-[60px] sm:text-[20px] transition-transform duration-300 group-hover:-translate-y-2 group-hover:translate-x-2 group-hover:text-white" />
                   </div>
                 </div>
 

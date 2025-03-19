@@ -32,7 +32,7 @@ const AboutEvent = () => {
                             <p
                                 className="mb-[20px] sm:mb-[16px] font-raleway font-normal text-[18px] leading-[30px] sm:text-[16px] sm:leading-[28px] tracking-[0%]"
                             >
-                                Gujarat JUG - Community Day 2025 is our flagship annual tech event dedicated to fostering knowledge-sharing, networking, and professional growth within the Java ecosystem.
+                                Community Day for Java, 2025 is our flagship annual tech event dedicated to fostering knowledge-sharing, networking, and professional growth within the Java ecosystem.
                             </p>
 
                             <p
