@@ -24,6 +24,8 @@ import Reviews from './pages/Reviews';
 import SubmitCFP from './pages/SubmitCFP';
 import Speaker from './event/Speaker';
 import SponsorsshipOpp from './event/SponsorsshipOpp';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 
@@ -117,6 +119,9 @@ function App() {
                   />
                   <meta property="twitter:image" content="https://www.gujaratjug.org/Home/community-banner.png" />
                 </Helmet>
+                <div>
+                <ToastContainer position="bottom-center" autoClose={2000} hideProgressBar closeOnClick />
+              </div>
               <Event></Event>
               <div id="about-event">
                 <AboutEvent></AboutEvent>
