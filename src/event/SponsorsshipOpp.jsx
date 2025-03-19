@@ -1,6 +1,33 @@
 import React from 'react'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SponsorsshipOpp = () => {
+
+    const handleCallClick = () => {
+        const phoneNumber = "9879483841";
+        const isMobile = /iPhone|Android/i.test(navigator.userAgent);
+    
+        if (isMobile) {
+            window.open(`tel:${phoneNumber}`);
+        } else {
+            navigator.clipboard.writeText(phoneNumber)
+                .then(() => {
+                    toast.success("📞 Number copied! Paste it in your dialer.", {
+                        position: "bottom-center",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        style: { backgroundColor: "#000", color: "#fff" }
+                    });
+                })
+                .catch(err => console.error("Failed to copy:", err));
+        }
+    };
+    
+    
   return (
     <div className="bg-[#FFFCEF] ">
     <div className="container mx-auto xl:max-w-screen-xl  ">
@@ -29,25 +56,15 @@ const SponsorsshipOpp = () => {
                     <h1 className='text-center font-raleway font-medium text-[16px] leading-[22px] sm:text-[22px] sm:leading-[24px] tracking-[0%] mt-8'>
                     Let’s Talk Sponsorship!
                     </h1>
-                    <button
-                className="relative bg-black text-white px-[63px] py-[20px] sm:px-[32px] sm:py-[16px] rounded-2xl border-2 border-black overflow-hidden transition-all duration-300 group
-                mt-7"
-                onClick={() =>
-                    window.open(
-                        "https://linktr.ee/juggujarat",
-                        "_blank",
-                        "noopener,noreferrer"
-                    )
-                }
-            >
-                {/* Expanding background effect */}
-                <span className="absolute inset-0 bg-white scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100"></span>
+                    <button className="relative bg-black text-white px-[63px] py-[20px] sm:px-[32px] sm:py-[16px] rounded-2xl border-2 border-black overflow-hidden transition-all duration-300 group mt-7" onClick={handleCallClick}>
+                        {/* Expanding background effect */}
+                        <span className="absolute inset-0 bg-white scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100"></span>
 
-                {/* Button text */}
-                <span className="relative z-10 text-white group-hover:text-black transition-colors duration-300 font-bold font-sans text-[18px] sm:text-[16px]">
-                Call 98794 83841 Today!
-                </span>
-            </button>
+                        {/* Button text */}
+                        <span className="relative z-10 text-white group-hover:text-black transition-colors duration-300 font-bold font-sans text-[18px] sm:text-[16px]">
+                            Call 98794 83841 Today!
+                        </span>
+                    </button>
 
                 </div>
                

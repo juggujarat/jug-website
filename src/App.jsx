@@ -31,7 +31,6 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 
 
-
 function App() {
   const [count, setCount] = useState(0)
 
@@ -120,6 +119,7 @@ function App() {
                   <meta property="twitter:image" content="https://www.gujaratjug.org/Home/community-banner.png" />
                 </Helmet>
                 <div>
+              <div>
                 <ToastContainer position="bottom-center" autoClose={2000} hideProgressBar closeOnClick />
               </div>
               <Event></Event>
