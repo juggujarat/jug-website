@@ -36,11 +36,35 @@ function App() {
 
   return (
     <>
-
+      <HelmetProvider>
       <Router>
         <Routes>
           <Route path="/" element={
             <>
+            <Helmet>
+                  <title>Gujarat JUG - Official Community Page</title>
+                  <meta
+                    name="description"
+                    content="Gujarat Java User Group (JUG) is a thriving community of Java developers, tech enthusiasts, and industry professionals. Join us to learn, network, and grow!"
+                  />
+                  <meta property="og:type" content="website" />
+                  <meta property="og:url" content="https://www.gujaratjug.org" />
+                  <meta property="og:title" content="Gujarat JUG - Official Community Page" />
+                  <meta
+                    property="og:description"
+                    content="Gujarat Java User Group (JUG) is a thriving community of Java developers, tech enthusiasts, and industry professionals. Join us to learn, network, and grow!"
+                  />
+                  <meta property="og:image" content="https://www.gujaratjug.org/Home/community-logo.svg" />
+                  <meta property="twitter:card" content="summary_large_image" />
+                  <meta property="twitter:url" content="https://www.gujaratjug.org" />
+                  <meta property="twitter:title" content="Gujarat JUG - Official Community Page" />
+                  <meta
+                    property="twitter:description"
+                    content="Gujarat Java User Group (JUG) is a thriving community of Java developers, tech enthusiasts, and industry professionals. Join us to learn, network, and grow!"
+                  />
+                  <meta property="twitter:image" content="https://www.gujaratjug.org/Home/community-logo.svg" />
+                </Helmet>
+
               <Home />
               <div id="about">
                 <AboutCommunity />
@@ -66,6 +90,35 @@ function App() {
 
           <Route path="/community-day-for-java-2025" element={
             <>
+            <Helmet>
+                  <title>Community Day for Java, 2025 - Ahmedabad - Gujarat's Biggest Java Celebration!</title>
+                  <meta
+                    name="description"
+                    content="Join 300+ Java developers, architects, and tech enthusiasts at Gujarat’s biggest Java event! Expert talks, networking, swags, and more!"
+                  />
+                  <meta property="og:type" content="website" />
+                  <meta property="og:url" content="https://www.gujaratjug.org/community-day-for-java-2025" />
+                  <meta
+                    property="og:title"
+                    content="Community Day for Java, 2025 - Ahmedabad - Gujarat's Biggest Java Celebration!"
+                  />
+                  <meta
+                    property="og:description"
+                    content="Join 300+ Java developers, architects, and tech enthusiasts at Gujarat’s biggest Java event! Expert talks, networking, swags, and more!"
+                  />
+                  <meta property="og:image" content="https://www.gujaratjug.org/Home/community-banner.png" />
+                  <meta property="twitter:card" content="summary_large_image" />
+                  <meta property="twitter:url" content="https://www.gujaratjug.org/community-day-for-java-2025" />
+                  <meta
+                    property="twitter:title"
+                    content="Community Day for Java, 2025 - Ahmedabad - Gujarat's Biggest Java Celebration!"
+                  />
+                  <meta
+                    property="twitter:description"
+                    content="Join 300+ Java developers, architects, and tech enthusiasts at Gujarat’s biggest Java event! Expert talks, networking, swags, and more!"
+                  />
+                  <meta property="twitter:image" content="https://www.gujaratjug.org/Home/community-banner.png" />
+                </Helmet>
               <div>
                 <ToastContainer position="bottom-center" autoClose={2000} hideProgressBar closeOnClick />
               </div>
@@ -99,6 +152,7 @@ function App() {
 
         </Routes>
       </Router>
+      </HelmetProvider>
     </>
   )
 }
