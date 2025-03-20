@@ -13,7 +13,7 @@ const Header = () => {
         {/* Logo Section */}
         <div className="col-span-2">
           <Link to="/">
-          <img src="/Img/Event_logo.png" alt="Logo" />
+          <img src="/Img/jug-full-logo-svg.svg" alt="Logo" />
           </Link>
         </div>
 

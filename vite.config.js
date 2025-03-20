@@ -16,4 +16,10 @@ export default defineConfig({
   //   strictPort: true,
   //   cors: true,
   // },
+
+  server: {
+    allowedHosts: [
+      '56cd-2409-40e3-3088-98db-e012-e7f8-1404-83e8.ngrok-free.app'
+    ]
+  }
 })
