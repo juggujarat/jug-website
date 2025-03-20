@@ -107,10 +107,12 @@ const Sponsors = () => {
                 </a>
                 
 
+                <a href="https://www.dataorb.ai/" target="_blank" rel="noopener noreferrer">
                 <div class="flex h-[112px] w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl 
-        bg-[#FFFFFF] text-gray-400">
-                  Coming Soon
+        bg-[#FFFFFF] text-gray-400 px-4 sm:px-2">
+                  <img src='/Sponsors/dataorb.svg' alt="Dataorb" />
                 </div>
+                </a>
 
                 <div class="flex h-[112px] w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl 
         bg-[#FFFFFF] text-gray-400 sm:col-span-2">
