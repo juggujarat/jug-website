@@ -79,7 +79,7 @@ const Home = () => {
                 className="absolute  right-[550px] bottom-0 top-16 sm:hidden"
                data-aos="fade-right"
               />
-              <img src="/Img/Mask.png" alt="Java Icon" className="mx-4"  data-aos="zoom-in-up"/>
+              <img src="/Img/duke-logo-svg.svg" alt="Java Icon" className="mx-4"  data-aos="zoom-in-up"/>
               <img
                 src="/Img/ItWork.png"
                 alt="Java Cup"
