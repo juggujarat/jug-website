@@ -125,7 +125,7 @@ const Sponsors = () => {
 
 
 
-            <div className="flex space-x-[72px]  bg-[#FFFFFF] p-2 mt-5 sm:hidden">
+            {/* <div className="flex space-x-[72px]  bg-[#FFFFFF] p-2 mt-5 sm:hidden">
 
               <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
                 Community Supporter
@@ -174,7 +174,7 @@ const Sponsors = () => {
 
 
 
-            </div>
+            </div> */}
 
 
 
