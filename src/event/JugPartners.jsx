@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import BookYourSlotButton from '../Components/BookYourSlotButton'
+import partners from "../data/eventPartners"
 
 const JugPartners = () => {
 
@@ -25,29 +26,17 @@ const JugPartners = () => {
           </div>
           <div className="grid grid-cols-12 justify-center mt-11 sm:mt-6">
             <div className="col-span-12 flex flex-wrap justify-center gap-x-14 text-center ">
-              <div className="flex flex-col items-center max-w-xs">
-                <img src="/Img/Tamil_JUG.svg" alt="not found" data-aos="zoom-in-up"/>
-                <p className='font-raleway font-medium mt-5 sm:mb-10 text-[20px] leading-[30px] tracking-[0%] text-black'>
-                  Tamil JUG
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center max-w-xs ">
-                <img src="/Img/Kerela_JUG.svg" alt="not found" data-aos="zoom-in-up"/>
-                <p className='font-raleway font-medium mt-5 sm:mb-10 text-[20px] leading-[30px] tracking-[0%] text-black'>
-                  Kerela JUG
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center max-w-xs">
-                <img src="/Img/Bangalore_JUG.svg" alt="not found" data-aos="zoom-in-up"/>
-                <p className='font-raleway font-medium mt-5 text-[20px] leading-[30px] tracking-[0%] text-black'>
-                  Bangalore JUG
-                </p>
-              </div>
+              {partners.map((partner, index) => (
+                <div key={partner.id} className="flex flex-col items-center max-w-xs">
+                  <img src={partner.image} alt={partner.name} data-aos="zoom-in-up" className='cursor-pointer' onClick={() => window.open(partner.link, "noopener", "noreferrer")}/>
+                  <p className='font-raleway font-medium mt-5 sm:mb-10 text-[20px] leading-[30px] tracking-[0%] text-black'>
+                    {partner.name}
+                  </p>
+                  </div>
+              ))}
             </div>
-            
           </div>
+            
 
           <div className='mt-[68px] flex flex-col items-center justify-center '>
             <BookYourSlotButton/>
