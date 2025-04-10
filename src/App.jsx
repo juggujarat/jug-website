@@ -27,7 +27,7 @@ import SponsorsshipOpp from './event/SponsorsshipOpp';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-
+import JugPartners from './event/JugPartners';
 
 
 
@@ -140,7 +140,7 @@ function App() {
               </div>
               <SponsorsshipOpp></SponsorsshipOpp>
               
-            
+              <JugPartners></JugPartners>
           
               <div id="team-event">
               <EventVolunteer></EventVolunteer>
