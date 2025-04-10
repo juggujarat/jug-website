@@ -32,13 +32,26 @@ const AboutEvent = () => {
                             <p
                                 className="mb-[20px] sm:mb-[16px] font-raleway font-normal text-[18px] leading-[30px] sm:text-[16px] sm:leading-[28px] tracking-[0%]"
                             >
-                                Community Day for Java, 2025 is our flagship annual tech event dedicated to fostering knowledge-sharing, networking, and professional growth within the Java ecosystem.
+                                Community Day for Java, 2025 is our flagship annual tech event dedicated to fostering <strong>knowledge-sharing</strong>, networking, and professional growth within the Java ecosystem.
                             </p>
 
                             <p
                                 className="mb-[20px] sm:mb-[16px] font-raleway font-normal text-[18px] leading-[30px]  sm:text-[16px] sm:leading-[28px] tracking-[0%]"
                             >
-                                Join Java professionals, tech leaders, and aspiring developers for insightful sessions, hands-on workshops, and opportunities to connect with like-minded enthusiasts.
+                                Join Java professionals, tech leaders, and aspiring developers for insightful sessions, <strong>hands-on workshops</strong>, and opportunities to connect with like-minded enthusiasts.
+                            </p>
+                            <p
+                                className="flex items-center gap-2 mb-[40px] sm:mb-[32px] mt-[40px] sm:mt-[32px] font-raleway font-normal text-[20px] leading-[30px] sm:text-[12px] sm:leading-[28px] tracking-[0%]"
+                            >
+                                <img src='Img/locationpin.svg' alt="location pin" className="w-5 h-5"/>
+                                <strong>LJ University, Ahmedabad</strong>
+                                <a href="https://maps.app.goo.gl/PCQEcveVpwxk9YdD8" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 ml-2 text-blue-500 sm:text-[14px] underline">View map <img src='Img/externallink.svg' alt='external link' className='w-6 h-6 sm:w-4 sm:h-4' /></a>
+                            </p>
+                            <p
+                                className="flex items-center gap-2 mb-[40px] sm:mb-[32px] mt-[40px] sm:mt-[32px] font-raleway font-normal text-[20px] leading-[30px] sm:text-[18px] sm:leading-[28px] tracking-[0%]"
+                            >
+                                <img src='Img/calender.svg' alt="location pin" className="w-5 h-5"/>
+                                <strong>27th April’25</strong>
                             </p>
                             <div className="flex justify-start  sm:hidden">
                                 <div className="flex flex-col ">
