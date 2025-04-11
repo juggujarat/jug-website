@@ -176,6 +176,20 @@ const Sponsors = () => {
 
             </div> */}
 
+            <div className="flex space-x-[72px]  justify-center bg-[#FFFFFF] p-2 mt-5">
+              <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
+                VENUE SPONSOR
+              </h3>
+            </div>
+
+
+            <div class="flex sm:mt-[25px] mt-[24px] mb-11 sm:mb-4 pl-3 sm:pl-0 justify-center">
+
+              <div class="flex h-[112px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400 sm:w-[148px] sm:h-[84px]  w-[285px]">
+                <img src='/Img/LJ_Logo.svg' alt='LJ Logo' />
+              </div>
+
+            </div>
 
 
           </div>
