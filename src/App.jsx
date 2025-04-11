@@ -27,6 +27,7 @@ import SponsorsshipOpp from './event/SponsorsshipOpp';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import EventVenue from './event/EventVenue';
 
 
 
@@ -132,6 +133,9 @@ function App() {
               <div id="schedule-event">
                 <Schedule></Schedule>
               </div>
+            
+            <EventVenue></EventVenue>
+            
               <Goodies></Goodies>
              
               <SubmitCFP></SubmitCFP>
