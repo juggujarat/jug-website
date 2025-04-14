@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import BookYourSlotButton from '../Components/BookYourSlotButton'
-import partners from "../data/eventPartners"
+import partners from "../data/communityPartners"
 
-const JugPartners = () => {
+const CommunityPartners = () => {
 
   
    useEffect(() => {
@@ -16,12 +16,12 @@ const JugPartners = () => {
 
 
   return (
-    <div className="bg-[#FFC0E7] ">
+    <div className="bg-[#F5FFEF] ">
       <div className="container mx-auto xl:max-w-screen-xl  ">
         <div className='pt-[128px] pb-[155px] sm:pt-[50px] sm:pb-[50px]'>
           <div className='mt-[20px] text-center'>
             <h1 className="font-raleway font-medium text-[56px] leading-[62px] sm:text-[32px] sm:leading-[48px] tracking-[0%]">
-              Partnering JUGs Across India
+              Our Community Partners
             </h1>
           </div>
           <div className="grid grid-cols-12 justify-center mt-11 sm:mt-6">
@@ -48,4 +48,4 @@ const JugPartners = () => {
   )
 }
 
-export default JugPartners
+export default CommunityPartners

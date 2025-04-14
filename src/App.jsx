@@ -29,6 +29,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import JugPartners from './event/JugPartners';
 import EventVenue from './event/EventVenue';
+import CommunityPartners from './event/CommunityPartners';
 
 
 
@@ -146,6 +147,8 @@ function App() {
               
               <JugPartners></JugPartners>
           
+              <CommunityPartners></CommunityPartners>
+
               <div id="team-event">
               <EventVolunteer></EventVolunteer>
               </div>
