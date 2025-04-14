@@ -10,7 +10,7 @@ const Sponsors = () => {
               Our Esteemed Sponsors
             </h1>
 
-            <div className="flex space-x-[72px] border  bg-gradient-to-r from-[#FAFAFA] via-[#C5C5C5] to-[#FAFAFA] p-2 mt-5 sm:hidden sm:mt-12">
+            <div className="flex space-x-[72px] border  bg-gradient-to-r from-[#FAFAFA] via-[#C5C5C5] to-[#FAFAFA] p-2 mt-5 sm:hidden sm:mt-12 overflow-hidden">
               <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
                 Platinum
               </h3>
@@ -59,7 +59,7 @@ const Sponsors = () => {
 
 
 
-            <div className="flex space-x-[72px]  bg-gradient-to-r from-[#FFE8AC] via-[#FFC62E] to-[#FFEFC6] p-2  sm:hidden">
+            <div className="flex space-x-[72px]  bg-gradient-to-r from-[#FFE8AC] via-[#FFC62E] to-[#FFEFC6] p-2  sm:hidden  overflow-hidden">
               <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
                 Gold
               </h3>
@@ -123,59 +123,6 @@ const Sponsors = () => {
             </div>
 
 
-
-
-            {/* <div className="flex space-x-[72px]  bg-[#FFFFFF] p-2 mt-5 sm:hidden">
-
-              <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
-                Community Supporter
-              </h3>
-              <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
-                Community Supporter
-              </h3>
-              <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
-                Community Supporter
-              </h3>
-            </div>
-
-            <div className="  bg-[#FFFFFF] p-2 mt-5 xl:hidden">
-
-              <h3 className="font-raleway font-bold text-[16px] leading-[16px]  sm:leading-[22px] tracking-[0.5em] uppercase">
-                Community Supporter
-              </h3>
-
-            </div>
-
-
-            <div class="grid grid-cols-4 sm:grid-cols-2 gap-6 sm:gap-y-4 rounded-lg md:grid-cols-3 sm:mt-[25px] mt-[24px] mb-11 sm:mb-4   pl-3 sm:pl-0 ">
-
-
-              <div class="flex h-[112px]  w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400  ">
-                Coming Soon
-              </div>
-
-
-
-              <div class="flex h-[112px] items-center justify-center sm:w-[148px] sm:h-[84px] rounded-3xl bg-[#FFFFFF] text-gray-400   w-[285px]">
-                Coming Soon
-              </div>
-
-
-
-              <div class="flex h-[112px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400 sm:w-[148px] sm:h-[84px]   w-[285px]">
-                Coming Soon
-              </div>
-
-
-
-              <div class="flex h-[112px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400 sm:w-[148px] sm:h-[84px]  w-[285px]">
-                Coming Soon
-              </div>
-
-
-
-            </div> */}
-
             <div className="flex space-x-[72px]  justify-center bg-[#FFFFFF] p-2 mt-5">
               <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
                 VENUE SPONSOR
@@ -191,6 +138,58 @@ const Sponsors = () => {
 
             </div>
 
+             <div className="flex space-x-[72px]  bg-[#FFFFFF] p-2 mt-5 sm:hidden justify-center">
+
+              <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
+                Community Supporter
+              </h3>
+              {/* <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
+                Community Supporter
+              </h3>
+              <h3 className="font-raleway font-bold text-[16px] leading-[16px] tracking-[0.5em] uppercase">
+                Community Supporter
+              </h3> */}
+            </div>
+
+            <div className="  bg-[#FFFFFF] p-2 mt-5 xl:hidden">
+
+              <h3 className="font-raleway font-bold text-[16px] leading-[16px]  sm:leading-[22px] tracking-[0.5em] uppercase">
+                Community Supporter
+              </h3>
+
+            </div>
+
+
+            <div class="sm:flex-row flex justify-center sm:mt-[25px] mt-[24px] mb-11 sm:mb-4 pl-3 sm:pl-0 gap-7">
+
+
+              <div class="flex-row -h-[112px]  w-[285px] sm:w-[148px] sm:-h-[84px] items-center justify-center rounded-3xl text-black">
+                <img src='/Sponsors/RajeshC.svg' alt='Community' className='mb-5 sm:mb-3' onClick={() => window.open("https://www.linkedin.com/in/rchi/", "noopener", "noreferrer")} />
+                <p className='text-xl sm:text-sm'><strong>RAJESH C</strong></p>
+                <p className='text-lg sm:text-xs text-gray-500'>Java Full Stack Developer, Bengaluru</p>
+              </div>
+
+
+
+               {/* <div class="flex h-[112px] items-center justify-center sm:w-[148px] sm:h-[84px] rounded-3xl bg-[#FFFFFF] text-gray-400   w-[285px]">
+                Coming Soon
+              </div>
+
+
+
+              <div class="flex h-[112px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400 sm:w-[148px] sm:h-[84px]   w-[285px]">
+                Coming Soon
+              </div>
+
+
+
+              <div class="flex h-[112px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400 sm:w-[148px] sm:h-[84px]  w-[285px]">
+                Coming Soon
+              </div>  */}
+
+
+
+            </div>
 
           </div>
         </div>
