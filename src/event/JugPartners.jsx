@@ -29,9 +29,9 @@ const JugPartners = () => {
               {partners.map((partner, index) => (
                 <div key={partner.id} className="flex flex-col items-center max-w-xs">
                   <img src={partner.image} alt={partner.name} data-aos="zoom-in-up" className='cursor-pointer' onClick={() => window.open(partner.link, "noopener", "noreferrer")}/>
-                  <p className='font-raleway font-medium mt-5 sm:mb-10 text-[20px] leading-[30px] tracking-[0%] text-black'>
+                  {/* <p className='font-raleway font-medium mt-5 sm:mb-10 text-[20px] leading-[30px] tracking-[0%] text-black'>
                     {partner.name}
-                  </p>
+                  </p> */}
                   </div>
               ))}
             </div>
