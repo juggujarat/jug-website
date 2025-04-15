@@ -27,7 +27,7 @@ const CommunityPartners = () => {
           <div className="grid grid-cols-12 justify-center mt-11 sm:mt-6">
             <div className="col-span-12 flex flex-wrap justify-center gap-x-14 text-center ">
               {partners.map((partner, index) => (
-                <div key={partner.id} className="flex flex-col items-center max-w-xs">
+                <div key={partner.id} className="flex flex-col items-center max-w-xs sm:mt-5 md:mt-5">
                   <img src={partner.image} alt={partner.name} data-aos="zoom-in-up" className='cursor-pointer' onClick={() => window.open(partner.link, "noopener", "noreferrer")}/>
                   {/* <p className='font-raleway font-medium mt-5 sm:mb-10 text-[20px] leading-[30px] tracking-[0%] text-black'>
                     {partner.name}
