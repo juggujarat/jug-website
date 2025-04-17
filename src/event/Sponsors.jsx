@@ -49,9 +49,12 @@ const Sponsors = () => {
                   </div>
                 </a>
 
-                <div class="flex h-[112px] w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400">
-                  Coming Soon
-                </div>
+                <a href="https://rezoomex.com/" target="_blank" rel="noopener noreferrer">
+                  <div class="flex h-[112px] w-[285px] sm:w-[154px] sm:h-[76px] items-center justify-center rounded-3xl 
+                      bg-[#FFFFFF] text-gray-400 sm:px-4 cursor-pointer">
+                    <img src='/Sponsors/rezoomex.svg' alt="Rezoomx" className='' />
+                  </div>
+                </a>
 
               </div>
             </div>
