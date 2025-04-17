@@ -16,7 +16,7 @@ const Speaker = () => {
   return (
     <div className="bg-[#E1EEFB] ">
     <div className="container mx-auto 2xl:max-w-screen-2xl  overflow-hidden ">
-      <div className='pt-[128px] pb-[100px] sm:pt-[50px] sm:pb-[50px]'  data-aos="zoom-in-up">
+      <div className='pt-[128px] pb-[100px] pl-[20px] pr-[20px] sm:pt-[50px] sm:pb-[50px]'  data-aos="zoom-in-up">
         <div className="flex justify-between items-center sm:flex-col sm:text-center">
         <h1 className="font-raleway font-medium text-[56px] leading-[65px] sm:text-[20px] sm:leading-[32px]">
         Java 
