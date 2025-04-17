@@ -100,7 +100,7 @@ const Sponsors = () => {
 
 
             <div class="flex justify-center items-center sm:mt-[25px] mt-[24px] mb-11 sm:mb-4  ">
-              <div class="grid grid-cols-3 sm:grid-cols-2 gap-x-8 sm:gap-y-4 sm:gap-x-4 rounded-lg md:grid-cols-3 
+              <div class="grid grid-cols-2 sm:grid-cols-2 gap-x-8 sm:gap-y-4 sm:gap-x-4 rounded-lg md:grid-cols-3 
       pl-3 sm:pl-0 place-items-center">
          <a href="https://www.staunchsys.com/" target="_blank" rel="noopener noreferrer">
                 <div class="flex h-[112px] w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl 
@@ -117,10 +117,10 @@ const Sponsors = () => {
                 </div>
                 </a>
 
-                <div class="flex h-[112px] w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl 
+                {/* <div class="flex h-[112px] w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl 
         bg-[#FFFFFF] text-gray-400 sm:col-span-2">
                   Coming Soon
-                </div>
+                </div> */}
 
               </div>
             </div>
@@ -136,7 +136,11 @@ const Sponsors = () => {
             <div class="flex sm:mt-[25px] mt-[24px] mb-11 sm:mb-4 pl-3 sm:pl-0 justify-center">
 
               <div class="flex h-[112px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400 sm:w-[148px] sm:h-[84px]  w-[285px]">
-                <img src='/Img/LJ_Logo.svg' alt='LJ Logo' />
+                <a href="https://ljku.edu.in/" target="_blank" rel="noopener noreferrer">
+                  <div class="flex h-[112px] w-[285px] sm:w-[148px] sm:h-[84px] items-center justify-center rounded-3xl bg-[#FFFFFF] text-gray-400 px-4 sm:px-2">
+                  <img src='/Img/LJ_Logo.svg' alt='LJ Logo' />
+                  </div>
+                </a>
               </div>
 
             </div>
