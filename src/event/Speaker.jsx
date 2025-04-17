@@ -52,12 +52,12 @@ const Speaker = () => {
             </button>
         </div>
 
-        <div className="grid xl:grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 pt-[48px] sm:pt-[36px] ">
+        <div className="grid xl:grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 pt-[48px] sm:pt-[36px] justify-items-center">
           {speakers.map((speaker, index) => (
-            <div key={speaker.id} className="sm:text-center"  data-aos="fade-right"   data-aos-delay={`${index * 200}`}>
+            <div key={speaker.id} className="text-center justify-items-center"  data-aos="fade-right"   data-aos-delay={`${index * 200}`}>
               <img src={speaker.image} alt={speaker.name} className=" sm:w-[320px] " />
               <h2 className="pt-6 font-raleway font-bold text-[24px] leading-[28px] sm:text-[14px] sm:leading-[18px] sm:pt-4">{speaker.name}</h2>
-              <p className="text-gray-600 font-raleway font-normal text-[16px] leading-[14px] sm:text-[14px] sm:leading-[22px] pt-2 sm:pt-1">{speaker.profession} <strong className='text-black-600'>{speaker.expertise}</strong></p>
+              <p className="text-gray-600 font-raleway font-normal text-[16px] leading-[20px] sm:text-[14px] sm:leading-[22px] pt-2 sm:pt-1">{speaker.profession} <strong className='text-black-600'>{speaker.expertise}</strong></p>
 
             </div>
           ))}
