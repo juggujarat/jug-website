@@ -170,10 +170,16 @@ const Sponsors = () => {
             <div class="sm:flex-row flex justify-center sm:mt-[25px] mt-[24px] mb-11 sm:mb-4 pl-3 sm:pl-0 gap-7">
 
 
-              <div class="flex-row -h-[112px]  w-[285px] sm:w-[148px] sm:-h-[84px] items-center justify-center rounded-3xl text-black">
-                <img src='/Sponsors/RajeshC.svg' alt='Community' className='mb-5 sm:mb-3' onClick={() => window.open("https://www.linkedin.com/in/rchi/", "noopener", "noreferrer")} />
+              <div class="flex-row -h-[112px]  w-[285px] sm:w-[148px] sm:-h-[84px] items-center justify-items-center rounded-xl text-black">
+                <img src='/Sponsors/RajeshC.svg' alt='Community' className='mb-5 sm:mb-3 rounded-xl h-[60%] sm:border border-black' onClick={() => window.open("https://www.linkedin.com/in/rchi/", "noopener", "noreferrer")} />
                 <p className='text-xl sm:text-sm'><strong>RAJESH C</strong></p>
-                <p className='text-lg sm:text-xs text-gray-500'>Java Full Stack Developer, Bengaluru</p>
+                <p className='text-lg sm:text-xs text-gray-500'>Java Full Stack Developer, <br /> <strong>Bengaluru</strong></p>
+              </div>
+
+              <div class="flex-row -h-[112px]  w-[285px] sm:w-[148px] sm:-h-[84px] items-center justify-items-center rounded-xl text-black">
+                <img src='/Sponsors/Hemal.png' alt='Community' className='mb-6 sm:mb-3 rounded-2xl sm:border-[1.5px] border-[2px] border-black h-[60%]' onClick={() => window.open("https://www.linkedin.com/in/rchi/", "noopener", "noreferrer")} />
+                <p className='text-xl sm:text-sm'><strong>HEMAL TRIVEDI</strong></p>
+                <p className='text-lg sm:text-xs text-gray-500'>India Director, <br /><strong>SharpQuest</strong></p>
               </div>
 
 
