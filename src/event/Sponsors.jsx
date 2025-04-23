@@ -177,7 +177,7 @@ const Sponsors = () => {
               </div>
 
               <div class="flex-row -h-[112px]  w-[285px] sm:w-[148px] sm:-h-[84px] items-center justify-items-center rounded-xl text-black">
-                <img src='/Sponsors/Hemal.png' alt='Community' className='mb-6 sm:mb-3 rounded-2xl sm:border-[1.5px] border-[2px] border-black h-[60%]' onClick={() => window.open("https://www.linkedin.com/in/rchi/", "noopener", "noreferrer")} />
+                <img src='/Sponsors/Hemal.png' alt='Community' className='mb-6 sm:mb-3 rounded-2xl sm:border-[1.5px] border-[2px] border-black h-[60%]' onClick={() => window.open("https://www.linkedin.com/in/hemalt/", "noopener", "noreferrer")} />
                 <p className='text-xl sm:text-sm'><strong>HEMAL TRIVEDI</strong></p>
                 <p className='text-lg sm:text-xs text-gray-500'>India Director, <br /><strong>SharpQuest</strong></p>
               </div>
