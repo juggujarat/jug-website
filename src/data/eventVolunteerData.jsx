@@ -17,6 +17,7 @@ const volunteer = [
   { id: 14, name: "Sandip Godhani", image: "/Volunteer/Sandip.png", profession: "Student",organsitions: "LJ university" ,  linkedinlink:"https://www.linkedin.com/in/sandip-godhani-836294311/"},
   { id: 15, name: "Ravi Soni", image: "/Volunteer/Ravi.png", profession: "2x AWS & Cloud Architect",organsitions: "Rishabh Software Pvt Ltd" ,  linkedinlink:"https://www.linkedin.com/in/rvsoni/"},
   { id: 16, name: "Aryan Gajjar", image: "Volunteer/Aryan.png", profession: "Student",organsitions: "Swarrnim Startup & Innovation University" ,  linkedinlink:"https://www.linkedin.com/in/aryangajjar/"},
+  { id: 17, name: "Jayesh Gupta", image: "Volunteer/Jayesh.png", profession: "Software Engineer",organsitions: "Tata Consultancy Services" ,  linkedinlink:"https://www.linkedin.com/in/jayeshgupta91/"},
   ];
   
   export default volunteer;
