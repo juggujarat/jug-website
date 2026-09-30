@@ -1,20 +1,7 @@
-import React, { useEffect } from 'react';
-import About from '../Components/About'
-import BookYourSlotButton from '../Components/BookYourSlotButton'
-import AOS from 'aos';
-import 'aos/dist/aos.css'; 
+import BookYourSlotButton from '../components/BookYourSlotButton'
+import { formatDateRange } from '../content'
 
-
-const EventVenue = () => {
-
- useEffect(() => {
-        AOS.init({
-            duration: 1000, 
-            // once: true, 
-        });
-    }, []);
-
-
+const EventVenue = ({ conference, venue, registrationUrl }) => {
     return (
         <div className="bg-[#EDD7FF] ">
             <div className="container mx-auto xl:max-w-screen-xl overflow-hidden ">
@@ -32,16 +19,18 @@ const EventVenue = () => {
                             <p
                                 className="mb-[20px] text-center sm:mb-[16px] font-raleway font-normal text-[22px] leading-[30px] sm:text-[18px] sm:leading-[28px] tracking-[0%]"
                             >
-                                We are proud to host <strong>Community Day for Java 2025</strong> on <strong>April 27, 2025</strong> at prestigious <strong>LJ University</strong> - a hub for future-ready talent and cutting-edge technology learning.
+                                We are proud to host <strong>{conference.name}</strong> on <strong><time dateTime={conference.startDate}>{formatDateRange(conference.startDate, conference.endDate)}</time></strong> at <strong>{venue.name}</strong>{venue.description ? ` - ${venue.description}` : '.'}
                             </p>
 
+                            {venue.image ? (
                             <div className='mt-10 mb-10 flex justify-center'>
-                                <img src='/Img/LJ_Campus.svg' alt='LJ University' />
+                                <img src={venue.image} alt={venue.name} loading="lazy" decoding="async" />
                             </div>
+                            ) : null}
 
                             <div className="flex justify-center sm:hidden">
                                 <div className="flex flex-col ">
-                                    <BookYourSlotButton />
+                                    <BookYourSlotButton href={registrationUrl} />
                                 </div>
                             </div>
 
@@ -52,13 +41,15 @@ const EventVenue = () => {
                             className="col-span-6 sm:grid-cols-1 sm:px-0 px-[100px] sm:mt-4 sm:order-1"
                             data-aos="fade-left" 
                         >
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3672.9108100708986!2d72.485711!3d22.990307!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9aee6c89a621%3A0x872df2d55fbb0008!2sLJ%20University!5e0!3m2!1sen!2sin!4v1744317485542!5m2!1sen!2sin" className='border border-white border-[10px] h-[650px] w-full sm:h-[400px] sm:w-full sm:border-[5px]' allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            {venue.mapEmbedUrl ? (
+                            <iframe src={venue.mapEmbedUrl} title={`Map of ${venue.name}`} className='border border-white border-[10px] h-[650px] w-full sm:h-[400px] sm:w-full sm:border-[5px]' allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                            ) : null}
                         </div>
                         
                     </div>
                     <div className="flex justify-center items-center mt-4 xl:hidden ">
                                 <div className="flex flex-col ">
-                                    <BookYourSlotButton />
+                                    <BookYourSlotButton href={registrationUrl} />
                                 </div>
                             </div>
                 </div>

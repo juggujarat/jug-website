@@ -1,108 +1,122 @@
-import React, { useEffect } from 'react';
-import Header from './Header'
-import BookYourSlotButton from '../Components/BookYourSlotButton'
-import AOS from 'aos';
+import BookYourSlotButton from '../components/BookYourSlotButton'
+import Button from '../components/ui/Button'
+import StatusBadge from '../components/ui/StatusBadge'
+import Countdown from '../components/ui/Countdown'
+import { HERO_IMG_PRIORITY } from '../components/ui/heroImg'
+import { BANNER_SIZES, bannerSrcSet } from '../lib/images'
+import { getConferenceSpeakerCount, getSpeakerBySlug } from '../content'
 
-const Event = () => {
-
-     useEffect(() => {
-              AOS.init({
-                  duration: 1000, 
-                  // once: true, 
-              });
-          }, []);
+const Event = ({ conference, status, registrationUrl }) => {
+    const speakerCount = getConferenceSpeakerCount(conference);
+    const { heroLogo, featuredSpeaker, stats = {}, highlights = [] } = conference;
+    const speaker = getSpeakerBySlug(featuredSpeaker?.speaker);
+    const hasArt = Boolean(heroLogo || speaker || conference.banner);
 
     return (
         <div className="bg-[#F6EAFF] relative">
-              <Header />
-              {/* <div className="absolute bottom-0 left-0 top-[368px] sm:hidden">
-                <img src='/Home/Venkat.png' alt='' className="" data-aos="zoom-in-up" />
-            </div> */}
             <div className=" container mx-auto xl:max-w-screen-xl  sm:mx-auto overflow-hidden ">
                 <div className="pt-[72px] sm:pt-6 ">
                     <div className="grid grid-cols-12 sm:grid-cols-1 gap-10">
+                    {hasArt ? (
                     <div className=" col-span-6  sm:order-2">
-                            {/* Top Image */}
-                            {/* <div className='pl-[200px]  relative sm:pl-0 '>
-                            <img src='/Home/Ahemdabad.png' alt='' className="absolute top-2 left-[282px] right-0 sm:left-[86px] " />
-                            </div> */}
-                            {/* Middle Image */}
+                            {heroLogo ? (
                             <div className='pl-[120px]    sm:pl-0 sm:hidden  '>
-                            <img src='/Home/CommunityDayJava.svg' alt='' className="" />
+                            <img src={heroLogo.src} alt='' width={heroLogo.width} height={heroLogo.height} />
                             </div>
-                            
+                            ) : null}
+                            {speaker ? (
+                            <>
                             <div className='  relative  ' >
                             <img src='/Home/BannerArrow.svg' alt='' className="absolute -top-4 left-[508px] right-0 sm:left-[260px] sm:-top-1  sm:h-[52px] sm:w-[68px]" />
                             </div>
-                            {/* Bottom Image */}
                             <div className=' flex sm:mt-4  '>
-                            <img src='/Home/VenkatXl.png' alt='' className="sm:hidden" data-aos="zoom-in-up"/>
-                            <img src='/Home/VenkatSm.png' alt='' className="xl:hidden" data-aos="zoom-in-up"/>
-                            
+                            <img src={featuredSpeaker.image} alt="" width={featuredSpeaker.width} height={featuredSpeaker.height} className="sm:hidden" data-aos="zoom-in-up"/>
+                            <img src={featuredSpeaker.imageSm} alt="" width={featuredSpeaker.widthSm} height={featuredSpeaker.heightSm} className="xl:hidden" data-aos="zoom-in-up"/>
+
                              <div className=" mt-[112px] text-center  sm:mt-12 ">
-                            <h2 className="font-archivo font-normal text-[26.25px] sm:text-[18.25px] leading-[100%]  sm:leading-[100%] ">Special Speaker</h2>
-                            <h2 className="font-autography font-normal text-[48px] leading-[47px] mt-6 sm:text-[23px] sm:leading-[24px] sm:mt-4 } ">Venkat Subramaniam</h2>
+                            <p className="font-archivo font-normal text-[26.25px] sm:text-[18.25px] leading-[100%]  sm:leading-[100%] ">Special Speaker</p>
+                            <p className="font-autography font-normal text-[48px] leading-[47px] mt-6 sm:text-[23px] sm:leading-[24px] sm:mt-4 } ">{speaker.name}</p>
 
                             </div>
                             </div>
+                            </>
+                            ) : null}
+                            {!heroLogo && !speaker && conference.banner ? (
+                            <img
+                                src={conference.banner}
+                                srcSet={bannerSrcSet(conference.banner)}
+                                sizes={BANNER_SIZES}
+                                alt=''
+                                width="1200"
+                                height="600"
+                                {...HERO_IMG_PRIORITY}
+                                className="w-full h-auto rounded-[40px] sm:rounded-[24px] border border-black bg-white"
+                            />
+                            ) : null}
                             </div>
-                        <div className="  col-span-6  sm:grid-cols-1  sm:order-1" data-aos="fade-left">
+                    ) : null}
+                        <div className={hasArt ? '  col-span-6  sm:grid-cols-1  sm:order-1' : 'col-span-12 flex flex-col items-center text-center pb-[72px] sm:pb-8'} data-aos="fade-left">
+                        {heroLogo ? (
                         <div className=' sm:pl-0 sm:mt-0 flex items-center justify-center ' >
-                                                    <img src='/Home/CommunityDayJavaSm.svg' alt='' className="xl:hidden" />
+                                                    <img src={heroLogo.srcSm} alt='' width={heroLogo.widthSm} height={heroLogo.heightSm} className="xl:hidden" />
                                                     </div>
+                        ) : null}
 
-                            <div className="flex gap-4  sm:items-center sm:justify-center sm:mt-4">
-                                <div className="px-4 py-[6px] sm:px-2 sm:py-[4px] rounded-full   bg-[#D7FFF1] border border-[#1AD090] 
+                            <div className={`flex gap-4  sm:items-center sm:justify-center sm:mt-4 ${hasArt ? '' : 'justify-center'}`}>
+                                {stats.attendees ? (
+                                <div className="px-4 py-[6px] sm:px-2 sm:py-[4px] rounded-full   bg-[#D7FFF1] border border-[#1AD090]
                                  font-medium text-[12px] sm:text-[10px]  tracking-[1%]">
-                                    300+ Participant
+                                    {stats.attendees} Participant
                                 </div>
+                                ) : null}
+                                {speakerCount ? (
                                 <div className="px-[18px] py-2  rounded-full  sm:px-2 sm:py-[4px] bg-[#FFFCEF] border  border-[#E8C52A]
                                   font-medium text-[12px]  tracking-[1%] sm:text-[10px] ">
-                                    4 Industry Speaker
+                                    {speakerCount} Industry Speaker
                                 </div>
+                                ) : null}
+                                <StatusBadge status={status} />
                             </div>
                             <div className='mt-[20px] sm:text-center'>
                             <h1 className="font-raleway font-semibold text-[46px] leading-[58px] sm:text-[23px] sm:leading-[25px] tracking-[0%]">
-                             Join the Biggest Java Community Event in Gujarat!
+                             {heroLogo && conference.tagline ? (
+                                <>
+                                    <span className="sr-only">{conference.name}: </span>
+                                    {conference.tagline}
+                                </>
+                             ) : conference.name}
                             </h1>
                             </div>
+                            {status === 'upcoming' ? (
+                            <Countdown entity={conference} className={`mt-6 sm:justify-center ${hasArt ? '' : 'justify-center'}`} />
+                            ) : null}
 
+                              {highlights.length > 0 ? (
                               <div>
                             <ul className="mt-[28px] sm:pl-[62px] sm:mt-4">
-
-                                <li className="text-black text-[16px] leading-[100%] tracking-[0%] font-raleway font-medium pt-2 sm:text-[14px] sm:leading-[14px]">
+                                {highlights.map((highlight, index) => (
+                                <li key={highlight} className={`text-black text-[16px] leading-[100%] tracking-[0%] font-raleway font-medium ${index === 0 ? 'pt-2' : 'pt-[24px]'} sm:text-[14px] sm:leading-[14px]`}>
                                     <span>
-                                    <i className="fas fa-check text-black ml-auto mr-4 sm:mr-4 sm:text-[19.99px] sm:font-bold"></i>
+                                    <i aria-hidden="true" className="fas fa-check text-black ml-auto mr-4 sm:mr-4 sm:text-[19.99px]"></i>
                                     </span>
-                                    Engaging Tech Talks
+                                    {highlight}
                                 </li>
-                                <li className="text-black text-[16px] leading-[100%] tracking-[0%] font-raleway font-medium font-dm-sans pt-[24px] sm:text-[14px] sm:leading-[14px]">
-                                    <span>
-                                        <i className="fas fa-check text-black ml-auto mr-4 sm:mr-4 sm:text-[19.99px]"></i>
-                                    </span>
-                                    Exclusive Swags & Goodies
-                                </li>
-                                <li className="text-black text-[16px] leading-[100%] tracking-[0%] font-raleway font-medium font-dm-sans pt-[24px] sm:text-[14px] sm:leading-[14px]">
-                                    <span>
-                                        <i className="fas fa-check text-black ml-auto mr-4 sm:mr-4 sm:text-[19.99px]"></i>
-                                    </span>
-                                    Delicious Food & Refreshments
-                                </li>
-                                <li className="text-black text-[16px] leading-[100%] tracking-[0%] font-raleway font-medium font-dm-sans pt-[24px] sm:text-[14px] sm:leading-[14px]">
-                                    <span>
-                                        <i className="fas fa-check text-black ml-auto mr-4 sm:mr-4 sm:text-[19.99px]"></i>
-                                    </span>
-                                    And much more
-                                </li>
+                                ))}
                                 </ul>
                                 </div>
-                                <div className="flex justify-start sm:justify-center">
+                              ) : null}
+                                <div className={`flex sm:justify-center ${hasArt ? 'justify-start' : 'justify-center'}`}>
                                 <div className='mt-[41px] sm:items-center sm:justify-center sm:flex sm:flex-col  '>
-                                <BookYourSlotButton/>
+                                <BookYourSlotButton href={registrationUrl}/>
+                                {conference.externalUrl ? (
+                                    <Button href={conference.externalUrl} shape="card" className="mt-4">
+                                        Conference website
+                                    </Button>
+                                ) : null}
                                 </div>
                                 </div>
-                             
-                          
+
+
                         </div>
                     </div>
                 </div>

@@ -1,58 +1,35 @@
-import React, { useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css'; 
+import { site } from '../content';
+import Button from '../components/ui/Button';
+import HomeSection from '../components/home/HomeSection';
 
 const Sessions = () => {
+  if (!site.featuredVideos.length) return null;
 
-    useEffect(() => {
-        AOS.init({
-            duration: 1000, 
-            // once: true, 
-        });
-    }, []);
-
-    return (
-        <div className="bg-[#EDD7FF] ">
-            <div className="container mx-auto 2xl:max-w-screen-2xl  overflow-hidden ">
-                <div className='pt-[128px] pb-[100px] sm:pt-[50px] sm:pb-[50px]'>
-                    <div className="flex justify-between items-center" data-aos="fade-up-right">
-                        <h1 className="font-raleway font-medium text-[56px] leading-[65px] sm:text-[24px] sm:leading-[34px] ">Our Sessions</h1>
-                        <button className="bg-[#FFFFFF] text-black px-[27px] py-[19px] sm:px-[12px] sm:py-[8px] rounded-2xl transition border border-black"
-                            onClick={() => window.location.href = 'https://www.youtube.com/@juggujarat'} >
-                            View all
-                        </button>
-                    </div>
-                    <div className='grid grid-cols-12 sm:grid-cols-1 mt-[48px] sm:mt-[32px] gap-x-5 sm:gap-x-0 sm:gap-y-10'>
-                        <div className=" col-span-6   " data-aos="fade-right">
-                            <div className="iframe-container  rounded-lg ">
-                                <iframe
-                                    src="https://www.youtube.com/embed/65jLZYSIB3A?si=ePFhouw1u49R6grn"
-                                    title="YouTube video player"
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerPolicy="strict-origin-when-cross-origin"
-                                    allowFullScreen
-                                ></iframe>
-                            </div>
-                        </div>
-                        <div className=" col-span-6 " data-aos="fade-left">
-                            <div className="iframe-container  rounded-lg">
-                                <iframe
-                                    src='https://www.youtube.com/embed/5z53EUXWjtU?si=9BJdbWhAxrAVxi8s'
-                                    title="YouTube video player"
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerPolicy="strict-origin-when-cross-origin"
-                                    allowFullScreen
-                                ></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <HomeSection
+      id="sessions"
+      bg="bg-[#EDD7FF]"
+      title="Our Sessions"
+      action={<Button href={site.socials.youtube}>View all<span className="sr-only"> sessions on YouTube</span></Button>}
+    >
+      <ul className="grid grid-cols-2 sm:grid-cols-1 gap-x-5 sm:gap-y-10">
+        {site.featuredVideos.map((video, index) => (
+          <li key={video.embedUrl} data-aos={index % 2 ? 'fade-left' : 'fade-right'}>
+            <div className="iframe-container rounded-lg">
+              <iframe
+                src={video.embedUrl}
+                title={`${site.name} session recording ${index + 1}`}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
             </div>
-        </div>
+          </li>
+        ))}
+      </ul>
+    </HomeSection>
+  );
+};
 
-    )
-}
-
-export default Sessions
+export default Sessions;
