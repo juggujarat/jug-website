@@ -1,0 +1,7 @@
+# One Luma event slug or URL per line. `npm run sync:luma` snapshots each into data/luma/<slug>.json.
+ro4cgjqu
+fzg27b5z
+gvw2d6bb
+z29ex52v
+3qgxk50z
+sw4vxpkw

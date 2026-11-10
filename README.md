@@ -1,117 +1,48 @@
-# **Gujarat JUG & Community Day Website** 🚀  
+# Gujarat JUG website
 
-Welcome to the **official website repository** for **Gujarat Java User Group (JUG)** and **Community Day for Java**! This is a **React-based frontend project** built with **Vite** for fast performance, modern development workflows, and optimized builds.  
+The official website of **Java User Group Gujarat**: [gujaratjug.org](https://www.gujaratjug.org).
 
-📢 **Contributions are welcome!** This is an **open-source project**, and we’d love your help in making this the best Java community website possible.  
+Built with [Astro](https://astro.build) (static pages, file-based content), Tailwind CSS v4 and a sprinkle of React where interactivity needs it. Deployed on Vercel.
 
----
+## Run it locally
 
-## **🎯 Project Overview**  
-This project powers the **official website** for **Gujarat JUG and the Community Day for Java event**, allowing Java developers, students, and professionals to stay updated with event details, speakers, schedules, and more.  
-
-**🛠️ Built with:**  
-- **React** ⚛️ – UI framework  
-- **TailwindCSS** 🎨 – Beautiful & responsive styling  
-
-
----
-
-## **🚀 Getting Started**  
-
-### **1️⃣ Prerequisites**  
-Ensure you have the following installed:  
-✅ **Node.js** (v16+) – [Download Here](https://nodejs.org/)  
-✅ **Git** – [Download Here](https://git-scm.com/)  
-✅ **Package Manager** (npm or yarn)  
-
----
-
-### **2️⃣ Installation**  
-
-1. **Clone the repository**  
-   ```bash
-   git clone [https://github.com/juggujarat/jug-website](https://github.com/juggujarat/jug-website.git)
-   cd jug-website
-   ```
-
-2. **Install dependencies**  
-   ```bash
-   npm install
-   # OR
-   yarn install
-   ```
-
----
-
-### **3️⃣ Running the Project**  
-Start the **development server** 🚀  
 ```bash
-npm run dev
-# OR
-yarn dev
-```
-The project will be running at **http://localhost:5173** (Vite default port).  
-
----
-
-### **4️⃣ Building for Production**  
-To create an optimized production build:  
-```bash
-npm run build
-# OR
-yarn build
+npm install
+npm run dev        # http://localhost:4321
+npm run build      # full production build into dist/
+npm run preview    # serve the production build
 ```
 
----
+Node 20+ is required (Node 22 recommended).
 
-## **🤝 How to Contribute?**  
-We welcome contributions from the **developer community**! 🏆  
+## Where the content lives
 
-### **1️⃣ Fork & Clone**  
-Click **Fork**, then:  
-```bash
-git clone https://github.com/YOUR_USERNAME/jug-website.git
-```
+Everything on the site is generated from Markdown files in `src/content/`. Adding content never requires touching page code.
 
-### **2️⃣ Create a Branch**  
-```bash
-git checkout -b feature/your-feature-name
-```
+| Folder | One file per… | Becomes |
+| --- | --- | --- |
+| `src/content/events/` | meetup / workshop / conference | `/events/<file-name>` |
+| `src/content/people/` | speaker, core member or volunteer | `/people/<file-name>` |
+| `src/content/partners/` | company, university or community | `/partners/<file-name>` |
 
-### **3️⃣ Make Changes & Commit**  
-```bash
-git add .
-git commit -m "Added new feature 🎉"
-```
+The allowed fields for each are defined (and validated at build time) in `src/content.config.ts`.
 
-### **4️⃣ Push & Open a PR**  
-```bash
-git push origin feature/your-feature-name
-```
-Submit a **Pull Request (PR)** to the **`main`** branch! 🎉  
+- **Events** reference people and partners by file name, e.g. `speakers: ["vikas-rajput"]` or `partners: [{ partner: "york-ie", role: "venue" }]`. Roles: `venue`, `sponsor`, `food`, `goodies`, `swag`, `community`, `media`, `knowledge`.
+- The Markdown body of an event is its article/recap. Set `recapReady: true` once it's written.
+- A person becomes a "speaker" automatically once they appear in any event's `talks`.
+- The text below the `---` front matter of a person/partner file is their bio.
+- Images go in `public/` (e.g. `public/events/2025-06/photo-1.jpg`) and are referenced as `/events/2025-06/photo-1.jpg`.
 
----
+### Adding a new meetup
 
-## **🔗 Stay Connected**  
-📢 **Follow Gujarat JUG for updates & discussions:**  
-- 🔗 [Twitter (X)](https://x.com/juggujarat)  
-- 🔗 [LinkedIn](https://www.linkedin.com/company/juggujarat)  
-- 🌍 **Join the WhatsApp Community** [QR Code or Link]  
+1. Add the Luma slug to `data/luma/events.txt` and run the **Sync Luma events** GitHub Action (or `npm run sync:luma` locally). It snapshots the full Luma page (description, hosts, guest count, cover, venue) into `data/luma/<slug>.json`.
+2. Create `src/content/events/YYYY-MM-short-name.md` using the snapshot, and add any new speakers to `src/content/people/`.
+3. After the event, add photos to `gallery`, YouTube IDs to `videos`, and write the recap.
 
-📩 **For inquiries, reach out to**: [Your Contact Email]  
+## Community Day for Java 2025
 
----
+The original single-page Community Day 2025 site lives in `legacy/` and is still served at `/community-day-for-java-2025`. `npm run build` builds it first (`npm run build:legacy`) and copies it into the final output.
 
-### **✨ Contributors**  
-A big thank you to **everyone** who contributes to this project! 🙌  
+## Contributing
 
-🤝 **Want to be part of this?** Submit your first **PR** today! 🚀  
-
----
-
-
-### **💡 Ready to Contribute? Fork the Repo & Start Coding! 🎉**  
-
----
-
-This `README.md` **ensures clarity, encourages contributions, and follows open-source best practices** while keeping it **beginner-friendly & structured**. Let me know if you'd like to tweak or add anything! 🚀
+This is an open-source project and contributions are welcome. Open an issue or a pull request.

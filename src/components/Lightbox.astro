@@ -1,0 +1,60 @@
+---
+/** Full-screen photo viewer for any <a data-lightbox href=full.jpg data-caption="…"> on the page.
+    Arrow keys / swipe to navigate, Esc to close. Only visible (non-hidden) items are navigated. */
+---
+<dialog id="lightbox" class="m-0 h-dvh max-h-none w-screen max-w-none bg-black/95 p-0 text-white backdrop:bg-black/80" aria-label="Photo viewer">
+  <div class="flex h-full flex-col">
+    <div class="flex items-center justify-between gap-4 p-4">
+      <p id="lb-count" class="font-mono text-xs text-white/60"></p>
+      <button id="lb-close" class="grid size-11 place-items-center rounded-full bg-white/10 text-2xl hover:bg-white/20" aria-label="Close">×</button>
+    </div>
+    <div class="relative flex min-h-0 flex-1 items-center justify-center px-4">
+      <button id="lb-prev" class="absolute left-3 z-10 grid size-12 place-items-center rounded-full bg-white/10 text-2xl hover:bg-duke" aria-label="Previous photo">‹</button>
+      <img id="lb-img" alt="" class="max-h-full max-w-full rounded-lg object-contain shadow-2xl" />
+      <button id="lb-next" class="absolute right-3 z-10 grid size-12 place-items-center rounded-full bg-white/10 text-2xl hover:bg-duke" aria-label="Next photo">›</button>
+    </div>
+    <p id="lb-caption" class="p-4 text-center text-sm text-white/80"></p>
+  </div>
+</dialog>
+
+<script>
+  function init() {
+    const dlg = document.getElementById('lightbox') as HTMLDialogElement | null;
+    if (!dlg) return;
+    const img = dlg.querySelector<HTMLImageElement>('#lb-img')!;
+    const cap = dlg.querySelector('#lb-caption')!;
+    const count = dlg.querySelector('#lb-count')!;
+    let items: HTMLAnchorElement[] = [];
+    let i = 0;
+    const show = (n: number) => {
+      i = (n + items.length) % items.length;
+      const a = items[i];
+      img.src = a.href;
+      img.alt = a.dataset.caption ?? '';
+      cap.textContent = a.dataset.caption ?? '';
+      count.textContent = `${i + 1} / ${items.length}`;
+    };
+    document.querySelectorAll<HTMLAnchorElement>('a[data-lightbox]').forEach((a) => {
+      a.onclick = (e) => {
+        e.preventDefault();
+        items = [...document.querySelectorAll<HTMLAnchorElement>('a[data-lightbox]')].filter((x) => !x.closest('[hidden]'));
+        show(items.indexOf(a));
+        dlg.showModal();
+      };
+    });
+    dlg.querySelector<HTMLButtonElement>('#lb-close')!.onclick = () => dlg.close();
+    dlg.querySelector<HTMLButtonElement>('#lb-prev')!.onclick = () => show(i - 1);
+    dlg.querySelector<HTMLButtonElement>('#lb-next')!.onclick = () => show(i + 1);
+    dlg.onkeydown = (e) => {
+      if (e.key === 'ArrowLeft') show(i - 1);
+      if (e.key === 'ArrowRight') show(i + 1);
+    };
+    let x0 = 0;
+    dlg.ontouchstart = (e) => (x0 = e.touches[0].clientX);
+    dlg.ontouchend = (e) => {
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 50) show(dx < 0 ? i + 1 : i - 1);
+    };
+  }
+  document.addEventListener('astro:page-load', init);
+</script>

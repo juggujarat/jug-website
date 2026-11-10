@@ -1,0 +1,8 @@
+---
+/** Official Java User Group Gujarat logo (badge + wordmark). */
+interface Props { class?: string; height?: number }
+const { class: cls, height = 44 } = Astro.props;
+---
+<a href="/" class:list={['inline-flex shrink-0 items-center transition hover:opacity-85', cls]} aria-label="Java User Group Gujarat, home">
+  <img src="/Img/jug-full-logo-svg.svg" alt="Java User Group Gujarat logo" width={Math.round(height * 3)} height={height} style={`height:${height}px;width:auto`} />
+</a>

@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PersonCard from '../components/PersonCard.astro';
+import { getSpeakers } from '../lib/data';
+
+const speakers = await getSpeakers();
+const talkCount = speakers.reduce((n, s) => n + s.talks.length, 0);
+---
+<Base title="Speakers" description="Everyone who has taken the Gujarat JUG stage, and the talks they gave." breadcrumbs={[{ name: "Speakers", href: "/speakers" }]}>
+  <PageHero eyebrow="// speakers" title="The people who took the stage" lead={`${speakers.length} speakers, ${talkCount} talks and panels so far. Click anyone to see what they spoke about and where.`} />
+
+  <section class="container-x">
+    <input id="speaker-search" type="search" placeholder="Search by name, company or talk…" aria-label="Search speakers"
+      class="w-full max-w-md rounded-full border border-black/15 bg-black/5 px-5 py-3 placeholder:text-muted focus:border-duke focus:outline-none" />
+    <div id="speaker-grid" class="mt-10 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
+      {speakers.map(({ person, talks }, i) => (
+        <div data-text={[person.data.name, person.data.company, ...talks.map((t) => t.talk.title)].join(' ').toLowerCase()}>
+          <PersonCard person={person} delay={(i % 4) * 60}
+            meta={talks.length > 1 ? `${talks.length} talks` : talks[0].event.data.title} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="container-x mt-24">
+    <div class="card reveal flex flex-col items-start justify-between gap-6 p-10 sm:flex-row sm:items-center">
+      <div>
+        <h2 class="text-3xl font-bold">Want to be on this page?</h2>
+        <p class="mt-2 text-muted">First-time speakers are very welcome. We'll help you shape the talk.</p>
+      </div>
+      <a href="/get-involved#speak" class="btn-primary">Propose a talk →</a>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const input = document.getElementById('speaker-search') as HTMLInputElement | null;
+      if (!input) return;
+      input.oninput = () => {
+        const q = input.value.trim().toLowerCase();
+        document.querySelectorAll<HTMLElement>('#speaker-grid [data-text]').forEach((el) => (el.hidden = !!q && !el.dataset.text!.includes(q)));
+      };
+    });
+  </script>
+</Base>

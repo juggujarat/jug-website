@@ -1,0 +1,81 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import EventCard from '../../components/EventCard.astro';
+import Duke from '../../components/Duke.astro';
+import { getUpcomingEvents, getPastEvents, FORMAT_LABEL } from '../../lib/data';
+import { SITE } from '../../lib/site';
+
+const [upcoming, past] = await Promise.all([getUpcomingEvents(), getPastEvents()]);
+const years = [...new Set(past.map((e) => e.data.date.getUTCFullYear()))];
+const formats = [...new Set(past.map((e) => e.data.format))];
+---
+<Base title="Events" description="Every Gujarat JUG meetup, workshop and conference: talks, speakers, photos and recaps." breadcrumbs={[{ name: "Events", href: "/events" }]}>
+  <PageHero eyebrow="// events" title="Meetups, workshops & Community Day" lead="Every edition we've run, with the talks, the people and the story of how it went." />
+
+  <section class="container-x">
+    <h2 class="text-2xl font-bold">Upcoming</h2>
+    {upcoming.length ? (
+      <div class="mt-6 grid gap-6 md:grid-cols-3">{upcoming.map((e, i) => <EventCard event={e} featured={i === 0} />)}</div>
+    ) : (
+      <div class="card reveal mt-6 flex flex-col items-center gap-6 p-10 text-center sm:flex-row sm:text-left">
+        <Duke size={110} />
+        <div>
+          <p class="text-xl font-semibold">Duke is brewing the next one.</p>
+          <p class="mt-2 text-muted">Follow us on Luma to get notified the moment registrations open.</p>
+          <a href={SITE.links.luma} target="_blank" rel="noopener" class="btn-primary mt-5">Follow on Luma</a>
+        </div>
+      </div>
+    )}
+  </section>
+
+  <section class="container-x pt-20">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <h2 class="text-2xl font-bold">Past events <span class="text-muted">({past.length})</span></h2>
+      <div class="flex flex-wrap gap-2" id="event-filters">
+        <input id="event-search" type="search" placeholder="Search talks, speakers, venues…" aria-label="Search events"
+          class="w-64 rounded-full border border-black/15 bg-black/5 px-4 py-2 text-sm placeholder:text-muted focus:border-duke focus:outline-none" />
+        <button data-filter="all" class="chip aria-pressed:border-duke aria-pressed:text-duke" aria-pressed="true">All</button>
+        {years.map((y) => <button data-filter={`y${y}`} class="chip aria-pressed:border-duke aria-pressed:text-duke" aria-pressed="false">{y}</button>)}
+        {formats.map((f) => <button data-filter={f} class="chip aria-pressed:border-duke aria-pressed:text-duke" aria-pressed="false">{FORMAT_LABEL[f]}</button>)}
+      </div>
+    </div>
+    <div class="mt-8 grid gap-6 md:grid-cols-3" id="event-grid">
+      {past.map((e, i) => (
+        <div data-tags={`y${e.data.date.getUTCFullYear()} ${e.data.format}`}
+          data-text={[e.data.title, e.data.venueName, e.data.city, ...e.data.talks.map((t) => t.title + ' ' + t.speakers.map((s) => s.id.replace(/-/g, ' ')).join(' ')), ...e.data.tags].join(' ').toLowerCase()}>
+          <EventCard event={e} delay={(i % 3) * 80} />
+        </div>
+      ))}
+    </div>
+    <p id="event-empty" class="hidden py-16 text-center text-muted">No events match that. Try another search.</p>
+  </section>
+
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const grid = document.getElementById('event-grid');
+      if (!grid) return;
+      const search = document.getElementById('event-search') as HTMLInputElement;
+      const buttons = document.querySelectorAll<HTMLButtonElement>('#event-filters [data-filter]');
+      let filter = 'all';
+      const apply = () => {
+        const q = search.value.trim().toLowerCase();
+        let shown = 0;
+        grid.querySelectorAll<HTMLElement>('[data-tags]').forEach((el) => {
+          const ok = (filter === 'all' || el.dataset.tags!.split(' ').includes(filter)) && (!q || el.dataset.text!.includes(q));
+          el.hidden = !ok;
+          if (ok) shown++;
+        });
+        document.getElementById('event-empty')!.classList.toggle('hidden', shown > 0);
+      };
+      buttons.forEach((b) => (b.onclick = () => {
+        filter = b.dataset.filter!;
+        buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        apply();
+      }));
+      search.oninput = apply;
+      const tag = new URLSearchParams(location.search).get('tag');
+      if (tag) { search.value = tag; apply(); }
+    });
+  </script>
+</Base>

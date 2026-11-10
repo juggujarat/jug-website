@@ -1,0 +1,25 @@
+---
+import type { PersonEntry } from '../lib/data';
+import Avatar from './Avatar.astro';
+interface Props { person: PersonEntry; meta?: string; delay?: number }
+const { person, meta, delay = 0 } = Astro.props;
+const d = person.data;
+---
+<div data-glow class="card card-hover reveal group relative flex flex-col items-center p-6 text-center" style={`--d:${delay}ms`}>
+  <div class="relative">
+    <div class="absolute -inset-1 rounded-full bg-gradient-to-tr from-duke via-duke-soft to-duke-dark opacity-0 blur-md transition duration-500 group-hover:opacity-70"></div>
+    <Avatar name={d.name} photo={d.photo} size="size-28" class="relative" />
+  </div>
+  <h3 class="mt-5 text-lg font-bold leading-tight group-hover:text-duke">
+    <a href={`/people/${person.id}`} class="after:absolute after:inset-0 after:content-['']">{d.name}</a>
+  </h3>
+  {(d.headline || d.company) && (
+    <p class="mt-1 text-sm text-muted">
+      {d.headline}{d.headline && d.company && ' · '}
+      {d.company && (d.companyUrl
+        ? <a href={d.companyUrl} target="_blank" rel="noopener" class="relative z-10 underline decoration-duke/40 underline-offset-2 hover:text-duke">{d.company}</a>
+        : d.company)}
+    </p>
+  )}
+  {meta && <p class="mt-3 font-mono text-[11px] uppercase tracking-widest text-duke">{meta}</p>}
+</div>
