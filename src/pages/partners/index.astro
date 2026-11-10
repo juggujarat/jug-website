@@ -9,10 +9,9 @@ const [partners, support] = await Promise.all([getCollection('partners'), getSup
 const count = (id: string) => support.get(id)?.length ?? 0;
 const groups = [
   { title: 'Companies & venues', lead: 'Organisations that opened their offices, sponsored editions, fed us or sent goodies.', items: partners.filter((p) => p.data.kind === 'company' || p.data.kind === 'university') },
-  { title: 'Community partners', lead: 'Local tech communities we build with.', items: partners.filter((p) => p.data.kind === 'community') },
 ].map((g) => ({ ...g, items: g.items.sort((a, b) => count(b.id) - count(a.id) || a.data.name.localeCompare(b.data.name)) }));
 ---
-<Base title="Partners" description="The companies, universities and communities that support Gujarat JUG." breadcrumbs={[{ name: "Partners", href: "/partners" }]}>
+<Base title="Partners" description="The companies and universities that support Gujarat JUG." breadcrumbs={[{ name: "Partners", href: "/partners" }]}>
   <PageHero eyebrow="// partners" title="Free meetups aren't free. These folks make them possible." lead="Venues, sponsors, food, goodies and good vibes. Thank you." />
   {groups.map((g) => g.items.length > 0 && (
     <section class="container-x mb-20">

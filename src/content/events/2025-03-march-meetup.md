@@ -42,7 +42,7 @@ Java now ships a new release every six months, and it's easy to fall behind. [**
 
 ## Talk 2: The art of Dockerizing Java apps
 
-Next, [**Dhaval Gajjar**](https://www.linkedin.com/in/dhavalgajjarin/), System Architect at Staunchsys and one of Gujarat JUG's organisers, covered how to containerise Java applications properly:
+Next, [**Dhaval Gajjar**](/people/dhaval-gajjar), System Architect at Staunchsys and one of Gujarat JUG's organisers, covered how to containerise Java applications properly:
 
 - Why containers matter for Java teams, from local dev to production
 - Building **lightweight images** with multi-stage builds and slim base images

@@ -48,6 +48,6 @@ Attendees left with runnable demo code, profiling commands and a five-question c
 
 ## Thank you
 
-Thanks to our hosts [**Dhaval Gajjar**](https://www.linkedin.com/in/dhavalgajjarin/), [**Vikas Rajput**](https://www.linkedin.com/in/vikasrajputin/) and [**Daman Singh Rajput**](/people/daman-singh-rajput), and to **IGNEK** for hosting the community.
+Thanks to our hosts [**Dhaval Gajjar**](/people/dhaval-gajjar), [**Vikas Rajput**](/people/vikas-rajput) and [**Daman Singh Rajput**](/people/daman-singh-rajput), and to **IGNEK** for hosting the community.
 
 <!-- TO ADD (organisers): actual turnout, giveaways. -->
