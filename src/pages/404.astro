@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import Duke from '../components/Duke.astro';
+---
+<Base title="Page not found">
+  <section class="container-x flex min-h-[80vh] flex-col items-center justify-center pt-24 text-center">
+    <Duke size={200} steam />
+    <p class="mt-10 font-mono text-duke">java.lang.ClassNotFoundException</p>
+    <h1 class="h-display mt-4 text-6xl sm:text-8xl">404</h1>
+    <p class="mt-4 max-w-md text-lg text-muted">Duke looked everywhere on the classpath and couldn't find this page.</p>
+    <a href="/" class="btn-primary mt-8">catch (e) {'{'} goHome(); {'}'}</a>
+  </section>
+</Base>

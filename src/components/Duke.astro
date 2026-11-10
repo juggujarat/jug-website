@@ -1,0 +1,16 @@
+---
+/** Duke, the Java mascot (BSD-licensed artwork). Optional floating animation and coffee steam. */
+interface Props { size?: number; class?: string; float?: boolean; steam?: boolean }
+const { size = 160, class: cls = '', float = true, steam = false } = Astro.props;
+---
+<div class:list={['relative inline-block select-none', cls]} style={`width:${size}px`} aria-hidden="true">
+  {steam && (
+    <div class="absolute -top-6 left-1/2 flex -translate-x-1/2 gap-2">
+      {[0, 1, 2].map((i) => (
+        <span class="steam block h-8 w-1.5 rounded-full bg-duke/25 blur-[2px]" style={`animation-delay:${i * 0.8}s`} />
+      ))}
+    </div>
+  )}
+  <img src="/Img/duke-logo-svg.svg" alt="" width={size} height={Math.round(size * 1.04)}
+    class:list={['drop-shadow-[0_20px_40px_rgba(236,43,51,0.35)]', float && 'float']} />
+</div>

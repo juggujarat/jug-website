@@ -1,0 +1,15 @@
+---
+import { initials } from '../lib/data';
+interface Props { name: string; photo?: string; size?: string; class?: string }
+const { name, photo, size = 'size-24', class: cls = '' } = Astro.props;
+// deterministic accent per person
+const hues = ['from-duke to-duke-soft', 'from-duke-dark to-duke', 'from-duke-soft to-duke-soft', 'from-duke-dark to-duke-soft'];
+const hue = hues[[...name].reduce((n, c) => n + c.charCodeAt(0), 0) % hues.length];
+---
+{photo ? (
+  <img src={photo} alt={name} loading="lazy" class:list={[size, 'rounded-full object-cover bg-mist ring-2 ring-black/10', cls]} />
+) : (
+  <div class:list={[size, 'grid place-items-center rounded-full bg-gradient-to-br font-bold text-white ring-2 ring-black/10', hue, cls]} aria-label={name}>
+    <span class="text-[clamp(0.9rem,2.5vw,1.8rem)]">{initials(name)}</span>
+  </div>
+)}

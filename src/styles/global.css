@@ -1,0 +1,234 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/jetbrains-mono';
+
+/* Brand: the official JUG Gujarat badge colours. White is primary, Duke red is secondary,
+   near-black ink for text. */
+@theme {
+  --font-sans: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+
+  --color-paper: #ffffff;
+  --color-mist: #fdf3f3;
+  --color-ink: #161616;
+  --color-muted: #5f5f5f;
+  --color-duke: #e1262d;
+  --color-duke-soft: #f2555b;
+  --color-duke-dark: #a8161c;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+  }
+  ::selection {
+    @apply bg-duke text-white;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-duke;
+  }
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility eyebrow {
+  @apply font-mono text-xs uppercase tracking-[0.25em] text-duke;
+}
+
+@utility h-display {
+  @apply font-bold tracking-tight leading-[0.95] text-balance;
+}
+
+@utility card {
+  @apply rounded-3xl border border-black/10 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition duration-300;
+}
+
+@utility card-hover {
+  @apply hover:-translate-y-1 hover:border-duke/50 hover:shadow-[0_24px_60px_-24px_rgba(225,38,45,0.35)];
+}
+
+@utility btn {
+  @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition duration-200 active:scale-95;
+}
+
+@utility btn-primary {
+  @apply btn bg-duke text-white hover:bg-duke-dark hover:shadow-[0_10px_30px_-8px_rgba(225,38,45,0.6)];
+}
+
+@utility btn-ghost {
+  @apply btn border border-black/20 text-ink hover:border-duke hover:text-duke;
+}
+
+@utility chip {
+  @apply inline-flex items-center gap-1 rounded-full border border-black/10 bg-mist px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-muted;
+}
+
+@utility prose-jug {
+  @apply max-w-none text-lg leading-relaxed text-ink/80;
+}
+
+.prose-jug :where(h2) {
+  @apply mt-12 mb-4 text-3xl font-bold text-ink;
+}
+
+.prose-jug :where(h3) {
+  @apply mt-8 mb-3 text-xl font-semibold text-ink;
+}
+
+.prose-jug :where(p, ul, ol) {
+  @apply mb-5;
+}
+
+.prose-jug :where(ul) {
+  @apply list-disc pl-6;
+}
+
+.prose-jug :where(a) {
+  @apply text-duke underline decoration-duke/40 underline-offset-4 hover:decoration-duke;
+}
+
+.prose-jug :where(code) {
+  @apply rounded bg-mist px-1.5 py-0.5 font-mono text-sm text-duke;
+}
+
+.prose-jug :where(blockquote) {
+  @apply my-8 border-l-4 border-duke pl-6 text-xl italic text-ink;
+}
+
+/* ---------- motion ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--d, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--speed, 40s) linear infinite;
+}
+.marquee-wrap:hover .marquee {
+  animation-play-state: paused;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(3deg);
+  }
+}
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes steam {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-60px) scaleX(1.6);
+    opacity: 0;
+  }
+}
+.steam {
+  animation: steam 3.2s ease-out infinite;
+}
+
+@keyframes blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(40px, -30px) scale(1.1);
+  }
+  66% {
+    transform: translate(-30px, 20px) scale(0.95);
+  }
+}
+.blob {
+  animation: blob 18s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: blink 1s steps(1) infinite;
+}
+
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .marquee,
+  .float,
+  .steam,
+  .blob,
+  .caret {
+    animation: none;
+  }
+}
+
+/* Slow zoom on hero photos */
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+.hero-kenburns {
+  animation: kenburns 12s ease-out infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-kenburns { animation: none; }
+}
+
+/* Hero collage: columns drift vertically in opposite directions */
+@keyframes collage-up { to { transform: translateY(-50%); } }
+@keyframes collage-down { from { transform: translateY(-50%); } to { transform: translateY(0); } }
+.collage-up { animation: collage-up var(--speed, 50s) linear infinite; }
+.collage-down { animation: collage-down var(--speed, 50s) linear infinite; }
+.collage:hover .collage-col { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .collage-up, .collage-down { animation: none; }
+}

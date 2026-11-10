@@ -1,0 +1,32 @@
+name: Sync Luma events
+
+on:
+  workflow_dispatch:
+    inputs:
+      slugs:
+        description: 'Optional space-separated Luma slugs/URLs (default: data/luma/events.txt)'
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/sync-luma.mjs $SLUGS
+        env:
+          SLUGS: ${{ github.event.inputs.slugs }}
+      - name: Open a PR with the snapshots
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: chore/luma-sync
+          title: 'chore: sync Luma event snapshots'
+          commit-message: 'chore: sync Luma event snapshots'
+          body: 'Automated snapshot of public Luma event pages into `data/luma/`.'
+          add-paths: data/luma/

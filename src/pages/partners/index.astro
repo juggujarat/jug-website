@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import PartnerLogo from '../../components/PartnerLogo.astro';
+import { getSupportByPartner, ROLE_LABEL } from '../../lib/data';
+
+const [partners, support] = await Promise.all([getCollection('partners'), getSupportByPartner()]);
+const count = (id: string) => support.get(id)?.length ?? 0;
+const groups = [
+  { title: 'Companies & venues', lead: 'Organisations that opened their offices, sponsored editions, fed us or sent goodies.', items: partners.filter((p) => p.data.kind === 'company' || p.data.kind === 'university') },
+  { title: 'Fellow Java User Groups', lead: 'Sister JUGs across India that cheer us on and cross-promote.', items: partners.filter((p) => p.data.kind === 'jug') },
+  { title: 'Community partners', lead: 'Local tech communities we build with.', items: partners.filter((p) => p.data.kind === 'community') },
+].map((g) => ({ ...g, items: g.items.sort((a, b) => count(b.id) - count(a.id) || a.data.name.localeCompare(b.data.name)) }));
+---
+<Base title="Partners" description="The companies, universities and communities that support Gujarat JUG." breadcrumbs={[{ name: "Partners", href: "/partners" }]}>
+  <PageHero eyebrow="// partners" title="Free meetups aren't free. These folks make them possible." lead="Venues, sponsors, food, goodies and good vibes. Thank you." />
+  {groups.map((g) => g.items.length > 0 && (
+    <section class="container-x mb-20">
+      <h2 class="text-3xl font-bold">{g.title}</h2>
+      <p class="mt-2 text-muted">{g.lead}</p>
+      <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {g.items.map((p, i) => {
+          const roles = [...new Set((support.get(p.id) ?? []).map((s) => ROLE_LABEL[s.role]))];
+          return (
+            <div class="reveal" style={`--d:${(i % 4) * 60}ms`}>
+              <PartnerLogo partner={p} />
+              <p class="mt-3 text-center text-sm font-semibold">{p.data.name}</p>
+              {roles.length > 0 && <p class="text-center font-mono text-[11px] uppercase tracking-wider text-duke">{roles.join(' · ')}</p>}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  ))}
+  <section class="container-x">
+    <div class="reveal rounded-[2rem] bg-mist p-10 text-ink ring-1 ring-duke/15 sm:p-14">
+      <h2 class="h-display text-4xl">Put your logo here</h2>
+      <p class="mt-3 max-w-xl text-ink/70">Host a meetup at your office, sponsor food or goodies, or back Community Day for Java. You'll be in front of hundreds of Java developers.</p>
+      <a href="/get-involved#sponsor" class="btn mt-6 bg-paper text-ink hover:bg-duke">Partner with us →</a>
+    </div>
+  </section>
+</Base>

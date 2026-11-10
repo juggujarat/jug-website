@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PersonCard from '../components/PersonCard.astro';
+import Duke from '../components/Duke.astro';
+import { getTeam, getStats, getPastEvents, formatEventDate } from '../lib/data';
+
+const [{ core }, stats, past] = await Promise.all([getTeam(), getStats(), getPastEvents()]);
+const timeline = [...past].reverse();
+const pillars = [
+  { icon: '🎟️', title: 'Always free', body: 'Meetups are free to attend. RSVPs on Luma only help us plan seats and food.' },
+  { icon: '🏢', title: 'Hosted by companies', body: 'Local companies and universities open their offices and campuses to us for each edition.' },
+  { icon: '🍕', title: 'Backed by sponsors', body: 'Sponsors cover food, goodies and the bigger costs of Community Day for Java.' },
+  { icon: '🙌', title: 'Run by volunteers', body: 'The core team and volunteers plan, host and clean up. Nobody is paid.' },
+];
+---
+<Base title="Our story" description="How Gujarat JUG started, who runs it, and how a free community keeps going." breadcrumbs={[{ name: "Our story", href: "/about" }]}>
+  <PageHero eyebrow="// our story" title="Two years of Java in Gujarat" lead={`${stats.events} events, ${stats.registrations.toLocaleString('en-IN')}+ registrations and ${stats.speakers} speakers since we started.`} />
+
+  <!-- STORY: TODO(Vikas) replace with the real founding story -->
+  <section class="container-x grid items-center gap-12 lg:grid-cols-[1.4fr_1fr]">
+    <div class="prose-jug">
+      <h2>How it started</h2>
+      <p>Gujarat Java User Group started in 2024 with a simple idea: Ahmedabad and Gandhinagar have thousands of Java developers, but nowhere to meet, learn from each other and talk shop.</p>
+      <p><em>[Founding story to be written: who started it, why, and what the first meetup was like.]</em></p>
+      <blockquote>Learn, share, and grow together.</blockquote>
+    </div>
+    <div class="reveal mx-auto"><Duke size={260} steam /></div>
+  </section>
+
+  <section class="container-x mt-28">
+    <p class="eyebrow">// the journey</p>
+    <h2 class="h-display mt-3 text-4xl sm:text-5xl">Every edition so far</h2>
+    <ol class="relative mt-12 border-l-2 border-dashed border-black/15 pl-8 sm:pl-12">
+      {timeline.map((e, i) => (
+        <li class="reveal relative pb-10" style={`--d:${(i % 4) * 60}ms`}>
+          <span class="absolute -left-[41px] top-1 grid size-5 place-items-center rounded-full bg-duke ring-4 ring-paper sm:-left-[57px]"></span>
+          <p class="font-mono text-xs uppercase tracking-widest text-duke">{formatEventDate(e, { short: true })}</p>
+          <a href={`/events/${e.id}`} class="mt-1 block text-xl font-semibold hover:text-duke">{e.data.title}</a>
+          <p class="text-sm text-muted">{e.data.venueName ?? e.data.city}{e.data.registered && ` · ${e.data.registered} registered`}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="container-x mt-20">
+    <p class="eyebrow">// how we run</p>
+    <h2 class="h-display mt-3 text-4xl sm:text-5xl">How a free community keeps going</h2>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {pillars.map((p, i) => (
+        <div class="card reveal p-7" style={`--d:${i * 80}ms`}>
+          <p class="text-4xl">{p.icon}</p>
+          <h3 class="mt-4 text-xl font-bold">{p.title}</h3>
+          <p class="mt-2 text-muted">{p.body}</p>
+        </div>
+      ))}
+    </div>
+    <p class="mt-6 text-sm text-muted"><em>[Funding details to be confirmed.]</em> <a href="/partners" class="text-duke hover:underline">See all our partners →</a></p>
+  </section>
+
+  <section class="container-x mt-28">
+    <p class="eyebrow">// core team</p>
+    <h2 class="h-display mt-3 text-4xl sm:text-5xl">The people behind it</h2>
+    <div class="mt-10 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
+      {core.map((p, i) => <PersonCard person={p} meta={p.data.teamTitle} delay={(i % 4) * 60} />)}
+    </div>
+    <a href="/team" class="btn-ghost mt-8">Meet all volunteers →</a>
+  </section>
+</Base>

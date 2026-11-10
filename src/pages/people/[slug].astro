@@ -1,0 +1,111 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Avatar from '../../components/Avatar.astro';
+import { getTalksByPerson, getHostedByPerson, formatEventDate } from '../../lib/data';
+
+export async function getStaticPaths() {
+  const people = await getCollection('people');
+  return people.map((person) => ({ params: { slug: person.id }, props: { person } }));
+}
+
+const { person } = Astro.props;
+const d = person.data;
+const { Content } = await render(person);
+const hasBio = Boolean(person.body?.trim());
+const talks = (await getTalksByPerson()).get(person.id) ?? [];
+const hosted = (await getHostedByPerson()).get(person.id) ?? [];
+
+const badges = [
+  ...(d.roles.includes('founder') ? ['Founder'] : []),
+  ...(d.roles.includes('core') ? ['Core team'] : []),
+  ...(d.roles.includes('volunteer') ? ['Volunteer'] : []),
+  ...(talks.length ? ['Speaker'] : []),
+  ...(hosted.length ? ['Host'] : []),
+];
+const socialLabels: Record<string, string> = { linkedin: 'LinkedIn', x: 'X', github: 'GitHub', website: 'Website', instagram: 'Instagram', youtube: 'YouTube' };
+const socials = Object.entries(d.socials).filter(([, v]) => v);
+const title = [d.headline, d.company].filter(Boolean).join(' at ');
+const bioLead = (person.body ?? '').trim().split(/\n\s*\n/)[0]?.replace(/[*_`]/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') ?? '';
+const personLd = {
+  ...(bioLead ? { description: bioLead } : {}),
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: d.name,
+  jobTitle: d.headline,
+  worksFor: d.company ? { '@type': 'Organization', name: d.company, ...(d.companyUrl ? { url: d.companyUrl } : {}) } : undefined,
+  image: d.photo ? new URL(d.photo, Astro.site).href : undefined,
+  url: new URL(Astro.url.pathname, Astro.site).href,
+  sameAs: Object.values(d.socials).filter(Boolean),
+  memberOf: { '@type': 'Organization', name: 'Java User Group Gujarat' },
+};
+const isSpeaker = talks.length > 0;
+const section = isSpeaker ? { name: 'Speakers', href: '/speakers' } : { name: 'Team', href: '/team' };
+const metaDesc = `${d.name}${title ? `, ${title}` : ''}. ${badges.join(', ')} at Java User Group Gujarat${isSpeaker ? `: talks include ${talks.map((t) => `"${t.talk.title}"`).join(', ')}` : ''}.`.slice(0, 300);
+---
+<Base title={`${d.name}${isSpeaker ? ' – Speaker' : ''}`} description={metaDesc} image={d.photo} type="profile" jsonLd={personLd}
+  breadcrumbs={[section, { name: d.name, href: `/people/${person.id}` }]}>
+  <section class="relative overflow-hidden pt-8 grain">
+    <div class="blob pointer-events-none absolute -top-40 left-1/3 size-[520px] rounded-full bg-duke/10 blur-[120px]"></div>
+    <div class="container-x relative grid items-center gap-10 pb-16 md:grid-cols-[auto_1fr]">
+      <div class="reveal relative mx-auto md:mx-0">
+        <div class="absolute -inset-2 rounded-full bg-gradient-to-tr from-duke via-duke-soft to-duke-dark blur-lg opacity-60"></div>
+        <Avatar name={d.name} photo={d.photo} size="size-48 sm:size-56" class="relative ring-4 ring-paper" />
+      </div>
+      <div class="text-center md:text-left">
+        <div class="reveal flex flex-wrap justify-center gap-2 md:justify-start">{badges.map((b) => <span class="chip border-duke/40 text-duke">{b}</span>)}</div>
+        <h1 class="h-display reveal mt-4 text-5xl sm:text-7xl" style="--d:80ms">{d.name}</h1>
+        {title && (
+          <p class="reveal mt-3 text-xl text-muted" style="--d:140ms">
+            {d.headline}{d.headline && d.company && ' at '}
+            {d.company && (d.companyUrl
+              ? <a href={d.companyUrl} target="_blank" rel="noopener" class="text-ink underline decoration-duke/50 underline-offset-4 hover:text-duke">{d.company}</a>
+              : d.company)}
+            {d.teamTitle && ` · ${d.teamTitle}`}
+          </p>
+        )}
+        {socials.length > 0 && (
+          <div class="reveal mt-6 flex flex-wrap justify-center gap-2 md:justify-start" style="--d:200ms">
+            {socials.map(([k, v]) => <a href={v} target="_blank" rel="noopener" class="btn-ghost">{socialLabels[k]} ↗</a>)}
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <div class="container-x grid gap-16 lg:grid-cols-[1fr_1fr]">
+    <section>
+      <p class="eyebrow">// about</p>
+      {hasBio ? <div class="prose-jug mt-4"><Content /></div> : <p class="mt-4 text-muted">Bio coming soon.</p>}
+    </section>
+
+    <section class="space-y-12">
+      {talks.length > 0 && (
+        <div>
+          <p class="eyebrow">// talks at Gujarat JUG</p>
+          <ul class="mt-5 space-y-4">
+            {talks.map(({ event, talk }) => (
+              <li><a href={`/events/${event.id}`} class="card card-hover reveal block p-5">
+                <p class="font-mono text-xs uppercase tracking-widest text-duke">{formatEventDate(event, { short: true })} · {talk.kind}</p>
+                <p class="mt-2 text-lg font-semibold">{talk.title}</p>
+                <p class="mt-1 text-sm text-muted">at {event.data.title}</p>
+              </a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {hosted.length > 0 && (
+        <div>
+          <p class="eyebrow">// hosted</p>
+          <ul class="mt-5 space-y-2">
+            {hosted.map((e) => (
+              <li><a href={`/events/${e.id}`} class="flex justify-between gap-4 border-b border-black/10 py-3 hover:text-duke">
+                <span>{e.data.title}</span><span class="shrink-0 font-mono text-xs text-muted">{formatEventDate(e, { short: true })}</span>
+              </a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+  </div>
+</Base>

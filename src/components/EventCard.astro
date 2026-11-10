@@ -1,0 +1,42 @@
+---
+import type { EventEntry } from '../lib/data';
+import { formatEventDate, FORMAT_LABEL, isUpcoming } from '../lib/data';
+import { Image } from 'astro:assets';
+import { bannerFor } from '../lib/photos';
+interface Props { event: EventEntry; featured?: boolean; delay?: number }
+const { event, featured = false, delay = 0 } = Astro.props;
+const d = event.data;
+const upcoming = isUpcoming(event);
+const banner = bannerFor(event);
+const speakerCount = new Set(d.talks.flatMap((t) => t.speakers.map((s) => s.id))).size;
+---
+<a href={`/events/${event.id}`} data-glow
+  class:list={['card card-hover reveal group relative flex flex-col overflow-hidden', featured && 'md:col-span-2 md:flex-row']}
+  style={`--d:${delay}ms`}>
+  <div class:list={['relative overflow-hidden bg-mist', featured ? 'aspect-[16/10] md:aspect-auto md:w-3/5' : 'aspect-[16/10]']}>
+    {banner ? (
+      <Image src={banner.image} alt={`Group photo from ${d.title}`} widths={[480, 960]} sizes="(min-width: 768px) 40vw, 100vw" loading="lazy"
+        class="size-full object-cover transition duration-700 group-hover:scale-105" transition:name={`cover-${event.id}`} />
+    ) : d.cover ? (
+      <img src={d.cover} alt="" loading="lazy" class="size-full object-cover transition duration-700 group-hover:scale-105" transition:name={`cover-${event.id}`} />
+    ) : (
+      <div class="grid size-full place-items-center bg-gradient-to-br from-duke/30 to-duke-soft/20 font-mono text-5xl text-ink/30">{'{ }'}</div>
+    )}
+    <div class="absolute left-4 top-4 flex gap-2">
+      {upcoming && <span class="chip border-duke bg-duke text-white">Upcoming</span>}
+      <span class="chip bg-paper/70 backdrop-blur">{FORMAT_LABEL[d.format]}</span>
+    </div>
+  </div>
+  <div class="flex flex-1 flex-col gap-3 p-6">
+    <p class="font-mono text-xs uppercase tracking-widest text-duke">{formatEventDate(event)} · {d.city}</p>
+    <h3 class:list={['font-bold leading-tight tracking-tight transition group-hover:text-duke', featured ? 'text-3xl' : 'text-xl']}>{d.title}</h3>
+    {d.tagline && <p class="text-muted">{d.tagline}</p>}
+    <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-3 text-sm text-muted">
+      {d.registered && <span><b class="text-ink">{d.registered}</b> registered</span>}
+      {speakerCount > 0 && <span><b class="text-ink">{speakerCount}</b> speaker{speakerCount > 1 && 's'}</span>}
+      {d.venueName && <span class="truncate">@ {d.venueName}</span>}
+    </div>
+  </div>
+  <div class="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100"
+    style="background: radial-gradient(400px circle at var(--x) var(--y), rgba(227,38,45,0.10), transparent 40%)"></div>
+</a>

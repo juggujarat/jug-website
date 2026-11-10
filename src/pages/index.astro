@@ -1,0 +1,230 @@
+---
+import Base from '../layouts/Base.astro';
+import Duke from '../components/Duke.astro';
+import { Image } from 'astro:assets';
+import { allPhotos, isGroupPhoto } from '../lib/photos';
+import EventCard from '../components/EventCard.astro';
+import Avatar from '../components/Avatar.astro';
+import PartnerLogo from '../components/PartnerLogo.astro';
+import { getCollection } from 'astro:content';
+import { getUpcomingEvents, getPastEvents, getSpeakers, getStats, formatEventDate } from '../lib/data';
+import { SITE } from '../lib/site';
+
+const [upcoming, past, speakers, stats, partners] = await Promise.all([
+  getUpcomingEvents(),
+  getPastEvents(),
+  getSpeakers(),
+  getStats(),
+  getCollection('partners'),
+]);
+const next = upcoming[0];
+const recent = past.slice(0, 5);
+const companyPartners = partners.filter((p) => p.data.kind !== 'jug' && p.data.kind !== 'community');
+const communityPartners = partners.filter((p) => p.data.kind === 'jug' || p.data.kind === 'community');
+const statItems = [
+  { n: stats.events, label: 'events hosted' },
+  { n: stats.registrations, label: 'registrations', suffix: '+' },
+  { n: stats.speakers, label: 'speakers' },
+  { n: stats.partners, label: 'partners & communities' },
+];
+// Hero photos (real meetup photos from src/assets/meetups)
+const photos = allPhotos();
+const pick = (n: number, file: string) => photos.find((p) => p.meetupNumber === n && p.file === file)!;
+const byNumber = new Map(past.map((e) => [e.data.meetupNumber, e]));
+type Tile = { photo: ReturnType<typeof pick>; aspect: string; alt: string; label: string; href: string; zoom?: number; origin?: string; pos?: string };
+const tile = (n: number, file: string, aspect: string, label: string, zoom?: number, origin = '50% 60%', pos?: string): Tile => {
+  const photo = pick(n, file);
+  const ev = byNumber.get(n);
+  return { photo, aspect, label: ev ? ev.data.title : label, zoom, origin, pos, alt: ev ? `${label}, ${ev.data.title}` : label, href: ev ? `/events/${ev.id}` : '/gallery' };
+};
+const group = (n: number) => photos.find((p) => p.meetupNumber === n && isGroupPhoto(p.file))!.file;
+const collage: Tile[][] = [
+  [
+    tile(20, 'photo-05.jpg', 'aspect-square', 'Dhaval Gajjar thanking our hosts · #20', 1.15, '58% 30%'),
+    tile(20, group(20), 'aspect-square', 'Meetup #20 · Caffix', 1.7, '50% 62%'),
+    tile(17, 'photo-03.jpg', 'aspect-square', 'Selfie time · #17'),
+    tile(13, 'photo-03.jpg', 'aspect-[3/4]', 'On stage · #13'),
+  ],
+  [
+    tile(19, 'photo-19.jpg', 'aspect-[4/5]', 'Our growth story · #19', 1.5, '45% 55%'),
+    tile(19, group(19), 'aspect-square', 'Meetup #19 · IBM ISL', 1.7, '45% 62%'),
+    tile(12, 'photo-04.jpg', 'aspect-[4/5]', 'Deep in the talk · #12', 1.2, '70% 60%'),
+    tile(18, 'photo-02.jpg', 'aspect-[3/4]', 'Vikas Rajput · #18', undefined, undefined, '4% 40%'),
+  ],
+  [
+    tile(11, group(11), 'aspect-square', 'Meetup #11 · 7Span', 1.6, '50% 55%'),
+    tile(18, 'photo-15.jpg', 'aspect-[3/4]', 'Agents with Java · #18', 1.3, '50% 40%'),
+    tile(21, 'photo-05.jpg', 'aspect-square', 'All smiles · #21', 1.3, '50% 60%'),
+    tile(14, group(14), 'aspect-square', 'Meetup #14 · GIFT City', 1.7, '50% 60%'),
+  ],
+];
+const used = new Set(collage.flat().map((t) => t.photo));
+// Two non-group photos from each meetup for the film strip
+const strip = [...new Set(photos.map((p) => p.meetupNumber))].reverse().flatMap((n) =>
+  photos.filter((p) => p.meetupNumber === n && !isGroupPhoto(p.file) && !used.has(p)).slice(0, 2),
+);
+const videos = [
+  { id: '65jLZYSIB3A', title: 'Gujarat JUG session' },
+  { id: '5z53EUXWjtU', title: 'Gujarat JUG session' },
+];
+---
+<Base>
+  <!-- HERO -->
+  <section class="relative isolate overflow-hidden pt-28 sm:pt-32">
+    <div class="blob pointer-events-none absolute -top-40 right-[-10%] -z-10 size-[640px] rounded-full bg-duke/10 blur-[140px]"></div>
+
+    <div class="container-x grid items-center gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
+      <div>
+        <h1 class="h-display reveal text-[clamp(2.75rem,7vw,5.75rem)]" style="--d:100ms">
+          Gujarat's home for <span class="relative inline-block text-duke">Java<svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none"><path d="M2 9C50 3 150 3 198 9" stroke="currentColor" stroke-opacity=".35" stroke-width="4" stroke-linecap="round"/></svg></span> people.
+        </h1>
+        <p class="reveal mt-6 max-w-xl text-lg text-muted sm:text-xl" style="--d:200ms">
+          Every month, developers across Ahmedabad and Gandhinagar fill a room to learn, share and build together. Free, in person, and run by developers for developers.
+        </p>
+        <div class="reveal mt-8 flex flex-wrap gap-3" style="--d:300ms">
+          {next ? (
+            <a href={`/events/${next.id}`} class="btn-primary text-base">Next up: {next.data.title} →</a>
+          ) : (
+            <a href={SITE.links.luma} target="_blank" rel="noopener" class="btn-primary text-base">Join the next meetup →</a>
+          )}
+          <a href="/gallery" class="btn-ghost text-base">See the photos</a>
+        </div>
+      </div>
+
+      <!-- Photo collage: three columns drifting in opposite directions -->
+      <div class="reveal relative h-[460px] overflow-hidden [mask-image:linear-gradient(transparent,black_10%,black_90%,transparent)] sm:h-[600px]" style="--d:200ms" aria-label="Photos from Gujarat JUG meetups">
+        <div class="collage grid h-full grid-cols-3 gap-3 sm:gap-4">
+          {collage.map((col, ci) => (
+            <div class="overflow-hidden">
+              <div class:list={['collage-col flex flex-col', ci === 1 ? 'collage-down' : 'collage-up']} style={`--speed:${[46, 54, 50][ci]}s`}>
+                {[...col, ...col].map((t, i) => (
+                  <a href={t.href} tabindex={i < col.length ? undefined : -1} aria-hidden={i < col.length ? undefined : 'true'}
+                    class:list={['group relative mb-3 block shrink-0 overflow-hidden rounded-2xl sm:mb-4 border border-black/10 bg-mist shadow-lg', t.aspect]}>
+                    <Image src={t.photo.image} alt={t.alt} widths={[400, 800]} sizes="(min-width: 1024px) 18vw, 33vw"
+                      loading={i < col.length ? 'eager' : 'lazy'}
+                      class="size-full object-cover transition duration-700 group-hover:scale-[1.06]"
+                      style={[t.zoom && `transform-origin:${t.origin};scale:${t.zoom}`, t.pos && `object-position:${t.pos}`].filter(Boolean).join(';') || undefined} />
+                    <span class="absolute inset-x-0 bottom-0 hidden bg-gradient-to-t from-black/70 to-transparent px-2.5 pb-2 pt-8 sm:block">
+                      <span class="block font-mono text-[10px] font-semibold uppercase tracking-wider text-white/80">Meetup #{t.photo.meetupNumber}</span>
+                      <span class="line-clamp-2 text-[11px] font-semibold leading-snug text-white sm:text-xs">{t.label}</span>
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Film strip -->
+    <div class="marquee-wrap relative mt-16 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]" aria-label="Moments from our meetups">
+      <div class="marquee gap-3" style="--speed:90s">
+        {[...strip, ...strip].map((ph, i) => (
+          <a href="/gallery" tabindex={i < strip.length ? undefined : -1} aria-hidden={i < strip.length ? undefined : 'true'} class="block shrink-0 overflow-hidden rounded-2xl">
+            <Image src={ph.image} alt={`Moment from Gujarat JUG meetup #${ph.meetupNumber}`} height={200} class="h-36 w-auto object-cover transition duration-500 hover:scale-105 sm:h-44" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="border-y border-black/10 bg-mist">
+    <div class="container-x grid grid-cols-2 divide-black/10 md:grid-cols-4 md:divide-x">
+      {statItems.map((s, i) => (
+        <div class="reveal px-4 py-10 text-center" style={`--d:${i * 80}ms`}>
+          <p class="text-5xl font-bold tracking-tight sm:text-6xl"><span data-count={s.n}>{s.n}</span><span class="text-duke">{s.suffix}</span></p>
+          <p class="mt-2 font-mono text-xs uppercase tracking-widest text-muted">{s.label}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- RECENT EVENTS -->
+  <section class="container-x pt-28">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="eyebrow reveal">// recent events</p>
+        <h2 class="h-display reveal mt-3 text-4xl sm:text-6xl">What we've been up to</h2>
+      </div>
+      <a href="/events" class="btn-ghost reveal">All events →</a>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {recent.map((e, i) => <EventCard event={e} featured={i === 0} delay={i * 80} />)}
+    </div>
+  </section>
+
+  <!-- SPEAKERS MARQUEE -->
+  <section class="pt-28">
+    <div class="container-x flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="eyebrow reveal">// on stage</p>
+        <h2 class="h-display reveal mt-3 text-4xl sm:text-6xl">{speakers.length} speakers and counting</h2>
+      </div>
+      <a href="/speakers" class="btn-ghost reveal">Meet the speakers →</a>
+    </div>
+    <div class="marquee-wrap relative mt-12 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
+      <div class="marquee gap-4" style="--speed:60s">
+        {[...speakers, ...speakers].map(({ person, talks }) => (
+          <a href={`/people/${person.id}`} class="group flex w-72 shrink-0 items-center gap-4 rounded-full border border-black/10 bg-black/[0.03] p-2 pr-6 transition hover:border-duke/60">
+            <Avatar name={person.data.name} photo={person.data.photo} size="size-16" />
+            <span class="min-w-0">
+              <span class="block truncate font-semibold group-hover:text-duke">{person.data.name}</span>
+              <span class="block truncate text-xs text-muted">{talks[0].talk.title}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section class="container-x pt-28">
+    <p class="eyebrow reveal">// watch</p>
+    <h2 class="h-display reveal mt-3 text-4xl sm:text-6xl">Missed a session?</h2>
+    <div class="mt-12 grid gap-6 md:grid-cols-2">
+      {videos.map((v, i) => (
+        <div class="card reveal overflow-hidden" style={`--d:${i * 100}ms`}>
+          <div class="aspect-video">
+            <iframe class="size-full" src={`https://www.youtube-nocookie.com/embed/${v.id}`} title={v.title} loading="lazy"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      ))}
+    </div>
+    <a href={SITE.links.youtube} target="_blank" rel="noopener" class="btn-ghost reveal mt-8">More on YouTube →</a>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="container-x pt-28">
+    <p class="eyebrow reveal">// powered by</p>
+    <h2 class="h-display reveal mt-3 max-w-3xl text-4xl sm:text-6xl">Companies and communities that make it happen</h2>
+    <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      {companyPartners.map((p, i) => <div class="reveal" style={`--d:${i * 50}ms`}><PartnerLogo partner={p} /></div>)}
+    </div>
+    <div class="marquee-wrap relative mt-6 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
+      <div class="marquee gap-4" style="--speed:45s">
+        {[...communityPartners, ...communityPartners].map((p) => <PartnerLogo partner={p} class="w-48 shrink-0" eager />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-x pt-28">
+    <div class="reveal relative overflow-hidden rounded-[2.5rem] bg-duke px-8 py-16 text-white sm:px-16">
+      <div class="absolute -right-10 -top-10 size-72 rounded-full bg-duke/5 blur-3xl"></div>
+      <div class="relative grid items-center gap-10 md:grid-cols-[1fr_auto]">
+        <div>
+          <h2 class="h-display text-4xl sm:text-6xl">Your seat is saved.<br />Come say hi.</h2>
+          <p class="mt-5 max-w-xl text-lg text-white/85">Join the WhatsApp group for meetup announcements, or step up to speak, volunteer or host an edition.</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href={SITE.links.whatsapp} target="_blank" rel="noopener" class="btn bg-white text-ink hover:bg-mist">Join WhatsApp group</a>
+            <a href="/get-involved" class="btn border border-black/40 hover:bg-black/10">Get involved</a>
+          </div>
+        </div>
+        <div class="hidden md:block"><Duke size={200} /></div>
+      </div>
+    </div>
+  </section>
+</Base>

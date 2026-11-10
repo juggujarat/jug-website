@@ -1,0 +1,14 @@
+---
+import type { PartnerEntry } from '../lib/data';
+interface Props { partner: PartnerEntry; class?: string; eager?: boolean }
+const { partner, class: cls, eager = false } = Astro.props;
+const d = partner.data;
+---
+<a href={`/partners/${partner.id}`} title={d.name}
+  class:list={['group grid h-24 place-items-center rounded-2xl border border-black/10 bg-white px-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(227,38,45,0.5)]', cls]}>
+  {d.logo ? (
+    <img src={d.logo} alt={d.name} loading={eager ? 'eager' : 'lazy'} class="max-h-14 max-w-[150px] object-contain grayscale transition group-hover:grayscale-0" />
+  ) : (
+    <span class="text-center text-lg font-bold leading-tight text-ink">{d.name}</span>
+  )}
+</a>

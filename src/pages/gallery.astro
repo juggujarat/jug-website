@@ -1,0 +1,223 @@
+---
+import { getEntries } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Lightbox from '../components/Lightbox.astro';
+import Duke from '../components/Duke.astro';
+import { getEvents, formatEventDate, FORMAT_LABEL } from '../lib/data';
+import { allPhotos, isGroupPhoto } from '../lib/photos';
+import { SITE } from '../lib/site';
+
+const events = await getEvents();
+const byNumber = new Map(events.filter((e) => e.data.meetupNumber).map((e) => [e.data.meetupNumber!, e]));
+const speakerNames = new Map<string, string[]>();
+for (const e of events) {
+  const people = await getEntries([...new Map(e.data.talks.flatMap((t) => t.speakers).map((s) => [s.id, s])).values()]);
+  speakerNames.set(e.id, people.map((p) => p.data.name));
+}
+
+const photos = await Promise.all(
+  allPhotos().map(async (p, idx) => {
+    const ev = byNumber.get(p.meetupNumber);
+    const full = await getImage({ src: p.image, width: 2000, format: 'webp' });
+    return {
+      ...p,
+      idx,
+      full: full.src,
+      event: ev,
+      title: ev?.data.title ?? `Meetup #${p.meetupNumber}`,
+      date: ev?.data.date.getTime() ?? 0,
+      dateText: ev ? formatEventDate(ev, { short: true }) : '',
+      year: ev ? String(ev.data.date.getUTCFullYear()) : '',
+      venue: ev?.data.venueName ?? '',
+      city: ev?.data.city ?? '',
+      format: ev?.data.format ?? '',
+      speakers: ev ? speakerNames.get(ev.id) ?? [] : [],
+      group: isGroupPhoto(p.file),
+    };
+  }),
+);
+
+const uniq = <T,>(xs: T[]) => [...new Set(xs)].filter(Boolean) as T[];
+const meetups = uniq(photos.map((p) => p.meetupNumber)).sort((a, b) => a - b);
+const years = uniq(photos.map((p) => p.year)).sort().reverse();
+const venues = uniq(photos.map((p) => p.venue)).sort();
+const formats = uniq(photos.map((p) => p.format));
+const speakers = uniq(photos.flatMap((p) => p.speakers)).sort();
+const titleFor = (n: number) => photos.find((p) => p.meetupNumber === n)!.title;
+const selectCls = 'rounded-full border border-black/15 bg-white px-4 py-2 text-sm focus:border-duke focus:outline-none';
+
+const galleryLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ImageGallery',
+  name: 'Gujarat JUG meetup photo gallery',
+  description: 'Photos from Java User Group Gujarat meetups, workshops and Community Day for Java in Ahmedabad and Gandhinagar.',
+  url: `${SITE.url}/gallery`,
+  numberOfItems: photos.length,
+};
+---
+<Base title="Photo gallery" description="Photos from every Java User Group Gujarat meetup, workshop and Community Day for Java in Ahmedabad and Gandhinagar. Filter by meetup, year, venue or speaker."
+  breadcrumbs={[{ name: 'Gallery', href: '/gallery' }]} jsonLd={galleryLd}>
+  <PageHero eyebrow="// gallery" title="Moments from our meetups" lead={photos.length ? `${photos.length} photos from ${meetups.length} meetups. Filter, sort and click any photo to view it full screen.` : undefined} />
+
+  {photos.length === 0 ? (
+    <section class="container-x">
+      <div class="card flex flex-col items-center gap-6 p-12 text-center">
+        <Duke size={120} />
+        <p class="text-xl font-semibold">Photos are on their way.</p>
+        <p class="max-w-md text-muted">We're adding photos from every meetup. Check back soon!</p>
+      </div>
+    </section>
+  ) : (
+    <section class="container-x">
+      <!-- Controls -->
+      <div id="gallery-controls" class="sticky top-20 z-30 -mx-4 flex flex-wrap items-center gap-2 border-y border-black/5 bg-white/90 px-4 py-3 backdrop-blur-xl sm:mx-0 sm:rounded-full sm:border">
+        <input id="g-search" type="search" placeholder="Search…" aria-label="Search photos" class={`${selectCls} w-40 sm:w-48`} />
+        <select id="g-meetup" aria-label="Filter by meetup" class={`${selectCls} max-w-64`}>
+          <option value="">All meetups</option>
+          {meetups.map((n) => <option value={n}>#{n} · {titleFor(n)}</option>)}
+        </select>
+        <select id="g-year" aria-label="Filter by year" class={selectCls}>
+          <option value="">All years</option>
+          {years.map((y) => <option value={y}>{y}</option>)}
+        </select>
+        {venues.length > 1 && (
+          <select id="g-venue" aria-label="Filter by venue" class={selectCls}>
+            <option value="">All venues</option>
+            {venues.map((v) => <option value={v}>{v}</option>)}
+          </select>
+        )}
+        {speakers.length > 0 && (
+          <select id="g-speaker" aria-label="Filter by speaker" class={selectCls}>
+            <option value="">All speakers</option>
+            {speakers.map((s) => <option value={s}>{s}</option>)}
+          </select>
+        )}
+        {formats.length > 1 && (
+          <select id="g-format" aria-label="Filter by event type" class={selectCls}>
+            <option value="">All types</option>
+            {formats.map((f) => <option value={f}>{FORMAT_LABEL[f]}</option>)}
+          </select>
+        )}
+        <label class="flex cursor-pointer items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-sm has-[:checked]:border-duke has-[:checked]:bg-duke has-[:checked]:text-white">
+          <input id="g-group" type="checkbox" class="sr-only" /> Group photos
+        </label>
+        <select id="g-sort" aria-label="Sort photos" class={`${selectCls} sm:ml-auto`}>
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="meetup-asc">Meetup # (1 → {meetups.at(-1)})</option>
+          <option value="meetup-desc">Meetup # ({meetups.at(-1)} → 1)</option>
+          <option value="title">Event name A–Z</option>
+          <option value="shuffle">Shuffle</option>
+        </select>
+        <button id="g-reset" class="px-3 py-2 text-sm font-semibold text-duke hover:underline">Reset</button>
+      </div>
+      <p id="g-count" class="mt-5 font-mono text-xs uppercase tracking-widest text-muted" aria-live="polite"></p>
+
+      <!-- Grid -->
+      <div id="g-grid" class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {photos.map((p) => (
+          <a href={p.full} data-lightbox class="g-item group relative block aspect-[4/3] overflow-hidden rounded-2xl bg-mist"
+            data-caption={`${p.title}${p.dateText ? ` · ${p.dateText}` : ''}${p.venue ? ` · ${p.venue}` : ''}`}
+            data-meetup={p.meetupNumber} data-year={p.year} data-venue={p.venue} data-format={p.format} data-date={p.date} data-idx={p.idx}
+            data-title={p.title} data-speakers={p.speakers.join('|')} data-group={p.group ? '1' : ''}
+            data-text={[p.title, p.venue, p.city, p.dateText, ...p.speakers, `meetup ${p.meetupNumber}`].join(' ').toLowerCase()}>
+            <Image src={p.image} alt={`${p.group ? 'Group photo' : 'Photo'} from ${p.title}${p.venue ? ` at ${p.venue}` : ''}`} widths={[360, 720]}
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw" loading="lazy"
+              class="size-full object-cover transition duration-500 group-hover:scale-105" />
+            <span class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent p-3 pt-10 text-left text-white opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">
+              <span class="block text-sm font-semibold leading-tight">{p.title}</span>
+              <span class="block font-mono text-[10px] uppercase tracking-wider text-white/75">#{p.meetupNumber}{p.dateText && ` · ${p.dateText}`}</span>
+            </span>
+            {p.group && <span class="absolute left-2 top-2 rounded-full bg-duke px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">Group</span>}
+          </a>
+        ))}
+      </div>
+      <p id="g-empty" class="hidden py-16 text-center text-muted">No photos match those filters.</p>
+    </section>
+  )}
+  <Lightbox />
+
+  <script>
+    function initGallery() {
+      const grid = document.getElementById('g-grid');
+      if (!grid) return;
+      const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
+      const ctl = {
+        search: $<HTMLInputElement>('g-search')!,
+        meetup: $<HTMLSelectElement>('g-meetup')!,
+        year: $<HTMLSelectElement>('g-year')!,
+        venue: $<HTMLSelectElement>('g-venue'),
+        speaker: $<HTMLSelectElement>('g-speaker'),
+        format: $<HTMLSelectElement>('g-format'),
+        group: $<HTMLInputElement>('g-group')!,
+        sort: $<HTMLSelectElement>('g-sort')!,
+      };
+      const items = [...grid.querySelectorAll<HTMLElement>('.g-item')];
+      const shuffleKey = new Map(items.map((el) => [el, Math.random()]));
+
+      // restore filters from the URL (e.g. /gallery?meetup=7)
+      const params = new URLSearchParams(location.search);
+      for (const [k, el] of Object.entries(ctl)) {
+        if (!el || !params.has(k)) continue;
+        if (el instanceof HTMLInputElement && el.type === 'checkbox') el.checked = params.get(k) === '1';
+        else el.value = params.get(k)!;
+      }
+
+      const apply = () => {
+        const q = ctl.search.value.trim().toLowerCase();
+        const f = {
+          meetup: ctl.meetup.value, year: ctl.year.value, venue: ctl.venue?.value ?? '',
+          speaker: ctl.speaker?.value ?? '', format: ctl.format?.value ?? '', group: ctl.group.checked,
+        };
+        let shown = 0;
+        for (const el of items) {
+          const d = el.dataset;
+          const ok =
+            (!f.meetup || d.meetup === f.meetup) && (!f.year || d.year === f.year) && (!f.venue || d.venue === f.venue) &&
+            (!f.format || d.format === f.format) && (!f.speaker || d.speakers!.split('|').includes(f.speaker)) &&
+            (!f.group || d.group === '1') && (!q || d.text!.includes(q));
+          el.hidden = !ok;
+          if (ok) shown++;
+        }
+        const s = ctl.sort.value;
+        const num = (el: HTMLElement, k: string) => Number(el.dataset[k]);
+        const sorted = [...items].sort((a, b) => {
+          switch (s) {
+            case 'oldest': return num(a, 'date') - num(b, 'date') || num(a, 'idx') - num(b, 'idx');
+            case 'meetup-asc': return num(a, 'meetup') - num(b, 'meetup') || num(a, 'idx') - num(b, 'idx');
+            case 'meetup-desc': return num(b, 'meetup') - num(a, 'meetup') || num(a, 'idx') - num(b, 'idx');
+            case 'title': return a.dataset.title!.localeCompare(b.dataset.title!) || num(a, 'idx') - num(b, 'idx');
+            case 'shuffle': return shuffleKey.get(a)! - shuffleKey.get(b)!;
+            default: return num(b, 'date') - num(a, 'date') || num(b, 'meetup') - num(a, 'meetup') || num(a, 'idx') - num(b, 'idx');
+          }
+        });
+        grid.append(...sorted);
+        document.getElementById('g-count')!.textContent = `${shown} of ${items.length} photos`;
+        document.getElementById('g-empty')!.classList.toggle('hidden', shown > 0);
+
+        // keep the URL shareable
+        const out = new URLSearchParams();
+        for (const [k, el] of Object.entries(ctl)) {
+          if (!el) continue;
+          const v = el instanceof HTMLInputElement && el.type === 'checkbox' ? (el.checked ? '1' : '') : el.value;
+          if (v && !(k === 'sort' && v === 'newest')) out.set(k, v);
+        }
+        history.replaceState(history.state, '', out.size ? `?${out}` : location.pathname);
+      };
+
+      Object.values(ctl).forEach((el) => el && (el.oninput = apply));
+      ctl.sort.onchange = () => {
+        if (ctl.sort.value === 'shuffle') items.forEach((el) => shuffleKey.set(el, Math.random()));
+        apply();
+      };
+      document.getElementById('g-reset')!.onclick = () => {
+        Object.values(ctl).forEach((el) => el && (el instanceof HTMLInputElement && el.type === 'checkbox' ? (el.checked = false) : (el.value = el instanceof HTMLSelectElement ? el.options[0].value : '')));
+        apply();
+      };
+      apply();
+    }
+    document.addEventListener('astro:page-load', initGallery);
+  </script>
+</Base>
