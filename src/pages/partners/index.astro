@@ -9,7 +9,6 @@ const [partners, support] = await Promise.all([getCollection('partners'), getSup
 const count = (id: string) => support.get(id)?.length ?? 0;
 const groups = [
   { title: 'Companies & venues', lead: 'Organisations that opened their offices, sponsored editions, fed us or sent goodies.', items: partners.filter((p) => p.data.kind === 'company' || p.data.kind === 'university') },
-  { title: 'Fellow Java User Groups', lead: 'Sister JUGs across India that cheer us on and cross-promote.', items: partners.filter((p) => p.data.kind === 'jug') },
   { title: 'Community partners', lead: 'Local tech communities we build with.', items: partners.filter((p) => p.data.kind === 'community') },
 ].map((g) => ({ ...g, items: g.items.sort((a, b) => count(b.id) - count(a.id) || a.data.name.localeCompare(b.data.name)) }));
 ---

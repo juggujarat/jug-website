@@ -20,7 +20,7 @@ const [upcoming, past, speakers, stats, partners] = await Promise.all([
 const next = upcoming[0];
 const recent = past.slice(0, 5);
 const companyPartners = partners.filter((p) => p.data.kind !== 'jug' && p.data.kind !== 'community');
-const communityPartners = partners.filter((p) => p.data.kind === 'jug' || p.data.kind === 'community');
+const communityPartners = partners.filter((p) => p.data.kind === 'community');
 const statItems = [
   { n: stats.events, label: 'events hosted' },
   { n: stats.registrations, label: 'registrations', suffix: '+' },
