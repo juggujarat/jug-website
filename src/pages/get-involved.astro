@@ -6,8 +6,8 @@ import { SITE } from '../lib/site';
 
 const paths = [
   { id: 'attend', emoji: '🎟️', title: 'Attend', body: 'Follow us on Luma and join the WhatsApp group to hear about every meetup first.', cta: 'Follow on Luma', href: SITE.links.luma, alt: { label: 'Join WhatsApp', href: SITE.links.whatsapp } },
-  { id: 'speak', emoji: '🎤', title: 'Give a talk', body: "Got something you learned the hard way? Share it. First-time speakers are welcome and we'll help you prepare.", cta: 'Message us on LinkedIn', href: SITE.links.linkedin },
-  { id: 'volunteer', emoji: '🙌', title: 'Volunteer', body: 'Help with check-in, photos, social media, design or stage. It is the fastest way to meet everyone.', cta: 'Volunteer form', href: SITE.links.volunteerForm },
+  { id: 'speak', emoji: '🎤', title: 'Give a talk', body: "Got something you learned the hard way? Share it. First-time speakers are welcome and we'll help you prepare.", cta: 'Submit a talk', href: SITE.links.speakerForm, alt: { label: 'Call for speakers', href: '/speak' } },
+  { id: 'volunteer', emoji: '🙌', title: 'Volunteer', body: 'Help with check-in, photos, social media, design or stage. It is the fastest way to meet everyone.', cta: 'Volunteer form', href: SITE.links.volunteerForm, alt: { label: 'What volunteers do', href: '/volunteer' } },
   { id: 'sponsor', emoji: '🏢', title: 'Host or sponsor', body: 'Open your office for a meetup, sponsor food or goodies, or back Community Day for Java.', cta: 'Get in touch', href: SITE.links.linkedin },
 ];
 ---
@@ -21,10 +21,18 @@ const paths = [
         <p class="mt-3 text-lg text-muted">{p.body}</p>
         <div class="mt-7 flex flex-wrap gap-3">
           <a href={p.href} target="_blank" rel="noopener" class="btn-primary">{p.cta} ↗</a>
-          {p.alt && <a href={p.alt.href} target="_blank" rel="noopener" class="btn-ghost">{p.alt.label} ↗</a>}
+          {p.alt && (p.alt.href.startsWith('/')
+            ? <a href={p.alt.href} class="btn-ghost">{p.alt.label} →</a>
+            : <a href={p.alt.href} target="_blank" rel="noopener" class="btn-ghost">{p.alt.label} ↗</a>)}
         </div>
       </div>
     ))}
+  </section>
+  <section class="container-x mt-10">
+    <a href="/join" class="card card-hover reveal flex flex-col items-center gap-2 p-8 text-center sm:flex-row sm:justify-between sm:text-left">
+      <span><span class="block text-2xl font-bold">At a meetup? Scan and join.</span><span class="mt-1 block text-muted">QR codes for WhatsApp, Luma, talks and volunteering on one screen.</span></span>
+      <span class="btn-primary">Open QR codes →</span>
+    </a>
   </section>
   <section class="container-x mt-20 flex justify-center"><Duke size={180} steam /></section>
 </Base>

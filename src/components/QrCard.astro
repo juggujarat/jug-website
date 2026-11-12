@@ -1,0 +1,15 @@
+---
+import { JOIN, type JoinKey } from '../lib/join';
+interface Props { k: JoinKey; size?: 'md' | 'lg'; delay?: number }
+const { k, size = 'md', delay = 0 } = Astro.props;
+const item = JOIN[k];
+---
+<div class="card reveal flex flex-col items-center p-6 text-center sm:p-8" style={`--d:${delay}ms`}>
+  <a href={item.href} target="_blank" rel="noopener" class="block rounded-3xl bg-white p-3 ring-1 ring-black/10 transition hover:ring-duke" aria-label={`${item.title} (opens in a new tab)`}>
+    <img src={item.qr} alt={`QR code: ${item.title}`} width="330" height="330" loading="eager" decoding="async"
+      class:list={['block h-auto', size === 'lg' ? 'w-[min(78vw,420px)]' : 'w-[min(60vw,240px)]']} />
+  </a>
+  <h2 class:list={['mt-6 font-bold leading-tight', size === 'lg' ? 'text-3xl sm:text-4xl' : 'text-2xl']}>{item.title}</h2>
+  <p class="mt-2 text-muted">{item.short}</p>
+  <a href={item.href} target="_blank" rel="noopener" class="btn-primary mt-5">{item.cta} ↗</a>
+</div>

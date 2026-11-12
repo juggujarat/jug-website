@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import QrCard from '../components/QrCard.astro';
+---
+<Base title="Join Gujarat JUG" description="Scan to join the Gujarat JUG WhatsApp community, RSVP on Luma, submit a talk or volunteer. Free to join." breadcrumbs={[{ name: 'Join', href: '/join' }]}>
+  <PageHero eyebrow="// scan & join" title="Point your camera here" lead="Join the WhatsApp community, RSVP for the next meetup, submit a talk or sign up to volunteer. It takes ten seconds." />
+  <section class="container-x grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+    <QrCard k="whatsapp" delay={0} />
+    <QrCard k="luma" delay={60} />
+    <QrCard k="speak" delay={120} />
+    <QrCard k="volunteer" delay={180} />
+  </section>
+  <p class="container-x mt-10 text-center text-muted">Prefer one link? Everything is also at <a class="font-semibold text-ink underline decoration-duke/50 underline-offset-4 hover:text-duke" href="https://linktr.ee/juggujarat" target="_blank" rel="noopener">linktr.ee/juggujarat</a>.</p>
+</Base>

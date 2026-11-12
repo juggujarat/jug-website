@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import QrCard from '../components/QrCard.astro';
+const points = [
+  { t: 'First-timers welcome', b: 'Never spoken before? Good. We pair new speakers with an organiser for a dry run and feedback on slides.' },
+  { t: 'Any Java topic', b: 'Core Java, Spring, JVM internals, performance, cloud, AI with Java, testing, tooling, or a war story from production.' },
+  { t: 'Talks or workshops', b: 'A 20–40 minute talk, a lightning talk, or a hands-on workshop. Tell us what fits your idea.' },
+  { t: 'How it works', b: 'Fill in the form with a title and a short abstract. We get back to you and slot you into an upcoming meetup.' },
+];
+---
+<Base title="Call for speakers" description="Speak at a Gujarat JUG meetup in Ahmedabad or Gandhinagar. First-time speakers are welcome. Submit your Java talk idea." breadcrumbs={[{ name: 'Call for speakers', href: '/speak' }]}>
+  <PageHero eyebrow="// call for speakers" title="Your talk belongs on our stage" lead="Share what you've learned with Gujarat's Java community. Scan the code or use the form to submit a talk." />
+  <section class="container-x grid items-start gap-10 lg:grid-cols-[auto_1fr]">
+    <QrCard k="speak" size="lg" />
+    <div class="grid gap-5 sm:grid-cols-2">
+      {points.map((p, i) => (
+        <div class="card reveal p-6" style={`--d:${i * 60}ms`}>
+          <h3 class="text-xl font-bold">{p.t}</h3>
+          <p class="mt-2 text-muted">{p.b}</p>
+        </div>
+      ))}
+      <a href="/speakers" class="btn-ghost reveal justify-self-start">See who has spoken so far →</a>
+    </div>
+  </section>
+</Base>

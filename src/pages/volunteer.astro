@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import QrCard from '../components/QrCard.astro';
+const roles = [
+  { t: 'Check-in & welcome', b: 'Greet attendees, manage the registration desk and help first-timers feel at home.' },
+  { t: 'Photos & social media', b: 'Capture the meetup and help share talks, recaps and announcements.' },
+  { t: 'Design', b: 'Event creatives, slides templates and the occasional sticker.' },
+  { t: 'Stage & logistics', b: 'Mics, screens, timekeeping, seating and keeping the day on schedule.' },
+];
+---
+<Base title="Volunteer" description="Volunteer with Gujarat JUG: help with check-in, photos, social media, design or stage management at Java meetups in Gujarat." breadcrumbs={[{ name: 'Volunteer', href: '/volunteer' }]}>
+  <PageHero eyebrow="// volunteer" title="Give back to the Java community" lead="Every meetup runs on volunteers. No experience needed, just turn up and help out. Scan the code to sign up." />
+  <section class="container-x grid items-start gap-10 lg:grid-cols-[auto_1fr]">
+    <QrCard k="volunteer" size="lg" />
+    <div class="grid gap-5 sm:grid-cols-2">
+      {roles.map((p, i) => (
+        <div class="card reveal p-6" style={`--d:${i * 60}ms`}>
+          <h3 class="text-xl font-bold">{p.t}</h3>
+          <p class="mt-2 text-muted">{p.b}</p>
+        </div>
+      ))}
+      <a href="/team" class="btn-ghost reveal justify-self-start">Meet the team →</a>
+    </div>
+  </section>
+</Base>
