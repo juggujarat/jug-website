@@ -2,25 +2,37 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import QrCard from '../components/QrCard.astro';
-const points = [
-  { t: 'First-timers welcome', b: 'Never spoken before? Good. We pair new speakers with an organiser for a dry run and feedback on slides.' },
-  { t: 'Any Java topic', b: 'Core Java, Spring, JVM internals, performance, cloud, AI with Java, testing, tooling, or a war story from production.' },
-  { t: 'Talks or workshops', b: 'A 20–40 minute talk, a lightning talk, or a hands-on workshop. Tell us what fits your idea.' },
-  { t: 'How it works', b: 'Fill in the form with a title and a short abstract. We get back to you and slot you into an upcoming meetup.' },
+import { SITE } from '../lib/site';
+const guidelines = [
+  { t: 'One hour, start to finish', b: 'Plan for 45–50 minutes of talk and 10–15 minutes of audience Q&A.' },
+  { t: 'Live demo, not a video', b: 'Every session includes a hands-on demo done live. Please skip pre-recorded demo videos.' },
+  { t: 'Show how you think', b: 'Walk through clean, well-structured code, explain why you built it that way, and build the solution step by step.' },
+  { t: 'Bring your sources', b: "Expect technical questions. It's fine not to know every answer, but anything you share should be backed by official docs or another source people can check." },
 ];
 ---
-<Base title="Call for speakers" description="Speak at a Gujarat JUG meetup in Ahmedabad or Gandhinagar. First-time speakers are welcome. Submit your Java talk idea." breadcrumbs={[{ name: 'Call for speakers', href: '/speak' }]}>
-  <PageHero eyebrow="// call for speakers" title="Your talk belongs on our stage" lead="Share what you've learned with Gujarat's Java community. Scan the code or use the form to submit a talk." />
+<Base title="Call for speakers" description="Speak at a Gujarat JUG meetup. One-hour sessions with a live demo, on anything from core Java to Spring Boot and real-world use cases. Submit your talk." breadcrumbs={[{ name: 'Call for speakers', href: '/speak' }]}>
+  <PageHero eyebrow="// call for speakers" title="Your talk belongs on our stage" lead="Got something worth sharing about Java? Scan the code or fill in the form to pitch a session at an upcoming meetup." />
   <section class="container-x grid items-start gap-10 lg:grid-cols-[auto_1fr]">
     <QrCard k="speak" size="lg" />
-    <div class="grid gap-5 sm:grid-cols-2">
-      {points.map((p, i) => (
-        <div class="card reveal p-6" style={`--d:${i * 60}ms`}>
-          <h3 class="text-xl font-bold">{p.t}</h3>
-          <p class="mt-2 text-muted">{p.b}</p>
-        </div>
-      ))}
-      <a href="/speakers" class="btn-ghost reveal justify-self-start">See who has spoken so far →</a>
+    <div>
+      <div class="reveal max-w-2xl space-y-4 text-lg text-muted">
+        <p>Gujarat JUG is a community of Java developers and enthusiasts who meet to learn, share and grow together. Talks cover everything from core Java to the Spring Boot ecosystem, modern frameworks and real-world use cases.</p>
+        <p>We're looking for speakers who love what they do and can run a session that teaches something useful and gets the room talking.</p>
+      </div>
+      <h2 class="reveal mt-10 text-2xl font-bold">Speaker guidelines</h2>
+      <div class="mt-5 grid gap-5 sm:grid-cols-2">
+        {guidelines.map((p, i) => (
+          <div class="card reveal p-6" style={`--d:${i * 60}ms`}>
+            <h3 class="text-xl font-bold">{p.t}</h3>
+            <p class="mt-2 text-muted">{p.b}</p>
+          </div>
+        ))}
+      </div>
+      <p class="reveal mt-8 text-lg">Let's make every session count for the community. We can't wait to hear your idea.</p>
+      <div class="reveal mt-6 flex flex-wrap gap-3">
+        <a href={SITE.links.speakerForm} target="_blank" rel="noopener" class="btn-primary">Submit your talk ↗</a>
+        <a href="/speakers" class="btn-ghost">See who has spoken so far →</a>
+      </div>
     </div>
   </section>
 </Base>

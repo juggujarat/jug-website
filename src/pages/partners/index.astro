@@ -2,40 +2,86 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
-import PartnerLogo from '../../components/PartnerLogo.astro';
-import { getSupportByPartner, ROLE_LABEL } from '../../lib/data';
+import { getSupportByPartner, type EventEntry, type PartnerEntry } from '../../lib/data';
 
-const [partners, support] = await Promise.all([getCollection('partners'), getSupportByPartner()]);
-const count = (id: string) => support.get(id)?.length ?? 0;
-const groups = [
-  { title: 'Companies & venues', lead: 'Organisations that opened their offices, sponsored editions, fed us or sent goodies.', items: partners.filter((p) => p.data.kind === 'company' || p.data.kind === 'university') },
-].map((g) => ({ ...g, items: g.items.sort((a, b) => count(b.id) - count(a.id) || a.data.name.localeCompare(b.data.name)) }));
+const [all, support] = await Promise.all([getCollection('partners'), getSupportByPartner()]);
+const companies = all.filter((p) => p.data.kind === 'company' || p.data.kind === 'university');
+const eventsFor = (p: PartnerEntry, role: string) =>
+  (support.get(p.id) ?? []).filter((s) => s.role === role).map((s) => s.event).sort((a, b) => +a.data.date - +b.data.date);
+const first = (evs: EventEntry[]) => (evs[0] ? +evs[0].data.date : Infinity);
+
+const sponsors = companies
+  .map((p) => ({ p, sponsored: eventsFor(p, 'sponsor'), hosted: eventsFor(p, 'venue') }))
+  .filter((x) => x.sponsored.length > 0)
+  .sort((a, b) => first(a.sponsored) - first(b.sponsored));
+const sponsorIds = new Set(sponsors.map((x) => x.p.id));
+const hosts = companies
+  .map((p) => ({ p, hosted: eventsFor(p, 'venue') }))
+  .filter((x) => x.hosted.length > 0 && !sponsorIds.has(x.p.id))
+  .sort((a, b) => first(a.hosted) - first(b.hosted));
+
+const label = (e: EventEntry) => (e.data.meetupNumber ? `#${e.data.meetupNumber}` : e.data.title);
+const fmt = (e: EventEntry) => e.data.date.toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
+const hostedCount = new Set(hosts.flatMap((x) => x.hosted.map((e) => e.id)).concat(sponsors.flatMap((x) => x.hosted.map((e) => e.id)))).size;
 ---
-<Base title="Partners" description="The companies and universities that support Gujarat JUG." breadcrumbs={[{ name: "Partners", href: "/partners" }]}>
-  <PageHero eyebrow="// partners" title="Free meetups aren't free. These folks make them possible." lead="Venues, sponsors, food, goodies and good vibes. Thank you." />
-  {groups.map((g) => g.items.length > 0 && (
-    <section class="container-x mb-20">
-      <h2 class="text-3xl font-bold">{g.title}</h2>
-      <p class="mt-2 text-muted">{g.lead}</p>
-      <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {g.items.map((p, i) => {
-          const roles = [...new Set((support.get(p.id) ?? []).map((s) => ROLE_LABEL[s.role]))];
-          return (
-            <div class="reveal" style={`--d:${(i % 4) * 60}ms`}>
-              <PartnerLogo partner={p} />
-              <p class="mt-3 text-center text-sm font-semibold">{p.data.name}</p>
-              {roles.length > 0 && <p class="text-center font-mono text-[11px] uppercase tracking-wider text-duke">{roles.join(' · ')}</p>}
+<Base title="Hosts & sponsors" description="The companies and colleges that hosted Gujarat JUG meetups at their offices and campuses, and the sponsors who backed them." breadcrumbs={[{ name: 'Hosts & sponsors', href: '/partners' }]}>
+  <PageHero eyebrow="// hosts & sponsors" title="The companies that made it happen" lead={`Every free meetup needs a room, a projector and sometimes pizza. ${hosts.length + sponsors.length} companies and colleges stepped up, across ${hostedCount} meetups.`} />
+
+  {sponsors.length > 0 && (
+    <section class="container-x mb-24">
+      <p class="eyebrow">// sponsors</p>
+      <h2 class="mt-2 text-3xl font-bold sm:text-4xl">They backed us</h2>
+      <p class="mt-2 max-w-2xl text-muted">Companies that sponsored Gujarat JUG meetups.</p>
+      <div class="mt-8 grid gap-5 md:grid-cols-2">
+        {sponsors.map(({ p, sponsored, hosted }, i) => (
+          <a href={`/partners/${p.id}`} class="card card-hover reveal group grid items-center gap-6 p-6 sm:grid-cols-[180px_1fr]" style={`--d:${(i % 2) * 80}ms`}>
+            <div class="grid h-28 place-items-center rounded-2xl bg-white px-4 ring-1 ring-black/5">
+              {p.data.logo
+                ? <img src={p.data.logo} alt={p.data.name} loading="lazy" class="max-h-16 max-w-[150px] object-contain" />
+                : <span class="text-center text-xl font-bold leading-tight">{p.data.name}</span>}
             </div>
-          );
-        })}
+            <div>
+              {p.data.logo && <span class="sr-only">{p.data.name}</span>}
+              <p class="font-mono text-[11px] uppercase tracking-widest text-duke">Sponsored</p>
+              <ul class="mt-2 space-y-1">
+                {sponsored.map((e) => <li class="text-sm">{e.data.meetupNumber ? <><span class="font-semibold">#{e.data.meetupNumber}</span> <span class="text-muted">· {e.data.title}</span></> : <><span class="font-semibold">{e.data.title}</span> <span class="text-muted">· {fmt(e)}</span></>}</li>)}
+              </ul>
+              {hosted.length > 0 && <p class="mt-3 text-sm text-muted">Also hosted {hosted.map(label).join(', ')} at their office</p>}
+            </div>
+          </a>
+        ))}
       </div>
     </section>
-  ))}
+  )}
+
+  <section class="container-x mb-24">
+    <p class="eyebrow">// venue hosts</p>
+    <h2 class="mt-2 text-3xl font-bold sm:text-4xl">They opened their doors</h2>
+    <p class="mt-2 max-w-2xl text-muted">Offices, cafés and campuses that gave us a room for the evening, in the order we first met there.</p>
+    <ol class="relative mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {hosts.map(({ p, hosted }, i) => (
+        <li class="reveal" style={`--d:${(i % 3) * 60}ms`}>
+          <a href={`/partners/${p.id}`} class="card card-hover group flex h-full flex-col p-5">
+            <div class="grid h-24 place-items-center rounded-2xl bg-white px-4 ring-1 ring-black/5">
+              {p.data.logo
+                ? <img src={p.data.logo} alt={p.data.name} loading="lazy" class="max-h-14 max-w-[160px] object-contain grayscale transition group-hover:grayscale-0" />
+                : <span class="text-center text-lg font-bold leading-tight">{p.data.name}</span>}
+            </div>
+            <div class="mt-4 flex flex-wrap items-center gap-1.5">
+              {hosted.map((e) => <span class="chip border-duke/30 text-duke" title={e.data.title}>{label(e)} · {fmt(e)}</span>)}
+            </div>
+            {p.data.city && <p class="mt-2 text-sm text-muted">{p.data.city}</p>}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+
   <section class="container-x">
     <div class="reveal rounded-[2rem] bg-mist p-10 text-ink ring-1 ring-duke/15 sm:p-14">
-      <h2 class="h-display text-4xl">Put your logo here</h2>
-      <p class="mt-3 max-w-xl text-ink/70">Host a meetup at your office, sponsor food or goodies, or back Community Day for Java. You'll be in front of hundreds of Java developers.</p>
-      <a href="/get-involved#sponsor" class="btn mt-6 bg-paper text-ink hover:bg-duke">Partner with us →</a>
+      <h2 class="h-display text-4xl">Host or sponsor the next one</h2>
+      <p class="mt-3 max-w-xl text-ink/70">Have a room for a meetup, or want to sponsor one? You'll be in front of Gujarat's Java community.</p>
+      <a href="/get-involved#sponsor" class="btn mt-6 bg-paper text-ink hover:bg-duke hover:text-white">Get in touch →</a>
     </div>
   </section>
 </Base>

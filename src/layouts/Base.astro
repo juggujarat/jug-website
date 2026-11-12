@@ -2,7 +2,6 @@
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
-import Duke from '../components/Duke.astro';
 import { SITE, NAV } from '../lib/site';
 
 interface Crumb { name: string; href: string }
@@ -46,7 +45,7 @@ const orgLd = {
   logo: `${SITE.url}/Img/jug-full-logo-svg.svg`,
   description: SITE.description,
   areaServed: 'Gujarat, India',
-  sameAs: [SITE.links.linkedin, SITE.links.youtube, SITE.links.luma, SITE.links.linktree],
+  sameAs: [SITE.links.linkedin, SITE.links.x, SITE.links.youtube, SITE.links.luma],
 };
 const crumbs = breadcrumbs ? [{ name: 'Home', href: '/' }, ...breadcrumbs] : null;
 const crumbLd = crumbs && {
@@ -144,7 +143,7 @@ const ld = [orgLd, ...(crumbLd ? [crumbLd] : []), ...(jsonLd ? (Array.isArray(js
             <a class="chip hover:text-ink" href={SITE.links.linkedin} target="_blank" rel="noopener">LinkedIn</a>
             <a class="chip hover:text-ink" href={SITE.links.youtube} target="_blank" rel="noopener">YouTube</a>
             <a class="chip hover:text-ink" href={SITE.links.whatsapp} target="_blank" rel="noopener">WhatsApp</a>
-            <a class="chip hover:text-ink" href={SITE.links.linktree} target="_blank" rel="noopener">Linktree</a>
+            <a class="chip hover:text-ink" href={SITE.links.x} target="_blank" rel="noopener">X</a>
           </div>
         </div>
         <div>
@@ -161,13 +160,13 @@ const ld = [orgLd, ...(crumbLd ? [crumbLd] : []), ...(jsonLd ? (Array.isArray(js
           <ul class="space-y-2 text-ink/80">
             <li><a class="hover:text-duke" href="/about">Our story</a></li>
             <li><a class="hover:text-duke" href="/team">Team & volunteers</a></li>
-            <li><a class="hover:text-duke" href="/partners">Partners</a></li>
+            <li><a class="hover:text-duke" href="/partners">Hosts &amp; sponsors</a></li>
           </ul>
         </div>
         <div>
           <p class="eyebrow mb-4">Join in</p>
           <ul class="space-y-2 text-ink/80">
-            <li><a class="hover:text-duke" href="/join">Scan &amp; join (QR codes)</a></li>
+            <li><a class="hover:text-duke" href="/join">All community links</a></li>
             <li><a class="hover:text-duke" href={SITE.links.whatsapp} target="_blank" rel="noopener">WhatsApp community ↗</a></li>
             <li><a class="hover:text-duke" href="/speak">Call for speakers</a></li>
             <li><a class="hover:text-duke" href="/volunteer">Volunteer</a></li>
@@ -179,7 +178,6 @@ const ld = [orgLd, ...(crumbLd ? [crumbLd] : []), ...(jsonLd ? (Array.isArray(js
         <p>© {year} Java User Group Gujarat. Java and Duke are trademarks of Oracle and/or its affiliates.</p>
         <p><span class="text-duke">System.out</span>.println(<span class="text-duke-soft">"Made with ☕ in Gujarat"</span>);</p>
       </div>
-      <div class="pointer-events-none absolute -bottom-10 right-6 hidden opacity-20 md:block"><Duke size={180} /></div>
     </footer>
 
     <script>
