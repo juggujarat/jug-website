@@ -44,7 +44,7 @@ On **Saturday, 21 February 2026**, Gujarat JUG's **"Powering Smart AI with Java"
 
 ## Modern search with vector databases and RAG
 
-The main session, **"Powering Smart AI: Modern Search with Vector Databases & RAG with Java"**, was delivered by [**Bharat Ranpariya**](https://www.linkedin.com/in/bharat-ranpariya/), Technical Engineering Manager at [DataOrb](https://www.dataorb.ai/), and [**Aniket Datt**](/people/aniket-datt), Senior Software Engineer at [Thomson Reuters](https://www.thomsonreuters.com/). Attendees learned:
+The main session, **"Powering Smart AI: Modern Search with Vector Databases & RAG with Java"**, was delivered by [**Bharat Ranpariya**](/people/bharat-ranpariya), Technical Engineering Manager at [DataOrb](https://www.dataorb.ai/), and [**Aniket Datt**](/people/aniket-datt), Senior Software Engineer at [Thomson Reuters](https://www.thomsonreuters.com/). Attendees learned:
 
 - How Java libraries turn text into **embeddings** (vectors)
 - How **open-source LLMs** can lower AI infrastructure costs

@@ -5,13 +5,14 @@ export const SITE = {
   description:
     'Gujarat Java User Group is a community of Java developers, architects, students and tech enthusiasts in Ahmedabad, Gandhinagar and beyond. Monthly meetups, talks, workshops and Community Day for Java.',
   links: {
-    luma: 'https://luma.com/user/juggujarat',
-    whatsapp: 'https://chat.whatsapp.com/I3W75ItQTNs7Hr7WzRWcPR',
+    luma: 'https://lu.ma/user/juggujarat',
+    whatsapp: 'https://chat.whatsapp.com/KmKgx1RSsdq9nwc9TmKsYP',
     linkedin: 'https://www.linkedin.com/company/juggujarat/',
     youtube: 'https://www.youtube.com/@juggujarat',
     linktree: 'https://linktr.ee/juggujarat',
     github: 'https://github.com/juggujarat',
-    volunteerForm: 'https://forms.gle/TQrY7pC7k7heAw87A',
+    volunteerForm: 'https://forms.gle/yf8u4TxnqPxUPzL46',
+    speakerForm: 'https://forms.gle/pDow2fTrot1MCJF36',
   },
 };
 

@@ -45,6 +45,6 @@ Large language models are only as useful as the context and tools they can reach
 
 ## Hosts and venue
 
-The session was hosted by Gujarat JUG organisers **Vikas Rajput, [Dhaval Gajjar](https://www.linkedin.com/in/dhavalgajjarin/) and Bharat Ranpariya**. Thanks again to [**York IE**](https://york.ie/) for hosting us.
+The session was hosted by Gujarat JUG organisers [**Vikas Rajput**](/people/vikas-rajput), [**Dhaval Gajjar**](/people/dhaval-gajjar) and [**Bharat Ranpariya**](/people/bharat-ranpariya). Thanks again to [**York IE**](https://york.ie/) for hosting us.
 
 <!-- TO ADD (organisers): how the day went, actual turnout, giveaways/goodies and who provided them, food partner, photos (add to `gallery`) and session recordings (add to `videos`). Then set recapReady: true. -->

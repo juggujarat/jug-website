@@ -124,7 +124,7 @@ export async function getStats() {
     events: events.length,
     registrations: events.reduce((n, e) => n + (e.data.registered ?? e.data.attended ?? 0), 0),
     speakers: speakers.length,
-    partners: partners.length,
+    partners: partners.filter((p) => p.data.kind === 'company' || p.data.kind === 'university').length,
     volunteers: people.filter((p) => p.data.roles.length).length,
   };
 }

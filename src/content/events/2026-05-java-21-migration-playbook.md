@@ -45,7 +45,7 @@ Java 21 is the current long-term support (LTS) release, and many teams are still
 
 ## The playbook
 
-[**Vikas Rajput**](https://www.linkedin.com/in/vikasrajputin/), founder of [TechXplore](https://www.techxplore.io), and [**Dhaval Gajjar**](https://www.linkedin.com/in/dhavalgajjarin/), System Architect at [Staunchsys](/partners/staunchsys), walked through the upgrade in three parts:
+[**Vikas Rajput**](/people/vikas-rajput), founder of [TechXplore](https://www.techxplore.io), and [**Dhaval Gajjar**](/people/dhaval-gajjar), System Architect at [Staunchsys](/partners/staunchsys), walked through the upgrade in three parts:
 
 - **The migration roadmap:** spotting compatibility issues, handling deprecated APIs and making the required code changes before they cause outages.
 - **Immediate ROI:** the performance gains you get from the upgrade, including **virtual threads**, plus newer built-in security improvements. They also showed performance benchmarks and how the move plays out for financial and banking workloads.
@@ -57,6 +57,6 @@ The morning also looked back at the Gujarat JUG journey so far: about a year and
 
 ## Thank you
 
-Thanks to [**Bharat Ranpariya**](https://www.linkedin.com/in/bharat-ranpariya/) for hosting, and to **IBM India Software Labs** for opening their GIFT City office to the community.
+Thanks to [**Bharat Ranpariya**](/people/bharat-ranpariya) for hosting, and to **IBM India Software Labs** for opening their GIFT City office to the community.
 
 <!-- TO ADD (organisers): exact date, actual turnout, giveaways. -->

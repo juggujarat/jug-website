@@ -144,6 +144,7 @@ const ld = [orgLd, ...(crumbLd ? [crumbLd] : []), ...(jsonLd ? (Array.isArray(js
             <a class="chip hover:text-ink" href={SITE.links.linkedin} target="_blank" rel="noopener">LinkedIn</a>
             <a class="chip hover:text-ink" href={SITE.links.youtube} target="_blank" rel="noopener">YouTube</a>
             <a class="chip hover:text-ink" href={SITE.links.whatsapp} target="_blank" rel="noopener">WhatsApp</a>
+            <a class="chip hover:text-ink" href={SITE.links.linktree} target="_blank" rel="noopener">Linktree</a>
           </div>
         </div>
         <div>
@@ -151,6 +152,8 @@ const ld = [orgLd, ...(crumbLd ? [crumbLd] : []), ...(jsonLd ? (Array.isArray(js
           <ul class="space-y-2 text-ink/80">
             <li><a class="hover:text-duke" href="/events">Events</a></li>
             <li><a class="hover:text-duke" href="/speakers">Speakers</a></li>
+            <li><a class="hover:text-duke" href="/gallery">Gallery</a></li>
+            <li><a class="hover:text-duke" href={SITE.links.luma} target="_blank" rel="noopener">Upcoming events ↗</a></li>
           </ul>
         </div>
         <div>
@@ -164,8 +167,10 @@ const ld = [orgLd, ...(crumbLd ? [crumbLd] : []), ...(jsonLd ? (Array.isArray(js
         <div>
           <p class="eyebrow mb-4">Join in</p>
           <ul class="space-y-2 text-ink/80">
-            <li><a class="hover:text-duke" href="/get-involved#speak">Give a talk</a></li>
-            <li><a class="hover:text-duke" href="/get-involved#volunteer">Volunteer</a></li>
+            <li><a class="hover:text-duke" href="/join">Scan &amp; join (QR codes)</a></li>
+            <li><a class="hover:text-duke" href={SITE.links.whatsapp} target="_blank" rel="noopener">WhatsApp community ↗</a></li>
+            <li><a class="hover:text-duke" href="/speak">Call for speakers</a></li>
+            <li><a class="hover:text-duke" href="/volunteer">Volunteer</a></li>
             <li><a class="hover:text-duke" href="/get-involved#sponsor">Sponsor or host</a></li>
           </ul>
         </div>

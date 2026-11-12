@@ -43,7 +43,7 @@ On **Saturday, 28 June 2025**, Gujarat JUG met at **York IE in Ambli, Ahmedabad*
 
 ## Migration engineering as code with OpenRewrite
 
-Upgrading Java versions, moving from Spring Boot 2 to 3, or switching from `javax` to `jakarta` can take teams months when done by hand. [**Vikas Rajput**](https://www.linkedin.com/in/vikasrajputin/), Sr. Java Consultant and Gujarat JUG organiser, showed how **OpenRewrite** turns these migrations into code:
+Upgrading Java versions, moving from Spring Boot 2 to 3, or switching from `javax` to `jakarta` can take teams months when done by hand. [**Vikas Rajput**](/people/vikas-rajput), Sr. Java Consultant and Gujarat JUG organiser, showed how **OpenRewrite** turns these migrations into code:
 
 - What OpenRewrite *recipes* are and how they safely transform source code using lossless semantic trees
 - Running community recipes for Java and Spring Boot upgrades
