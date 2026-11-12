@@ -5,7 +5,7 @@ export type PersonEntry = CollectionEntry<'people'>;
 export type PartnerEntry = CollectionEntry<'partners'>;
 
 export const ROLE_LABEL: Record<string, string> = {
-  venue: 'Venue partner',
+  venue: 'Venue host',
   sponsor: 'Sponsor',
   food: 'Food partner',
   goodies: 'Goodies partner',

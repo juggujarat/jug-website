@@ -8,6 +8,7 @@ export const SITE = {
     luma: 'https://lu.ma/user/juggujarat',
     whatsapp: 'https://chat.whatsapp.com/KmKgx1RSsdq9nwc9TmKsYP',
     linkedin: 'https://www.linkedin.com/company/juggujarat/',
+    x: 'https://x.com/juggujarat',
     youtube: 'https://www.youtube.com/@juggujarat',
     linktree: 'https://linktr.ee/juggujarat',
     github: 'https://github.com/juggujarat',
@@ -20,7 +21,7 @@ export const NAV = [
   { href: '/events', label: 'Events' },
   { href: '/speakers', label: 'Speakers' },
   { href: '/team', label: 'Team' },
-  { href: '/partners', label: 'Partners' },
+  { href: '/partners', label: 'Hosts & sponsors' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/about', label: 'Our story' },
 ];

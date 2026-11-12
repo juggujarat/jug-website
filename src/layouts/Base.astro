@@ -45,7 +45,7 @@ const orgLd = {
   logo: `${SITE.url}/Img/jug-full-logo-svg.svg`,
   description: SITE.description,
   areaServed: 'Gujarat, India',
-  sameAs: [SITE.links.linkedin, SITE.links.youtube, SITE.links.luma, SITE.links.linktree],
+  sameAs: [SITE.links.linkedin, SITE.links.x, SITE.links.youtube, SITE.links.luma],
 };
 const crumbs = breadcrumbs ? [{ name: 'Home', href: '/' }, ...breadcrumbs] : null;
 const crumbLd = crumbs && {
@@ -143,7 +143,7 @@ const ld = [orgLd, ...(crumbLd ? [crumbLd] : []), ...(jsonLd ? (Array.isArray(js
             <a class="chip hover:text-ink" href={SITE.links.linkedin} target="_blank" rel="noopener">LinkedIn</a>
             <a class="chip hover:text-ink" href={SITE.links.youtube} target="_blank" rel="noopener">YouTube</a>
             <a class="chip hover:text-ink" href={SITE.links.whatsapp} target="_blank" rel="noopener">WhatsApp</a>
-            <a class="chip hover:text-ink" href={SITE.links.linktree} target="_blank" rel="noopener">Linktree</a>
+            <a class="chip hover:text-ink" href={SITE.links.x} target="_blank" rel="noopener">X</a>
           </div>
         </div>
         <div>
@@ -160,13 +160,13 @@ const ld = [orgLd, ...(crumbLd ? [crumbLd] : []), ...(jsonLd ? (Array.isArray(js
           <ul class="space-y-2 text-ink/80">
             <li><a class="hover:text-duke" href="/about">Our story</a></li>
             <li><a class="hover:text-duke" href="/team">Team & volunteers</a></li>
-            <li><a class="hover:text-duke" href="/partners">Partners</a></li>
+            <li><a class="hover:text-duke" href="/partners">Hosts &amp; sponsors</a></li>
           </ul>
         </div>
         <div>
           <p class="eyebrow mb-4">Join in</p>
           <ul class="space-y-2 text-ink/80">
-            <li><a class="hover:text-duke" href="/join">Scan &amp; join (QR codes)</a></li>
+            <li><a class="hover:text-duke" href="/join">All community links</a></li>
             <li><a class="hover:text-duke" href={SITE.links.whatsapp} target="_blank" rel="noopener">WhatsApp community ↗</a></li>
             <li><a class="hover:text-duke" href="/speak">Call for speakers</a></li>
             <li><a class="hover:text-duke" href="/volunteer">Volunteer</a></li>

@@ -17,7 +17,7 @@ const roles = [...new Set(support.map((s) => ROLE_LABEL[s.role]))];
 const orgLd = { '@context': 'https://schema.org', '@type': 'Organization', name: d.name, url: d.website, logo: d.logo ? new URL(d.logo, Astro.site).href : undefined };
 ---
 <Base title={d.name} description={`${d.name} supports Gujarat JUG${roles.length ? ` as ${roles.join(', ').toLowerCase()}` : ''}.`} image={d.logo} jsonLd={orgLd}
-  breadcrumbs={[{ name: 'Partners', href: '/partners' }, { name: d.name, href: `/partners/${partner.id}` }]}>
+  breadcrumbs={[{ name: 'Hosts & sponsors', href: '/partners' }, { name: d.name, href: `/partners/${partner.id}` }]}>
   <section class="pt-8 pb-12">
     <div class="container-x grid items-center gap-10 md:grid-cols-[280px_1fr]">
       <div class="reveal grid aspect-square place-items-center rounded-[2rem] border border-black/10 bg-white p-10 shadow-lg">
@@ -35,7 +35,7 @@ const orgLd = { '@context': 'https://schema.org', '@type': 'Organization', name:
     {hasBody ? <div class="prose-jug max-w-3xl"><Content /></div> : null}
     {support.length > 0 && (
       <div class="mt-12">
-        <p class="eyebrow">// events they supported</p>
+        <p class="eyebrow">// meetups they made possible</p>
         <div class="mt-6 grid gap-6 md:grid-cols-3">{support.map((s, i) => <EventCard event={s.event} delay={i * 60} />)}</div>
       </div>
     )}
