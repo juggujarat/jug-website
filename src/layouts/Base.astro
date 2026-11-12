@@ -2,7 +2,6 @@
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
-import Duke from '../components/Duke.astro';
 import { SITE, NAV } from '../lib/site';
 
 interface Crumb { name: string; href: string }
@@ -179,7 +178,6 @@ const ld = [orgLd, ...(crumbLd ? [crumbLd] : []), ...(jsonLd ? (Array.isArray(js
         <p>© {year} Java User Group Gujarat. Java and Duke are trademarks of Oracle and/or its affiliates.</p>
         <p><span class="text-duke">System.out</span>.println(<span class="text-duke-soft">"Made with ☕ in Gujarat"</span>);</p>
       </div>
-      <div class="pointer-events-none absolute -bottom-10 right-6 hidden opacity-20 md:block"><Duke size={180} /></div>
     </footer>
 
     <script>
