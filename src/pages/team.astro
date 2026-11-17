@@ -12,7 +12,7 @@ const { core, volunteers } = await getTeam();
   <section class="container-x">
     <h2 class="text-3xl font-bold">Core team</h2>
     <div class="mt-8 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
-      {core.map((p, i) => <PersonCard person={p} meta={p.data.teamTitle} delay={(i % 4) * 60} />)}
+      {core.map((p, i) => <PersonCard person={p} meta={p.data.teamTitle && `${p.data.teamTitle} at Gujarat JUG`} delay={(i % 4) * 60} />)}
     </div>
   </section>
 

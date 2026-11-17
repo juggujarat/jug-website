@@ -1,19 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
+import { LuMessageCircle, LuCalendarCheck, LuUsers, LuMic, LuCalendarDays, LuPlay, LuCamera, LuHandshake } from 'react-icons/lu';
 import QrCard from '../components/QrCard.astro';
 import { SITE } from '../lib/site';
 
 const primary = [
-  { icon: '💬', title: 'Join our WhatsApp community', sub: 'Meetup alerts, slides and conversations', href: SITE.links.whatsapp },
-  { icon: '📅', title: 'Upcoming events', sub: 'RSVP on Luma', href: SITE.links.luma },
-  { icon: '🙌', title: 'Join us as a volunteer', sub: 'Give back to the Java community', href: SITE.links.volunteerForm },
-  { icon: '🎤', title: 'Speak at our upcoming meetup', sub: 'Submit your talk idea', href: SITE.links.speakerForm },
+  { icon: LuMessageCircle, title: 'Join our WhatsApp community', sub: 'Meetup alerts, slides and conversations', href: SITE.links.whatsapp },
+  { icon: LuCalendarCheck, title: 'Upcoming events', sub: 'RSVP on Luma', href: SITE.links.luma },
+  { icon: LuUsers, title: 'Join us as a volunteer', sub: 'Give back to the Java community', href: SITE.links.volunteerForm },
+  { icon: LuMic, title: 'Speak at our upcoming meetup', sub: 'Submit your talk idea', href: SITE.links.speakerForm },
 ];
 const more = [
-  { icon: '🗓️', title: 'Past meetups & recaps', sub: 'Every event, with photos and talks', href: '/events' },
-  { icon: '▶️', title: 'Watch talk recordings', sub: 'YouTube', href: SITE.links.youtube },
-  { icon: '📸', title: 'Photo gallery', sub: 'Moments from our meetups', href: '/gallery' },
-  { icon: '🤝', title: 'Host or sponsor a meetup', sub: 'Partner with Gujarat JUG', href: '/get-involved#sponsor' },
+  { icon: LuCalendarDays, title: 'Past meetups & recaps', sub: 'Every event, with photos and talks', href: '/events' },
+  { icon: LuPlay, title: 'Watch talk recordings', sub: 'YouTube', href: SITE.links.youtube },
+  { icon: LuCamera, title: 'Photo gallery', sub: 'Moments from our meetups', href: '/gallery' },
+  { icon: LuHandshake, title: 'Host or sponsor a meetup', sub: 'Partner with Gujarat JUG', href: '/get-involved#sponsor' },
 ];
 const socials = [
   { label: 'Website', href: '/' },
@@ -42,7 +43,7 @@ const ext = (h: string) => h.startsWith('http');
       {primary.map((l, i) => (
         <li class="reveal" style={`--d:${i * 50}ms`}>
           <a href={l.href} target="_blank" rel="noopener" class="group flex items-center gap-4 rounded-2xl bg-duke px-5 py-4 text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-duke-dark hover:shadow-lg">
-            <span class="grid size-11 shrink-0 place-items-center rounded-full bg-white/15 text-2xl" aria-hidden="true">{l.icon}</span>
+            <span class="grid size-11 shrink-0 place-items-center rounded-full bg-white/15" aria-hidden="true"><l.icon size={22} strokeWidth={2} /></span>
             <span class="min-w-0 flex-1 text-left"><span class="block text-lg font-bold leading-tight">{l.title}</span><span class="block text-sm text-white/80">{l.sub}</span></span>
             <span class="text-xl transition group-hover:translate-x-0.5" aria-hidden="true">↗</span>
           </a>
@@ -54,7 +55,7 @@ const ext = (h: string) => h.startsWith('http');
       {more.map((l, i) => (
         <li class="reveal" style={`--d:${i * 50}ms`}>
           <a href={l.href} {...(ext(l.href) ? { target: '_blank', rel: 'noopener' } : {})} class="card group flex items-center gap-4 px-5 py-4 transition hover:-translate-y-0.5 hover:border-duke/40">
-            <span class="grid size-11 shrink-0 place-items-center rounded-full bg-duke/10 text-2xl" aria-hidden="true">{l.icon}</span>
+            <span class="grid size-11 shrink-0 place-items-center rounded-full bg-duke/10 text-duke" aria-hidden="true"><l.icon size={22} strokeWidth={2} /></span>
             <span class="min-w-0 flex-1 text-left"><span class="block text-lg font-bold leading-tight group-hover:text-duke">{l.title}</span><span class="block text-sm text-muted">{l.sub}</span></span>
             <span class="text-xl text-muted transition group-hover:translate-x-0.5 group-hover:text-duke" aria-hidden="true">{ext(l.href) ? '↗' : '→'}</span>
           </a>

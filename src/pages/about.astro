@@ -1,46 +1,83 @@
 ---
 import Base from '../layouts/Base.astro';
+import { LuGlobe, LuHandshake, LuMic, LuBookOpen, LuRocket, LuHeart, LuTicket, LuBuilding2, LuPizza, LuUsers, LuLinkedin } from 'react-icons/lu';
 import PageHero from '../components/PageHero.astro';
-import PersonCard from '../components/PersonCard.astro';
+import Avatar from '../components/Avatar.astro';
 import Duke from '../components/Duke.astro';
-import { getTeam, getStats, getPastEvents, formatEventDate } from '../lib/data';
+import { SITE } from '../lib/site';
+import { getTeam, getStats } from '../lib/data';
 
-const [{ core }, stats, past] = await Promise.all([getTeam(), getStats(), getPastEvents()]);
-const timeline = [...past].reverse();
+const [{ core }, stats] = await Promise.all([getTeam(), getStats()]);
+const bioOf = (body?: string) => (body ?? '').trim().split(/\n\s*\n/).map((p) => p.replace(/\s+/g, ' ').trim()).filter(Boolean);
+const ORACLE_DIRECTORY = 'https://dev.java/community/jugs/';
+const whyJugs = [
+  { icon: LuGlobe, title: 'A global network', body: 'JUGs meet on almost every continent. Joining one plugs you into Java communities worldwide.' },
+  { icon: LuHandshake, title: 'Developers and experts', body: 'Connect, communicate and collaborate with peers, Java Champions and industry practitioners.' },
+  { icon: LuMic, title: 'Talks and workshops', body: 'Regular meetups, hands-on workshops and community conferences, free for everyone.' },
+  { icon: LuBookOpen, title: 'Shared knowledge', body: 'Share resources, solutions and best practices, and keep up with the language as it evolves.' },
+  { icon: LuRocket, title: 'Career growth', body: 'Expand your Java expertise, speak in public, and grow through collaboration with others.' },
+  { icon: LuHeart, title: 'An inclusive ecosystem', body: 'Students, first-time speakers and seasoned architects are all welcome in the room.' },
+];
+const socials = [
+  { label: 'Website', href: SITE.url },
+  { label: 'Linktree', href: SITE.links.linktree },
+  { label: 'LinkedIn', href: SITE.links.linkedin },
+  { label: 'X (Twitter)', href: SITE.links.x },
+  { label: 'Instagram', href: SITE.links.instagram },
+];
 const pillars = [
-  { icon: '🎟️', title: 'Always free', body: 'Meetups are free to attend. RSVPs on Luma only help us plan seats and food.' },
-  { icon: '🏢', title: 'Hosted by companies', body: 'Local companies and universities open their offices and campuses to us for each edition.' },
-  { icon: '🍕', title: 'Backed by sponsors', body: 'Sponsors cover food, goodies and the bigger costs of Community Day for Java.' },
-  { icon: '🙌', title: 'Run by volunteers', body: 'The core team and volunteers plan, host and clean up. Nobody is paid.' },
+  { icon: LuTicket, title: 'Always free', body: 'Meetups are free to attend. RSVPs on Luma only help us plan seats and food.' },
+  { icon: LuBuilding2, title: 'Hosted by companies', body: 'Local companies and universities open their offices and campuses to us for each edition.' },
+  { icon: LuPizza, title: 'Backed by sponsors', body: 'Sponsors cover food, goodies and the bigger costs of Community Day for Java.' },
+  { icon: LuUsers, title: 'Run by volunteers', body: 'The core team and volunteers plan, host and clean up. Nobody is paid.' },
 ];
 ---
-<Base title="Our story" description="How Gujarat JUG started, who runs it, and how a free community keeps going." breadcrumbs={[{ name: "Our story", href: "/about" }]}>
-  <PageHero eyebrow="// our story" title="Two years of Java in Gujarat" lead={`${stats.events} events, ${stats.registrations.toLocaleString('en-IN')}+ registrations and ${stats.speakers} speakers since we started.`} />
+<Base title="About us" description="What a Java User Group is, why JUGs matter, and how Gujarat JUG connects Java developers in Gujarat to the worldwide Java community." breadcrumbs={[{ name: "About us", href: "/about" }]}>
+  <PageHero eyebrow="// about us" title="What is Gujarat JUG?" lead={`Gujarat's official Java User Group, part of the worldwide JUG ecosystem. ${stats.events} events, ${stats.registrations.toLocaleString('en-IN')}+ registrations and ${stats.speakers} speakers so far.`} />
 
-  <!-- STORY: TODO(Vikas) replace with the real founding story -->
-  <section class="container-x grid items-center gap-12 lg:grid-cols-[1.4fr_1fr]">
-    <div class="prose-jug">
-      <h2>How it started</h2>
-      <p>Gujarat Java User Group started in 2024 with a simple idea: Ahmedabad and Gandhinagar have thousands of Java developers, but nowhere to meet, learn from each other and talk shop.</p>
-      <p><em>[Founding story to be written: who started it, why, and what the first meetup was like.]</em></p>
-      <blockquote>Learn, share, and grow together.</blockquote>
+  <section class="container-x grid gap-12 lg:grid-cols-[1.4fr_1fr]">
+    <div class="prose-jug min-w-0">
+      <h2 class="!mt-0">About us</h2>
+      <p>Gujarat Java User Group (Gujarat JUG) is a vibrant, community-driven initiative that brings together Java developers, architects, students and technology enthusiasts from across Gujarat. We are passionate about learning, sharing knowledge and growing together as part of the global Java ecosystem.</p>
+      <p>Our mission is to empower Java professionals by promoting best practices, sharing industry trends and fostering meaningful collaboration. Gujarat JUG is a platform where developers connect, innovate and exchange real-world experience through technical talks, workshops and meetups.</p>
+      <p>We are committed to bridging the gap between academia and industry, creating opportunities for students and early-career developers to learn from experienced industry experts.</p>
+      <p>Gujarat JUG is an officially registered Java User Group with Oracle. You can find our listing on <a href="https://dev.java/community/jugs/" target="_blank" rel="noopener">dev.java/community/jugs</a>.</p>
+    </div>
+    <aside class="card reveal h-fit min-w-0 p-7">
+      <p class="eyebrow">// find us online</p>
+      <ul class="mt-5 space-y-3">
+        {socials.map((l) => (
+          <li><a href={l.href} target="_blank" rel="noopener" class="flex items-center justify-between gap-4 font-semibold hover:text-duke"><span>{l.label}</span><span class="truncate font-mono text-sm text-muted">{l.href.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</span></a></li>
+        ))}
+      </ul>
+    </aside>
+  </section>
+
+  <section class="container-x mt-24 grid items-center gap-12 lg:grid-cols-[1.4fr_1fr]">
+    <div>
+      <p class="eyebrow">// first things first</p>
+      <h2 class="h-display mt-3 text-4xl sm:text-5xl">What is a Java User Group (JUG)?</h2>
+      <figure class="card reveal mt-8 p-7 sm:p-9">
+        <blockquote class="text-xl italic leading-relaxed text-ink/80">“Java User Groups (JUGs) are volunteer organizations that strive to distribute Java-related knowledge around the world.”</blockquote>
+        <figcaption class="mt-4 font-semibold text-duke">— Oracle, <a href={ORACLE_DIRECTORY} target="_blank" rel="noopener" class="underline decoration-duke/40 underline-offset-4 hover:decoration-duke">dev.java</a></figcaption>
+      </figure>
+      <p class="mt-6 text-lg text-muted">A JUG is a meeting place where Java users share information and solutions, network, expand their expertise and build an inclusive community. JUGs are community-driven groups run by volunteers, and they are officially encouraged by Oracle, the steward of Java. You will find them on almost every continent, meeting regularly to learn and build together.</p>
     </div>
     <div class="reveal mx-auto"><Duke size={260} steam /></div>
   </section>
 
-  <section class="container-x mt-28">
-    <p class="eyebrow">// the journey</p>
-    <h2 class="h-display mt-3 text-4xl sm:text-5xl">Every edition so far</h2>
-    <ol class="relative mt-12 border-l-2 border-dashed border-black/15 pl-8 sm:pl-12">
-      {timeline.map((e, i) => (
-        <li class="reveal relative pb-10" style={`--d:${(i % 4) * 60}ms`}>
-          <span class="absolute -left-[41px] top-1 grid size-5 place-items-center rounded-full bg-duke ring-4 ring-paper sm:-left-[57px]"></span>
-          <p class="font-mono text-xs uppercase tracking-widest text-duke">{formatEventDate(e, { short: true })}</p>
-          <a href={`/events/${e.id}`} class="mt-1 block text-xl font-semibold hover:text-duke">{e.data.title}</a>
-          <p class="text-sm text-muted">{e.data.venueName ?? e.data.city}{e.data.registered && ` · ${e.data.registered} registered`}</p>
-        </li>
+  <section class="container-x mt-24">
+    <p class="eyebrow">// why it matters</p>
+    <h2 class="h-display mt-3 text-4xl sm:text-5xl">Why JUGs matter</h2>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {whyJugs.map((p, i) => (
+        <div class="card reveal p-7" style={`--d:${(i % 3) * 80}ms`}>
+          <span class="grid size-12 place-items-center rounded-xl bg-duke/10 text-duke" aria-hidden="true"><p.icon size={24} strokeWidth={1.75} /></span>
+          <h3 class="mt-4 text-xl font-bold">{p.title}</h3>
+          <p class="mt-2 text-muted">{p.body}</p>
+        </div>
       ))}
-    </ol>
+    </div>
   </section>
 
   <section class="container-x mt-20">
@@ -49,20 +86,41 @@ const pillars = [
     <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {pillars.map((p, i) => (
         <div class="card reveal p-7" style={`--d:${i * 80}ms`}>
-          <p class="text-4xl">{p.icon}</p>
+          <span class="grid size-12 place-items-center rounded-xl bg-duke/10 text-duke" aria-hidden="true"><p.icon size={24} strokeWidth={1.75} /></span>
           <h3 class="mt-4 text-xl font-bold">{p.title}</h3>
           <p class="mt-2 text-muted">{p.body}</p>
         </div>
       ))}
     </div>
-    <p class="mt-6 text-sm text-muted"><em>[Funding details to be confirmed.]</em> <a href="/partners" class="text-duke hover:underline">See who hosted and sponsored us →</a></p>
+    <p class="mt-6 text-sm text-muted"><a href="/partners" class="text-duke hover:underline">See who hosted and sponsored us →</a></p>
   </section>
 
   <section class="container-x mt-28">
     <p class="eyebrow">// core team</p>
     <h2 class="h-display mt-3 text-4xl sm:text-5xl">The people behind it</h2>
-    <div class="mt-10 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
-      {core.map((p, i) => <PersonCard person={p} meta={p.data.teamTitle} delay={(i % 4) * 60} />)}
+    <p class="mt-4 max-w-2xl text-lg text-muted">Gujarat had thousands of Java developers but no platform where they could meet, learn and grow together. These are the people who set out to change that.</p>
+    <div class="mt-10 grid gap-6 lg:grid-cols-3">
+      {core.map((p, i) => (
+        <article class="card reveal flex flex-col p-7" style={`--d:${i * 80}ms`}>
+          <div class="flex items-center gap-4">
+            <Avatar name={p.data.name} photo={p.data.photo} size="size-20" class="shrink-0" />
+            <div class="min-w-0">
+              <h3 class="text-xl font-bold leading-tight"><a href={`/people/${p.id}`} class="hover:text-duke">{p.data.name}</a></h3>
+              <p class="mt-1 font-mono text-[11px] uppercase tracking-widest text-duke">{p.data.teamTitle ?? 'Co-organizer'} at Gujarat JUG</p>
+              {(p.data.headline || p.data.company) && (
+                <p class="mt-1 text-sm text-muted">
+                  {p.data.headline}{p.data.headline && p.data.company && ' at '}
+                  {p.data.company && (p.data.companyUrl
+                    ? <a href={p.data.companyUrl} target="_blank" rel="noopener" class="underline decoration-duke/40 underline-offset-2 hover:text-duke">{p.data.company}</a>
+                    : p.data.company)}
+                </p>
+              )}
+            </div>
+          </div>
+          {bioOf(p.body).map((para) => <p class="mt-5 leading-relaxed text-ink/80">{para}</p>)}
+          {p.data.socials?.linkedin && <a href={p.data.socials.linkedin} target="_blank" rel="noopener" class="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-duke hover:underline"><LuLinkedin size={16} aria-hidden="true" /> LinkedIn</a>}
+        </article>
+      ))}
     </div>
     <a href="/team" class="btn-ghost mt-8">Meet all volunteers →</a>
   </section>
