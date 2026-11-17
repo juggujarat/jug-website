@@ -12,6 +12,7 @@ export const SITE = {
     youtube: 'https://www.youtube.com/@juggujarat',
     linktree: 'https://linktr.ee/juggujarat',
     github: 'https://github.com/juggujarat',
+    instagram: 'https://instagram.com/juggujarat',
     volunteerForm: 'https://forms.gle/yf8u4TxnqPxUPzL46',
     speakerForm: 'https://forms.gle/pDow2fTrot1MCJF36',
   },
@@ -23,5 +24,5 @@ export const NAV = [
   { href: '/team', label: 'Team' },
   { href: '/partners', label: 'Hosts & sponsors' },
   { href: '/gallery', label: 'Gallery' },
-  { href: '/about', label: 'Our story' },
+  { href: '/about', label: 'About us' },
 ];

@@ -32,7 +32,7 @@ const personLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: d.name,
-  jobTitle: d.headline,
+  jobTitle: d.teamTitle ? [`${d.teamTitle} at Gujarat JUG`, d.headline].filter(Boolean) : d.headline,
   worksFor: d.company ? { '@type': 'Organization', name: d.company, ...(d.companyUrl ? { url: d.companyUrl } : {}) } : undefined,
   image: d.photo ? new URL(d.photo, Astro.site).href : undefined,
   url: new URL(Astro.url.pathname, Astro.site).href,
@@ -55,13 +55,13 @@ const metaDesc = `${d.name}${title ? `, ${title}` : ''}. ${badges.join(', ')} at
       <div class="text-center md:text-left">
         <div class="reveal flex flex-wrap justify-center gap-2 md:justify-start">{badges.map((b) => <span class="chip border-duke/40 text-duke">{b}</span>)}</div>
         <h1 class="h-display reveal mt-4 text-5xl sm:text-7xl" style="--d:80ms">{d.name}</h1>
+        {d.teamTitle && <p class="reveal mt-3 font-mono text-sm uppercase tracking-widest text-duke" style="--d:120ms">{d.teamTitle} at Gujarat JUG</p>}
         {title && (
-          <p class="reveal mt-3 text-xl text-muted" style="--d:140ms">
+          <p class="reveal mt-2 text-xl text-muted" style="--d:140ms">
             {d.headline}{d.headline && d.company && ' at '}
             {d.company && (d.companyUrl
               ? <a href={d.companyUrl} target="_blank" rel="noopener" class="text-ink underline decoration-duke/50 underline-offset-4 hover:text-duke">{d.company}</a>
               : d.company)}
-            {d.teamTitle && ` · ${d.teamTitle}`}
           </p>
         )}
         {socials.length > 0 && (
