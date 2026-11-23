@@ -75,9 +75,13 @@ const events = defineCollection({
     mapUrl: z.string().url().optional(),
     lumaUrl: z.string().url().optional(),
     registrationUrl: z.string().url().optional(),
+    /** Luma event id (evt-...). When set on an upcoming event, Register buttons open Luma's checkout pop-up on our page. */
+    lumaEventId: z.string().optional(),
     registered: z.number().optional(),
     attended: z.number().optional(),
     cover: z.string().optional(),
+    /** 1200x630 share image (under ~300 KB) for WhatsApp, LinkedIn, X and Facebook previews */
+    socialImage: z.string().optional(),
     /** Position in the Luma past-events list; photos are read from src/assets/meetups/meetup-<n>/ */
     meetupNumber: z.number().int().positive().optional(),
     /** File name of the group photo inside the meetup folder (defaults to a file whose name contains "group") */
