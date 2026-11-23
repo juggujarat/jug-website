@@ -9,6 +9,12 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  /** Pixel size and alt text of the share image (helps WhatsApp/Facebook render the preview on first share) */
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
+  /** Description used only for social previews (defaults to description) */
+  socialDescription?: string;
   /** 'article' for blog-style pages such as event recaps */
   type?: 'website' | 'article' | 'profile';
   publishedTime?: Date;
@@ -23,6 +29,10 @@ const {
   title,
   description = SITE.description,
   image = '/Home/community-banner.png',
+  imageWidth,
+  imageHeight,
+  imageAlt,
+  socialDescription,
   type = 'website',
   publishedTime,
   modifiedTime,
@@ -33,6 +43,8 @@ const {
 const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.fullName} | Java community in Ahmedabad & Gujarat`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
+const ogImageType = /\.png$/i.test(ogImage.pathname) ? 'image/png' : /\.webp$/i.test(ogImage.pathname) ? 'image/webp' : 'image/jpeg';
+const shareDescription = socialDescription ?? description;
 const year = new Date().getFullYear();
 
 const orgLd = {
@@ -72,13 +84,19 @@ const ld = [orgLd, ...(crumbLd ? [crumbLd] : []), ...(jsonLd ? (Array.isArray(js
     <meta property="og:locale" content="en_IN" />
     <meta property="og:site_name" content={SITE.fullName} />
     <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={shareDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:secure_url" content={ogImage} />
+    <meta property="og:image:type" content={ogImageType} />
+    {imageWidth && <meta property="og:image:width" content={String(imageWidth)} />}
+    {imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
+    <meta property="og:image:alt" content={imageAlt ?? fullTitle} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={shareDescription} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={imageAlt ?? fullTitle} />
     {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
     {modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
     <meta name="geo.region" content="IN-GJ" />

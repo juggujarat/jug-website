@@ -3,6 +3,7 @@ import { getCollection, getEntry, getEntries, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Duke from '../../components/Duke.astro';
 import EventCard from '../../components/EventCard.astro';
+import Avatar from '../../components/Avatar.astro';
 import { formatEventDate, FORMAT_LABEL, ROLE_LABEL, isUpcoming, getEvents } from '../../lib/data';
 import { SITE } from '../../lib/site';
 import { Image, getImage } from 'astro:assets';
@@ -37,6 +38,13 @@ const related = all
   .map((x) => x.e);
 
 const ctaUrl = d.registrationUrl ?? d.lumaUrl;
+// Luma checkout embed: Register buttons open Luma's registration pop-up on this page (falls back to a new tab without JS)
+const lumaCheckout = upcoming && d.lumaEventId ? { 'data-luma-action': 'checkout', 'data-luma-event-id': d.lumaEventId } : {};
+const regUrl = upcoming && d.lumaEventId ? `https://luma.com/event/${d.lumaEventId}` : ctaUrl;
+const regArrow = upcoming && d.lumaEventId ? ' →' : ' ↗';
+const timeText = d.startTime ? `${d.startTime}${d.endTime ? `–${d.endTime}` : ''} IST` : '';
+const to12h = (t: string) => { const [h, m] = t.split(':').map(Number); return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`; };
+const timeText12 = d.startTime ? `${to12h(d.startTime)}${d.endTime ? ` – ${to12h(d.endTime)}` : ''} IST` : '';
 const dateText = formatEventDate(event);
 const description =
   d.summary ??
@@ -51,7 +59,7 @@ const url = new URL(Astro.url.pathname, Astro.site).href;
 const banner = bannerFor(event);
 // the banner is already shown at the top, so leave it out of the photo grid
 const photos = photosFor(event).filter((p) => p !== banner);
-const ogImagePath = banner ? (await getImage({ src: banner.image, width: 1200, format: 'jpg' })).src : d.cover;
+const ogImagePath = d.socialImage ?? (banner ? (await getImage({ src: banner.image, width: 1200, format: 'jpg' })).src : d.cover);
 const image = ogImagePath ? new URL(ogImagePath, Astro.site).href : undefined;
 const fullSizes = await Promise.all(photos.map((p) => getImage({ src: p.image, width: 2000, format: 'webp' })));
 const altText = `${d.title}, ${FORMAT_LABEL[d.format].toLowerCase()} by Java User Group Gujarat${d.venueName ? ` at ${d.venueName}` : ''}`;
@@ -99,6 +107,10 @@ const articleLd = {
   title={d.title}
   description={description}
   image={ogImagePath}
+  imageWidth={d.socialImage ? 1200 : undefined}
+  imageHeight={d.socialImage ? 630 : undefined}
+  imageAlt={`${d.title}: event banner`}
+  socialDescription={upcoming ? `${dateText}${d.startTime ? `, ${timeText12}` : ''} · ${d.format === 'online' ? 'Online' : (d.venueName ?? d.city)} · Free. ${description}` : undefined}
   type="article"
   publishedTime={d.date}
   breadcrumbs={[{ name: 'Events', href: '/events' }, { name: d.title, href: `/events/${event.id}` }]}
@@ -121,6 +133,13 @@ const articleLd = {
         <time datetime={d.date.toISOString().slice(0, 10)} itemprop="datePublished">{dateText}</time><span aria-hidden="true">·</span>
         <span>{readMins} min read</span>
       </p>
+      {upcoming && ctaUrl && (
+        <div class="reveal mt-8 flex flex-col items-center gap-3" style="--d:120ms">
+          <p class="text-lg font-semibold">{dateText}{timeText12 && ` · ${timeText12}`}{d.format === 'online' ? ' · Online' : d.venueName ? ` · ${d.venueName}` : ''}</p>
+          <a href={regUrl} target="_blank" rel="noopener" {...lumaCheckout} class="btn-primary px-8 py-4 text-lg shadow-lg shadow-duke/25" data-register>Register for the event{regArrow}</a>
+          <p class="text-sm text-muted">Free · Secure registration powered by Luma</p>
+        </div>
+      )}
     </header>
 
     {(banner || d.cover) && (
@@ -130,8 +149,8 @@ const articleLd = {
             loading="eager" fetchpriority="high" itemprop="image"
             class="aspect-[16/9] w-full rounded-3xl border border-black/10 bg-mist object-cover shadow-xl" transition:name={`cover-${event.id}`} />
         ) : (
-          <img src={d.cover} alt={altText} itemprop="image"
-            class="aspect-[16/9] w-full rounded-3xl border border-black/10 bg-mist object-cover shadow-xl" transition:name={`cover-${event.id}`} />
+          <img src={d.cover} alt={`Event banner: ${altText}`} itemprop="image" loading="eager" fetchpriority="high"
+            class:list={['w-full rounded-3xl border border-black/10 bg-mist shadow-xl', upcoming ? 'mx-auto max-w-2xl object-contain' : 'aspect-[16/9] object-cover']} transition:name={`cover-${event.id}`} />
         )}
         {banner && <figcaption class="mt-3 text-center text-sm text-muted">The Gujarat JUG community at {d.title}</figcaption>}
       </figure>
@@ -142,7 +161,16 @@ const articleLd = {
         <!-- Story (Markdown body) -->
         <div class="prose-jug" itemprop="articleBody"><Content /></div>
 
-        {d.lumaUrl && (
+        {upcoming && ctaUrl && (
+          <div class="mt-10 flex flex-col items-start gap-4 rounded-3xl border border-duke/20 bg-duke/5 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p class="text-lg font-bold">Save your spot</p>
+              <p class="text-sm text-muted">Registration is handled on Luma.{d.format === 'online' && ' You will get the joining link after you register.'}</p>
+            </div>
+            <a href={regUrl} target="_blank" rel="noopener" {...lumaCheckout} class="btn-primary shrink-0">Register for the event{regArrow}</a>
+          </div>
+        )}
+        {d.lumaUrl && !upcoming && (
           <p class="mt-8 border-t border-black/10 pt-6 text-sm text-muted">
             Source: this {d.format === 'meetup' ? 'meetup' : 'event'} was originally listed on Luma.{" "}
             <a href={d.lumaUrl} target="_blank" rel="noopener" class="font-semibold text-duke underline underline-offset-4">See the original event page on Luma ↗</a>
@@ -200,11 +228,21 @@ const articleLd = {
         <div class="overflow-hidden rounded-3xl border border-black/10 bg-white shadow-lg">
           <div class="bg-duke px-6 py-4 text-white"><p class="font-mono text-xs uppercase tracking-[0.25em]">At a glance</p></div>
           <dl class="divide-y divide-black/5 px-6">
-            <div class="py-4"><dt class="text-xs uppercase tracking-wider text-muted">Date</dt><dd class="mt-1 font-semibold">{dateText}{d.startTime && `, ${d.startTime}${d.endTime ? `–${d.endTime}` : ''} IST`}</dd></div>
-            <div class="py-4"><dt class="text-xs uppercase tracking-wider text-muted">Venue</dt>
+            <div class="py-4"><dt class="text-xs uppercase tracking-wider text-muted">Date</dt><dd class="mt-1 font-semibold">{dateText}{d.startTime && `, ${upcoming ? timeText12 : timeText}`}</dd></div>
+            <div class="py-4"><dt class="text-xs uppercase tracking-wider text-muted">{d.format === 'online' ? 'Where' : 'Venue'}</dt>
               <dd class="mt-1 font-semibold">{venuePartner ? <a href={`/partners/${venuePartner.id}`} class="hover:text-duke">{d.venueName ?? venuePartner.data.name}</a> : (d.venueName ?? d.city)}</dd>
               {d.address && <dd class="mt-1 text-sm text-muted">{d.address}</dd>}
             </div>
+            {upcoming && speakers.length > 0 && (
+              <div class="py-4"><dt class="text-xs uppercase tracking-wider text-muted">Speaker{speakers.length > 1 && 's'}</dt>
+                {speakers.map((s) => (
+                  <dd class="mt-2"><a href={`/people/${s.id}`} class="flex items-center gap-3 hover:text-duke">
+                    <Avatar name={s.data.name} photo={s.data.photo} size="size-10" />
+                    <span><span class="block font-semibold">{s.data.name}</span>{(s.data.headline || s.data.company) && <span class="block text-xs text-muted">{[s.data.headline, s.data.company].filter(Boolean).join(', ')}</span>}</span>
+                  </a></dd>
+                ))}
+              </div>
+            )}
             <div class="py-4"><dt class="text-xs uppercase tracking-wider text-muted">Format</dt><dd class="mt-1 font-semibold">{FORMAT_LABEL[d.format]} · Free</dd></div>
             {(d.registered || d.attended) && (
               <div class="grid grid-cols-2 gap-4 py-4">
@@ -214,7 +252,9 @@ const articleLd = {
             )}
           </dl>
           <div class="flex flex-col gap-2 p-6 pt-2">
-            {ctaUrl && <a href={ctaUrl} target="_blank" rel="noopener" class="btn-primary justify-center">{upcoming ? 'Register now →' : 'View on Luma ↗'}</a>}
+            {ctaUrl && (upcoming
+              ? <a href={regUrl} target="_blank" rel="noopener" {...lumaCheckout} class="btn-primary justify-center">Register for the event{regArrow}</a>
+              : <a href={ctaUrl} target="_blank" rel="noopener" class="btn-primary justify-center">View on Luma ↗</a>)}
             {d.mapUrl && <a href={d.mapUrl} target="_blank" rel="noopener" class="btn-ghost justify-center">Directions ↗</a>}
           </div>
         </div>
@@ -227,6 +267,25 @@ const articleLd = {
       <h2 id="more" class="text-3xl font-bold">More from Gujarat JUG</h2>
       <div class="mt-8 grid gap-6 md:grid-cols-3">{related.map((e, i) => <EventCard event={e} delay={i * 60} />)}</div>
     </section>
+  )}
+  {upcoming && ctaUrl && <div class="h-20 lg:hidden" aria-hidden="true"></div>}
+  {upcoming && ctaUrl && (
+    <div class="fixed inset-x-0 bottom-0 z-30 border-t border-black/10 bg-white/95 px-4 py-3 shadow-[0_-8px_24px_rgba(0,0,0,0.08)] backdrop-blur lg:hidden">
+      <div class="mx-auto flex max-w-xl items-center justify-between gap-3">
+        <p class="min-w-0 text-sm"><span class="block truncate font-semibold">{d.title}</span><span class="block text-muted">{formatEventDate(event, { short: true })}{d.startTime && ` · ${to12h(d.startTime)} IST`}</span></p>
+        <a href={regUrl} target="_blank" rel="noopener" {...lumaCheckout} class="btn-primary shrink-0">Register{regArrow}</a>
+      </div>
+    </div>
+  )}
+  {upcoming && d.lumaEventId && (
+    <Fragment>
+      <link rel="stylesheet" href="https://embed.lu.ma/checkout-button.css" />
+      <script is:inline id="luma-checkout" src="https://embed.lu.ma/checkout-button.js"></script>
+      <script is:inline>
+        // With client-side navigation the Luma script only initialises once, so re-bind the buttons on every page load
+        document.addEventListener('astro:page-load', () => window.luma && window.luma.initCheckout && window.luma.initCheckout());
+      </script>
+    </Fragment>
   )}
   <Lightbox />
 </Base>

@@ -1,0 +1,54 @@
+---
+import { LuCalendarDays, LuX, LuArrowRight } from 'react-icons/lu';
+import type { EventEntry } from '../lib/data';
+import { formatEventDate } from '../lib/data';
+interface Props { event: EventEntry }
+const { event } = Astro.props;
+const d = event.data;
+const to12h = (t: string) => { const [h, m] = t.split(':').map(Number); return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`; };
+const when = `${formatEventDate(event, { short: true })}${d.startTime ? `, ${to12h(d.startTime)} IST` : ''}`;
+const dayShort = d.date.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+const whenShort = `${dayShort}${d.startTime ? `, ${to12h(d.startTime).replace(':00', '')} IST` : ''}`;
+---
+<!-- Small, dismissible notice for the next upcoming event. Links to our own event page, not to Luma. -->
+<div class="event-notice container-x -mt-6 mb-6 flex justify-center sm:-mt-8 sm:mb-8" data-event-notice={event.id} hidden>
+  <div class="notice-pop relative flex max-w-full items-center gap-2 rounded-full border border-duke/20 bg-white/90 py-1.5 pl-1.5 pr-1 text-sm shadow-sm backdrop-blur">
+    <span class="grid size-7 shrink-0 place-items-center rounded-full bg-duke/10 text-duke"><LuCalendarDays size={15} aria-hidden="true" /></span>
+    <a href={`/events/${event.id}`} class="group flex min-w-0 items-center gap-1.5 pr-1">
+      <span class="relative flex size-2 shrink-0" aria-hidden="true"><span class="absolute inline-flex size-full animate-ping rounded-full bg-duke opacity-60"></span><span class="relative inline-flex size-2 rounded-full bg-duke"></span></span>
+      <span class="min-w-0 truncate">
+        <span class="hidden sm:inline text-muted">We're hosting </span><b class="hidden font-semibold text-ink sm:inline">{d.title}</b><span class="sm:hidden"><b class="font-semibold text-ink">Next meetup</b><span class="text-muted"> · {whenShort}</span></span>
+        <span class="hidden text-muted sm:inline"> · {when}</span>
+      </span>
+      <span class="hidden shrink-0 font-semibold text-duke sm:inline">Register</span>
+      <LuArrowRight size={14} class="shrink-0 text-duke transition group-hover:translate-x-0.5" aria-hidden="true" />
+    </a>
+    <button type="button" class="grid size-7 shrink-0 place-items-center rounded-full text-muted transition hover:bg-mist hover:text-ink" aria-label="Dismiss event notice" data-dismiss>
+      <LuX size={14} aria-hidden="true" />
+    </button>
+  </div>
+</div>
+
+<style>
+  .notice-pop { animation: notice-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both 0.3s; }
+  @keyframes notice-in { from { opacity: 0; transform: translateY(-8px) scale(0.98); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .notice-pop { animation: none; } }
+</style>
+
+<script>
+  const KEY = 'jug-dismissed-notice';
+  function initNotice() {
+    document.querySelectorAll<HTMLElement>('[data-event-notice]').forEach((el) => {
+      const id = el.dataset.eventNotice!;
+      let dismissed = false;
+      try { dismissed = localStorage.getItem(KEY) === id; } catch {}
+      if (dismissed) return;
+      el.hidden = false;
+      el.querySelector('[data-dismiss]')?.addEventListener('click', () => {
+        el.hidden = true;
+        try { localStorage.setItem(KEY, id); } catch {}
+      });
+    });
+  }
+  document.addEventListener('astro:page-load', initNotice);
+</script>

@@ -4,6 +4,7 @@ import Duke from '../components/Duke.astro';
 import { Image } from 'astro:assets';
 import { allPhotos, isGroupPhoto } from '../lib/photos';
 import EventCard from '../components/EventCard.astro';
+import EventNotice from '../components/EventNotice.astro';
 import Avatar from '../components/Avatar.astro';
 import PartnerLogo from '../components/PartnerLogo.astro';
 import { getCollection } from 'astro:content';
@@ -71,6 +72,7 @@ const videos = [
   <!-- HERO -->
   <section class="relative isolate overflow-hidden pt-28 sm:pt-32">
     <div class="blob pointer-events-none absolute -top-40 right-[-10%] -z-10 size-[640px] rounded-full bg-duke/10 blur-[140px]"></div>
+    {next && <EventNotice event={next} />}
 
     <div class="container-x grid items-center gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
       <div>
